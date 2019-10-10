@@ -8,14 +8,12 @@ let make = (~text, ~author, ~date, ~clr: string, ~className=?) => {
     <div
       className=Css.(
         style([
-          marginBottom(`Component(`xl) |> Styles.space),
+          marginBottom(`Layout(`xxs) |> Styles.space),
           fontWeight(`light),
           ...Styles.font(`md),
         ])
       )>
-      <span className=Css.(style([backgroundColor(`hex("eee"))]))>
-        {str(text)}
-      </span>
+      <span> {str(text)} </span>
     </div>
     <div
       className=Css.(

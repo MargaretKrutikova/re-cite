@@ -1,19 +1,15 @@
 open DesignSystem;
 
-type variant =
-  | Primary
-  | Secondary;
+type variant = [ | `Primary | `Secondary];
 
-type size =
-  | Small
-  | Medium;
+type size = [ | `Small | `Medium];
 
 module Styles = {
   let variantStyles = variant => {
     let (bg_color, text_color) =
       switch (variant) {
-      | Primary => (Theme.color(Primary), "fff")
-      | Secondary => (Theme.color(Secondary), "000")
+      | `Primary => (`Primary |> Theme.color, "fff")
+      | `Secondary => (`Secondary |> Theme.color, "000")
       };
 
     Css.[backgroundColor(`hex(bg_color)), color(`hex(text_color))];
@@ -22,13 +18,13 @@ module Styles = {
   let sizeStyles = size => {
     let (height_css, padding_css, font_css) =
       switch (size) {
-      | Small => (
-          `Component(`xxl) |> Styles.space,
-          `Component(`md) |> Styles.space,
+      | `Small => (
+          `Component(`xl) |> Styles.space,
+          `Component(`sm) |> Styles.space,
           `xs |> Styles.font,
         )
-      | Medium => (
-          `Component(`xxxl) |> Styles.space,
+      | `Medium => (
+          `Component(`xxl) |> Styles.space,
           `Component(`md) |> Styles.space,
           `sm |> Styles.font,
         )
@@ -51,7 +47,6 @@ module Styles = {
       whiteSpace(`nowrap),
       fontFamily("inherit"),
       fontWeight(`medium),
-      letterSpacing(`rem(0.1)),
       display(`flex),
       alignItems(`center),
       justifyContent(`center),
@@ -68,8 +63,8 @@ module Styles = {
 [@react.component]
 let make =
     (
-      ~variant=Primary,
-      ~size=Medium,
+      ~variant=`Primary,
+      ~size=`Medium,
       ~onClick=?,
       ~disabled=?,
       ~children,

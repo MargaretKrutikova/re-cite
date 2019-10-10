@@ -1,10 +1,5 @@
 module Tokens = {
-  type color =
-    | Primary
-    | Secondary
-    | Neutral
-    | BodyBg
-    | BodyText;
+  type color = [ | `Primary | `Secondary | `Neutral | `BodyBg | `BodyText];
 
   type fontVariant = [ | `xs | `sm | `md | `lg | `xl | `xxl | `base];
 
@@ -64,11 +59,11 @@ module Theme = {
 
   let color = (token: Tokens.color) =>
     switch (token) {
-    | Primary => "142d4c"
-    | Secondary => "9fd3c7"
-    | Neutral => ""
-    | BodyBg => ""
-    | BodyText => ""
+    | `Primary => "385170"
+    | `Secondary => "9fd3c7"
+    | `Neutral => ""
+    | `BodyBg => "fcfcfc"
+    | `BodyText => ""
     };
 
   let fontFamily =
@@ -88,4 +83,13 @@ module Styles = {
     };
 
   let space = (token: Tokens.spacingType) => `px(token |> Theme.space);
+
+  let color = (token: Tokens.color) => `hex(token |> Theme.color);
+
+  let useGlobal = () => {
+    Css.global(
+      "body",
+      [Css.backgroundColor(color(`BodyBg)), ...font(`base)],
+    );
+  };
 };
