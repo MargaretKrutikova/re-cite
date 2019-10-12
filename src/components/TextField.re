@@ -38,7 +38,7 @@ module Classes = {
       transition(~duration=300, "all"),
       padding2(
         ~v=`Component(`sm) |> Styles.space,
-        ~h=`Component(`md) |> Styles.space,
+        ~h=`Component(`sm) |> Styles.space,
       ),
       focus([selector("~ ." ++ focusBorder, focusBorderVisible)]),
       ...Styles.font(`base),

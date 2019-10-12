@@ -8,8 +8,8 @@ module Styles = {
   let variantStyles = variant => {
     let (bg_color, text_color) =
       switch (variant) {
-      | `Primary => (`Primary |> Theme.color, "fff")
-      | `Secondary => (`Secondary |> Theme.color, "000")
+      | `Primary => (`Primary |> Theme.color, "000")
+      | `Secondary => (`Secondary |> Theme.color, "fff")
       };
 
     Css.[backgroundColor(`hex(bg_color)), color(`hex(text_color))];
@@ -19,12 +19,12 @@ module Styles = {
     let (height_css, padding_css, font_css) =
       switch (size) {
       | `Small => (
-          `Component(`xl) |> Styles.space,
+          `Component(`xxl) |> Styles.space,
           `Component(`sm) |> Styles.space,
           `xs |> Styles.font,
         )
       | `Medium => (
-          `Component(`xxl) |> Styles.space,
+          `Component(`xxxl) |> Styles.space,
           `Component(`md) |> Styles.space,
           `sm |> Styles.font,
         )
@@ -37,10 +37,20 @@ module Styles = {
     ];
   };
 
-  let commonStyles =
+  let iconSizeStyle = size => {
+    let size_css =
+      switch (size) {
+      | `Small => `Component(`xl) |> Styles.space
+      | `Medium => `Component(`xxl) |> Styles.space
+      };
+
+    Css.[height(size_css), width(size_css)];
+  };
+
+  let commonStyles = icon =>
     Css.[
       borderWidth(px(0)),
-      borderRadius(px(0)),
+      icon ? borderRadius(pct(50.0)) : borderRadius(px(0)),
       textAlign(`center),
       textTransform(`uppercase),
       textDecoration(`none),
@@ -53,9 +63,9 @@ module Styles = {
       transition(~duration=100, "background-color"),
     ];
 
-  let button = (~variant, ~size) =>
-    sizeStyles(size)
-    |> List.append(commonStyles)
+  let button = (~variant, ~size, ~icon) =>
+    commonStyles(icon)
+    |> List.append(icon ? iconSizeStyle(size) : sizeStyles(size))
     |> List.append(variantStyles(variant))
     |> Css.style;
 };
@@ -69,7 +79,8 @@ let make =
       ~disabled=?,
       ~children,
       ~className="",
+      ~icon=false,
     ) => {
-  let styles = Cn.make([Styles.button(~variant, ~size), className]);
+  let styles = Cn.make([Styles.button(~variant, ~size, ~icon), className]);
   <button ?onClick ?disabled className=styles> children </button>;
 };

@@ -23,11 +23,27 @@ module Classes = {
       right(px(0)),
       backgroundColor(`BodyBg |> Styles.color),
       height(pct(100.0)),
-      padding(px(20)),
+      padding2(
+        ~v=`Layout(`xs) |> Styles.space,
+        ~h=`Layout(`sm) |> Styles.space,
+      ),
       width(pct(100.0)),
       maxWidth(px(400)),
-      borderLeft(px(2), `solid, `Secondary |> Styles.color),
     ]);
+
+  let header = style([marginBottom(`Layout(`xs) |> Styles.space)]);
+  let closeButton = style([marginLeft(`auto)]);
+};
+
+module SidebarHeader = {
+  [@react.component]
+  let make = (~onClose) => {
+    <div className=Classes.header>
+      <Button className=Classes.closeButton onClick={_ => onClose()} icon=true>
+        <ReactFeather.CloseIcon />
+      </Button>
+    </div>;
+  };
 };
 
 [@react.component]
@@ -43,7 +59,7 @@ let make = (~show, ~onClose, ~children) => {
           onAnimationEnd
           ref={ref->ReactDOMRe.Ref.domRef}
           className={Classes.root(show)}>
-          <button onClick={_ => onClose()}> {React.string("x")} </button>
+          <SidebarHeader onClose />
           children
         </aside>
       </>
