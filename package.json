@@ -17,6 +17,7 @@
   "license": "MIT",
   "dependencies": {
     "bs-css": "^10.0.1",
+    "bs-webapi": "^0.15.5",
     "re-classnames": "^4.0.0",
     "react": "^16.8.1",
     "react-dom": "^16.8.1",
