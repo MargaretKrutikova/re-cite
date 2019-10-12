@@ -1,5 +1,14 @@
 module Tokens = {
-  type color = [ | `Primary | `Secondary | `Neutral | `BodyBg | `BodyText];
+  type color = [
+    | `Primary
+    | `Secondary
+    | `Neutral
+    | `BodyBg
+    | `BodyText
+    | `InputBg
+    | `Label
+    | `NeutralBorder
+  ];
 
   type fontVariant = [ | `xs | `sm | `md | `lg | `xl | `xxl | `base];
 
@@ -23,8 +32,8 @@ module Theme = {
 
   let fontVariant =
     fun
-    | `xs => (`px(14), `px(16))
-    | `sm => (`px(17), `px(20))
+    | `xs => (`px(15), `px(18))
+    | `sm => (`px(18), `px(22))
     | `md => (`px(24), `px(32))
     | `lg => (`px(28), `px(34))
     | `xl => (`px(35), `px(40))
@@ -46,24 +55,27 @@ module Theme = {
       }
     | `Layout(scale) =>
       switch (scale) {
-      | `xxs => 16
-      | `xs => 24
-      | `sm => 32
-      | `md => 48
-      | `lg => 64
-      | `xl => 96
-      | `xxl => 160
-      | `xxxl => 224
+      | `xxs => 8
+      | `xs => 16
+      | `sm => 24
+      | `md => 32
+      | `lg => 48
+      | `xl => 64
+      | `xxl => 96
+      | `xxxl => 160
       }
     | `Custom(multiplier) => multiplier * baseLineGridPx;
 
   let color = (token: Tokens.color) =>
     switch (token) {
-    | `Primary => "385170"
+    | `Primary => "9fd3c7"
     | `Secondary => "9fd3c7"
     | `Neutral => ""
     | `BodyBg => "fcfcfc"
-    | `BodyText => ""
+    | `BodyText => "171717"
+    | `InputBg => "fff"
+    | `NeutralBorder => "ccc"
+    | `Label => "555"
     };
 
   let fontFamily =
@@ -89,7 +101,11 @@ module Styles = {
   let useGlobal = () => {
     Css.global(
       "body",
-      [Css.backgroundColor(color(`BodyBg)), ...font(`base)],
+      [
+        Css.backgroundColor(color(`BodyBg)),
+        Css.color(color(`BodyText)),
+        ...font(`base),
+      ],
     );
   };
 };
