@@ -1,0 +1,31 @@
+open DesignSystem;
+
+module Classes = {
+  open Css;
+
+  let showAnimate =
+    keyframes([(0, [opacity(0.0)]), (100, [opacity(1.0)])]);
+  let hideAnimate =
+    keyframes([(0, [opacity(1.0)]), (100, [opacity(0.0)])]);
+
+  let root = show =>
+    style([
+      Styles.animation(`Modal, show ? showAnimate : hideAnimate),
+      position(`fixed),
+      top(px(0)),
+      left(px(0)),
+      right(px(0)),
+      left(px(0)),
+      width(pct(100.0)),
+      height(pct(100.0)),
+      backgroundColor(rgba(0, 0, 0, 0.2)),
+    ]);
+};
+
+[@react.component]
+let make = (~show) => {
+  let (shouldRender, onAnimationEnd) = RenderAnimate.use(~show);
+
+  shouldRender
+    ? <div className={Classes.root(show)} onAnimationEnd /> : React.null;
+};
