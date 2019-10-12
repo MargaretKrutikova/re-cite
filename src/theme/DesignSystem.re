@@ -21,6 +21,8 @@ module Tokens = {
     | `Layout(spacingScale)
     | `Custom(int)
   ];
+
+  type transitions = [ | `Modal];
 };
 
 module Theme = {
@@ -81,6 +83,14 @@ module Theme = {
   let fontFamily =
     fun
     | `base => "Spectral, serif";
+
+  type transition = {
+    duration: int,
+    fn: Css_Types.TimingFunction.t,
+  };
+  let transition =
+    fun
+    | `Modal => {duration: 300, fn: Css.cubicBesier(0.77, 0.0, 0.175, 1.0)};
 };
 
 module Styles = {
@@ -97,6 +107,15 @@ module Styles = {
   let space = (token: Tokens.spacingType) => `px(token |> Theme.space);
 
   let color = (token: Tokens.color) => `hex(token |> Theme.color);
+
+  let animation = (token, name) => {
+    let transition = token |> Theme.transition;
+    Css.animation(
+      ~duration=transition.duration,
+      ~timingFunction=transition.fn,
+      name,
+    );
+  };
 
   let useGlobal = () => {
     Css.global(
