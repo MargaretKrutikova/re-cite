@@ -8,6 +8,7 @@ module Tokens = {
     | `InputBg
     | `Label
     | `NeutralBorder
+    | `ModalBg
   ];
 
   type fontVariant = [ | `xs | `sm | `md | `lg | `xl | `xxl | `base];
@@ -78,6 +79,7 @@ module Theme = {
     | `InputBg => "fff"
     | `NeutralBorder => "ccc"
     | `Label => "555"
+    | `ModalBg => "f3f3f3"
     };
 
   let fontFamily =

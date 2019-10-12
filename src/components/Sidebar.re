@@ -21,7 +21,7 @@ module Classes = {
       position(`absolute),
       top(px(0)),
       right(px(0)),
-      backgroundColor(`BodyBg |> Styles.color),
+      backgroundColor(`ModalBg |> Styles.color),
       height(pct(100.0)),
       padding2(
         ~v=`Layout(`xs) |> Styles.space,
