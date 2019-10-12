@@ -32,13 +32,11 @@ let make = () => {
         author="Erik T"
         date="2019-05-10"
         className=Classes.citation
-        clr="a6e3e9"
       />
       <Citation
         text={j|Vi behöver inte vara så konstruktiva.|j}
         author="Erik T"
         className=Classes.citation
-        clr="cbf1f5"
         date="2019-05-10"
       />
       <Citation
@@ -46,7 +44,6 @@ let make = () => {
         author="Erik T"
         date="2019-05-10"
         className=Classes.citation
-        clr="ffe6eb"
       />
     </main>
   </>;
