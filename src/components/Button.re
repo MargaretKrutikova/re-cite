@@ -4,15 +4,17 @@ type variant = [ | `Primary | `Secondary];
 
 type size = [ | `Small | `Medium];
 
-module Styles = {
+module Classes = {
+  open Css;
+
   let variantStyles = variant => {
     let (bg_color, text_color) =
       switch (variant) {
-      | `Primary => (`Primary |> Theme.color, "000")
+      | `Primary => (`Primary |> Theme.color, `BodyText |> Theme.color)
       | `Secondary => (`Secondary |> Theme.color, "fff")
       };
 
-    Css.[backgroundColor(`hex(bg_color)), color(`hex(text_color))];
+    [backgroundColor(`hex(bg_color)), color(`hex(text_color))];
   };
 
   let sizeStyles = size => {
@@ -30,11 +32,7 @@ module Styles = {
         )
       };
 
-    Css.[
-      padding2(~h=padding_css, ~v=px(0)),
-      height(height_css),
-      ...font_css,
-    ];
+    [padding2(~h=padding_css, ~v=px(0)), height(height_css), ...font_css];
   };
 
   let iconSizeStyle = size => {
@@ -44,31 +42,32 @@ module Styles = {
       | `Medium => `Component(`xxl) |> Styles.space
       };
 
-    Css.[height(size_css), width(size_css)];
+    [height(size_css), width(size_css)];
   };
 
-  let commonStyles = (~icon, ~fullWidth) =>
-    Css.[
-      borderWidth(px(0)),
-      icon ? borderRadius(pct(50.0)) : borderRadius(px(0)),
-      textAlign(`center),
-      textTransform(`uppercase),
-      textDecoration(`none),
-      whiteSpace(`nowrap),
-      fontFamily("inherit"),
-      fontWeight(`medium),
-      display(`flex),
-      alignItems(`center),
-      justifyContent(`center),
-      fullWidth ? width(pct(100.0)) : width(auto),
-      transition(~duration=100, "background-color"),
-    ];
+  let commonStyles = (~icon, ~fullWidth) => [
+    borderWidth(px(0)),
+    icon ? borderRadius(pct(50.0)) : borderRadius(px(0)),
+    textAlign(`center),
+    textTransform(`uppercase),
+    textDecoration(`none),
+    whiteSpace(`nowrap),
+    fontFamily("inherit"),
+    fontWeight(`medium),
+    display(`flex),
+    alignItems(`center),
+    justifyContent(`center),
+    fullWidth ? width(pct(100.0)) : width(auto),
+    transition(~duration=100, "background-color"),
+  ];
+
+  let iconContainer = style([display(`flex)]);
 
   let button = (~variant, ~size, ~icon, ~fullWidth) =>
     commonStyles(~icon, ~fullWidth)
     ->List.append(icon ? iconSizeStyle(size) : sizeStyles(size))
     ->List.append(variantStyles(variant))
-    |> Css.style;
+    |> style;
 };
 
 [@react.component]
@@ -84,6 +83,9 @@ let make =
       ~fullWidth=false,
     ) => {
   let styles =
-    Cn.make([Styles.button(~variant, ~size, ~icon, ~fullWidth), className]);
-  <button ?onClick ?disabled className=styles> children </button>;
+    Cn.make([Classes.button(~variant, ~size, ~icon, ~fullWidth), className]);
+
+  <button ?onClick ?disabled className=styles>
+    {icon ? <span className=Classes.iconContainer> children </span> : children}
+  </button>;
 };

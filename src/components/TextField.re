@@ -74,6 +74,7 @@ let make =
            ?placeholder
            ?value
            ?onChange
+           rows=3
            className=Classes.input
          />
        : <input ?type_ ?placeholder ?value ?onChange className=Classes.input />}
