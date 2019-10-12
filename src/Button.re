@@ -47,7 +47,7 @@ module Styles = {
     Css.[height(size_css), width(size_css)];
   };
 
-  let commonStyles = icon =>
+  let commonStyles = (~icon, ~fullWidth) =>
     Css.[
       borderWidth(px(0)),
       icon ? borderRadius(pct(50.0)) : borderRadius(px(0)),
@@ -60,13 +60,14 @@ module Styles = {
       display(`flex),
       alignItems(`center),
       justifyContent(`center),
+      fullWidth ? width(pct(100.0)) : width(auto),
       transition(~duration=100, "background-color"),
     ];
 
-  let button = (~variant, ~size, ~icon) =>
-    commonStyles(icon)
-    |> List.append(icon ? iconSizeStyle(size) : sizeStyles(size))
-    |> List.append(variantStyles(variant))
+  let button = (~variant, ~size, ~icon, ~fullWidth) =>
+    commonStyles(~icon, ~fullWidth)
+    ->List.append(icon ? iconSizeStyle(size) : sizeStyles(size))
+    ->List.append(variantStyles(variant))
     |> Css.style;
 };
 
@@ -80,7 +81,9 @@ let make =
       ~children,
       ~className="",
       ~icon=false,
+      ~fullWidth=false,
     ) => {
-  let styles = Cn.make([Styles.button(~variant, ~size, ~icon), className]);
+  let styles =
+    Cn.make([Styles.button(~variant, ~size, ~icon, ~fullWidth), className]);
   <button ?onClick ?disabled className=styles> children </button>;
 };
