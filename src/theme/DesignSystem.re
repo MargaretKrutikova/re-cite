@@ -74,7 +74,7 @@ module Theme = {
     | `Primary => "9fd3c7"
     | `Secondary => "9fd3c7"
     | `Neutral => ""
-    | `BodyBg => "f3f3f3"
+    | `BodyBg => "fcfcfc"
     | `BodyText => "171717"
     | `InputBg => "fff"
     | `NeutralBorder => "ccc"
@@ -119,7 +119,7 @@ module Styles = {
     );
   };
 
-  let useGlobal = () => {
+  let injectGlobal = () => {
     Css.global(
       "body",
       [
@@ -128,5 +128,18 @@ module Styles = {
         ...font(`base),
       ],
     );
+
+    Css.(
+      global(
+        ".block-scroll",
+        [width(pct(100.0)), height(pct(100.0)), overflow(hidden)],
+      )
+    );
+  };
+
+  let toggleBodyScroll = (~disableScroll) => {
+    let toggle =
+      disableScroll ? DomUtils.addBodyClass : DomUtils.removeBodyClass;
+    toggle("block-scroll");
   };
 };

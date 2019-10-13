@@ -18,7 +18,7 @@ module Classes = {
   let root = show =>
     style([
       Styles.animation(`Modal, show ? showAnimate : hideAnimate),
-      position(`absolute),
+      position(`fixed),
       top(px(0)),
       right(px(0)),
       backgroundColor(`ModalBg |> Styles.color),
@@ -28,7 +28,9 @@ module Classes = {
         ~h=`Layout(`sm) |> Styles.space,
       ),
       width(pct(100.0)),
+      overflowY(auto),
       maxWidth(px(400)),
+      unsafe("WebkitOverflowScrolling", "touch"),
     ]);
 
   let header = style([marginBottom(`Layout(`xs) |> Styles.space)]);
@@ -51,6 +53,13 @@ let make = (~show, ~onClose, ~children) => {
   let ref = ClickOutside.use(_ => onClose());
 
   let (shouldRender, onAnimationEnd) = RenderAnimate.use(~show);
+  React.useEffect1(
+    () => {
+      Styles.toggleBodyScroll(~disableScroll=shouldRender);
+      None;
+    },
+    [|shouldRender|],
+  );
 
   shouldRender
     ? <>

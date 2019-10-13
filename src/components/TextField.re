@@ -8,7 +8,7 @@ module Classes = {
       display(`flex),
       flexDirection(column),
       position(`relative),
-      marginBottom(`Layout(`xs) |> Styles.space),
+      marginBottom(`Layout(`xxs) |> Styles.space),
       width(pct(100.0)),
     ]);
 
