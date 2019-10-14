@@ -55,6 +55,7 @@ module Classes = {
     fontFamily("inherit"),
     fontWeight(`medium),
     display(`flex),
+    padding(px(0)),
     alignItems(`center),
     justifyContent(`center),
     fullWidth ? width(pct(100.0)) : width(auto),
