@@ -17,7 +17,7 @@ module Classes = {
 
 [@react.component]
 let make = () => {
-  Styles.useGlobal();
+  Styles.injectGlobal();
 
   let (showSidebar, setShowSidebar) = React.useState(_ => false);
 
@@ -26,7 +26,7 @@ let make = () => {
     <Sidebar show=showSidebar onClose={_ => setShowSidebar(_ => false)}>
       <EditCitation />
     </Sidebar>
-    <main className={Cn.make([Container.Styles.root, Classes.main])}>
+    <main className={Emotion.cx([|Container.Styles.root, Classes.main|])}>
       <Citation
         text={j|Någon annan får granska det. Det är inte mitt jobb att granska min egen kod!|j}
         author="Erik T"

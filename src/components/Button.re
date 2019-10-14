@@ -81,11 +81,15 @@ let make =
       ~className="",
       ~icon=false,
       ~fullWidth=false,
+      ~type_=?,
     ) => {
   let styles =
-    Cn.make([Classes.button(~variant, ~size, ~icon, ~fullWidth), className]);
+    Emotion.cx([|
+      Classes.button(~variant, ~size, ~icon, ~fullWidth),
+      className,
+    |]);
 
-  <button ?onClick ?disabled className=styles>
+  <button ?type_ ?onClick ?disabled className=styles>
     {icon ? <span className=Classes.iconContainer> children </span> : children}
   </button>;
 };

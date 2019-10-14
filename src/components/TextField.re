@@ -64,7 +64,7 @@ let make =
       ~label=?,
       ~type_=?,
     ) => {
-  <div className={Cn.make([Classes.root, className])}>
+  <div className={Emotion.cx([|Classes.root, className|])}>
     {label->Belt.Option.mapWithDefault(React.null, labelText =>
        <label className=Classes.label> {React.string(labelText)} </label>
      )}
