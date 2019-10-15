@@ -2,32 +2,35 @@ open DesignSystem;
 
 let str = React.string;
 
+module Classes = {
+  open Css;
+
+  let citationText =
+    style([
+      marginBottom(`md |> Styles.space),
+      fontWeight(`light),
+      ...Styles.font(`md),
+    ]);
+
+  // TODO: create flex container component?
+  let infoContainer =
+    style([
+      display(`flex),
+      justifyContent(`spaceBetween),
+      alignItems(`flexEnd),
+    ]);
+
+  let author = style([fontWeight(`semiBold), ...Styles.font(`sm)]);
+  let date = style(`sm |> Styles.font);
+};
+
 [@react.component]
-let make = (~text, ~author, ~date, ~clr: string, ~className=?) => {
+let make = (~text, ~author, ~date, ~className=?) => {
   <div ?className>
-    <div
-      className=Css.(
-        style([
-          marginBottom(`Layout(`xxs) |> Styles.space),
-          fontWeight(`light),
-          ...Styles.font(`md),
-        ])
-      )>
-      <span> {str(text)} </span>
-    </div>
-    <div
-      className=Css.(
-        style([
-          display(`flex),
-          justifyContent(`spaceBetween),
-          alignItems(`flexEnd),
-        ])
-      )>
-      <span
-        className=Css.(style([fontWeight(`semiBold), ...Styles.font(`sm)]))>
-        {str("-" ++ author)}
-      </span>
-      <span className=Css.(style(Styles.font(`sm)))> {str(date)} </span>
+    <div className=Classes.citationText> {str(text)} </div>
+    <div className=Classes.infoContainer>
+      <span className=Classes.author> {str("-" ++ author)} </span>
+      <span className=Classes.date> {str(date)} </span>
     </div>
   </div>;
 };

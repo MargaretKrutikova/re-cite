@@ -1,12 +1,12 @@
 open DesignSystem;
 
 [@react.component]
-let make = () => {
+let make = (~onAddClick) => {
   <header
     className=Css.(
       style([
-        height(`Custom(14) |> Styles.space),
-        borderBottom(`px(2), `solid, `Secondary |> Styles.color),
+        height(`custom(16) |> Styles.space),
+        borderBottom(px(2), `solid, `Primary |> Styles.color),
       ])
     )>
     <Container
@@ -21,11 +21,13 @@ let make = () => {
       )>
       <div
         className=Css.(
-          style([textTransform(`uppercase), ...`md |> Styles.font])
+          style([textTransform(`uppercase), ...Styles.font(`md)])
         )>
         {React.string("Re-cite")}
       </div>
-      <Button variant=`Secondary> {React.string("Log in")} </Button>
+      <Button variant=`Primary onClick=onAddClick>
+        {React.string("Add")}
+      </Button>
     </Container>
   </header>;
 };

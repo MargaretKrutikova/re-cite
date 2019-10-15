@@ -1,17 +1,33 @@
 module Tokens = {
-  type color = [ | `Primary | `Secondary | `Neutral | `BodyBg | `BodyText];
+  type color = [
+    | `Primary
+    | `Secondary
+    | `Neutral
+    | `BodyBg
+    | `BodyText
+    | `InputBg
+    | `Label
+    | `NeutralBorder
+    | `ModalBg
+  ];
 
   type fontVariant = [ | `xs | `sm | `md | `lg | `xl | `xxl | `base];
 
   type fontFamily = [ | `base];
 
-  type spacingScale = [ | `xxs | `xs | `sm | `md | `lg | `xl | `xxl | `xxxl];
-
-  type spacingType = [
-    | `Component(spacingScale)
-    | `Layout(spacingScale)
-    | `Custom(int)
+  type spacingScale = [
+    | `xxs
+    | `xs
+    | `sm
+    | `md
+    | `lg
+    | `xl
+    | `xxl
+    | `xxxl
+    | `custom(int)
   ];
+
+  type transitions = [ | `Modal];
 };
 
 module Theme = {
@@ -23,8 +39,8 @@ module Theme = {
 
   let fontVariant =
     fun
-    | `xs => (`px(14), `px(16))
-    | `sm => (`px(17), `px(20))
+    | `xs => (`px(15), `px(18))
+    | `sm => (`px(18), `px(22))
     | `md => (`px(24), `px(32))
     | `lg => (`px(28), `px(34))
     | `xl => (`px(35), `px(40))
@@ -33,42 +49,40 @@ module Theme = {
 
   let space =
     fun
-    | `Component(scale) =>
-      switch (scale) {
-      | `xxs => 2
-      | `xs => 4
-      | `sm => 8
-      | `md => 12
-      | `lg => 16
-      | `xl => 24
-      | `xxl => 32
-      | `xxxl => 40
-      }
-    | `Layout(scale) =>
-      switch (scale) {
-      | `xxs => 16
-      | `xs => 24
-      | `sm => 32
-      | `md => 48
-      | `lg => 64
-      | `xl => 96
-      | `xxl => 160
-      | `xxxl => 224
-      }
-    | `Custom(multiplier) => multiplier * baseLineGridPx;
+    | `xxs => 4
+    | `xs => 8
+    | `sm => 12
+    | `md => 16
+    | `lg => 24
+    | `xl => 32
+    | `xxl => 40
+    | `xxxl => 48
+    | `custom(multiplier) => multiplier * baseLineGridPx;
 
   let color = (token: Tokens.color) =>
     switch (token) {
-    | `Primary => "385170"
+    | `Primary => "9fd3c7"
     | `Secondary => "9fd3c7"
     | `Neutral => ""
     | `BodyBg => "fcfcfc"
-    | `BodyText => ""
+    | `BodyText => "171717"
+    | `InputBg => "fff"
+    | `NeutralBorder => "ccc"
+    | `Label => "555"
+    | `ModalBg => "f3f3f3"
     };
 
   let fontFamily =
     fun
     | `base => "Spectral, serif";
+
+  type transition = {
+    duration: int,
+    fn: Css_Types.TimingFunction.t,
+  };
+  let transition =
+    fun
+    | `Modal => {duration: 300, fn: Css.cubicBesier(0.77, 0.0, 0.175, 1.0)};
 };
 
 module Styles = {
@@ -82,14 +96,40 @@ module Styles = {
       ]
     };
 
-  let space = (token: Tokens.spacingType) => `px(token |> Theme.space);
+  let space = (token: Tokens.spacingScale) => `px(token |> Theme.space);
 
   let color = (token: Tokens.color) => `hex(token |> Theme.color);
 
-  let useGlobal = () => {
+  let animation = (token, name) => {
+    let transition = token |> Theme.transition;
+    Css.animation(
+      ~duration=transition.duration,
+      ~timingFunction=transition.fn,
+      name,
+    );
+  };
+
+  let injectGlobal = () => {
     Css.global(
       "body",
-      [Css.backgroundColor(color(`BodyBg)), ...font(`base)],
+      [
+        Css.backgroundColor(color(`BodyBg)),
+        Css.color(color(`BodyText)),
+        ...font(`base),
+      ],
     );
+
+    Css.(
+      global(
+        ".block-scroll",
+        [width(pct(100.0)), height(pct(100.0)), overflow(hidden)],
+      )
+    );
+  };
+
+  let toggleBodyScroll = (~disableScroll) => {
+    let toggle =
+      disableScroll ? DomUtils.addBodyClass : DomUtils.removeBodyClass;
+    toggle("block-scroll");
   };
 };
