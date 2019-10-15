@@ -11,5 +11,5 @@ module Styles = {
 
 [@react.component]
 let make = (~children, ~className="") => {
-  <div className={Emotion.cx([|Styles.root, className|])}> children </div>;
+  <div className={Css.merge([Styles.root, className])}> children </div>;
 };

@@ -81,10 +81,10 @@ let make =
       ~type_=?,
     ) => {
   let styles =
-    Emotion.cx([|
+    Css.merge([
       Classes.button(~variant, ~size, ~icon, ~fullWidth),
       className,
-    |]);
+    ]);
 
   <button ?type_ ?onClick ?disabled className=styles>
     {icon ? <span className=Classes.iconContainer> children </span> : children}

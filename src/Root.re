@@ -26,7 +26,7 @@ let make = () => {
     <Sidebar show=showSidebar onClose={_ => setShowSidebar(_ => false)}>
       <EditCitation />
     </Sidebar>
-    <main className={Emotion.cx([|Container.Styles.root, Classes.main|])}>
+    <main className={Css.merge([Container.Styles.root, Classes.main])}>
       <Citation
         text={j|Någon annan får granska det. Det är inte mitt jobb att granska min egen kod!|j}
         author="Erik T"

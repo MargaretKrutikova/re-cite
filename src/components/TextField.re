@@ -61,7 +61,7 @@ let make =
       ~label=?,
       ~type_=?,
     ) => {
-  <div className={Emotion.cx([|Classes.root, className|])}>
+  <div className={Css.merge([Classes.root, className])}>
     {label->Belt.Option.mapWithDefault(React.null, labelText =>
        <label className=Classes.label> {React.string(labelText)} </label>
      )}
