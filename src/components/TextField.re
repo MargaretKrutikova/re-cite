@@ -8,7 +8,7 @@ module Classes = {
       display(`flex),
       flexDirection(column),
       position(`relative),
-      marginBottom(`Layout(`xxs) |> Styles.space),
+      marginBottom(`xs |> Styles.space),
       width(pct(100.0)),
     ]);
 
@@ -19,7 +19,7 @@ module Classes = {
       left(pct(50.0)),
       width(px(0)),
       height(px(2)),
-      transition(~duration=300, "all"),
+      transition(~duration=300, "all"), // TODO: design system
       backgroundColor(`Primary |> Styles.color),
     ]);
 
@@ -36,10 +36,7 @@ module Classes = {
       backgroundColor(`InputBg |> Styles.color),
       borderBottom(px(1), `solid, `NeutralBorder |> Styles.color),
       transition(~duration=300, "all"),
-      padding2(
-        ~v=`Component(`sm) |> Styles.space,
-        ~h=`Component(`sm) |> Styles.space,
-      ),
+      padding2(~v=`xs |> Styles.space, ~h=`xs |> Styles.space),
       focus([selector("~ ." ++ focusBorder, focusBorderVisible)]),
       ...Styles.font(`base),
     ]);
@@ -47,7 +44,7 @@ module Classes = {
   let label =
     style([
       display(`block),
-      marginBottom(`Custom(1) |> Styles.space),
+      marginBottom(`custom(1) |> Styles.space),
       color(`Label |> Styles.color),
       ...Styles.font(`xs),
     ]);

@@ -23,17 +23,14 @@ module Classes = {
       right(px(0)),
       backgroundColor(`ModalBg |> Styles.color),
       height(pct(100.0)),
-      padding2(
-        ~v=`Layout(`xs) |> Styles.space,
-        ~h=`Layout(`sm) |> Styles.space,
-      ),
+      padding2(~v=`md |> Styles.space, ~h=`lg |> Styles.space),
       width(pct(100.0)),
       overflowY(auto),
       maxWidth(px(400)),
       unsafe("WebkitOverflowScrolling", "touch"),
     ]);
 
-  let header = style([marginBottom(`Layout(`xs) |> Styles.space)]);
+  let header = style([marginBottom(`md |> Styles.space)]);
   let closeButton = style([marginLeft(`auto)]);
 };
 

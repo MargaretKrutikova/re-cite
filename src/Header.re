@@ -5,7 +5,7 @@ let make = (~onAddClick) => {
   <header
     className=Css.(
       style([
-        height(`Custom(16) |> Styles.space),
+        height(`custom(16) |> Styles.space),
         borderBottom(px(2), `solid, `Primary |> Styles.color),
       ])
     )>
@@ -21,7 +21,7 @@ let make = (~onAddClick) => {
       )>
       <div
         className=Css.(
-          style([textTransform(`uppercase), ...`md |> Styles.font])
+          style([textTransform(`uppercase), ...Styles.font(`md)])
         )>
         {React.string("Re-cite")}
       </div>

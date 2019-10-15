@@ -7,12 +7,12 @@ module Classes = {
 
   let header =
     style([
-      marginBottom(`Layout(`xs) |> Styles.space),
+      marginBottom(`md |> Styles.space),
       fontWeight(`light),
       ...Styles.font(`md),
     ]);
 
-  let gutter = style([marginBottom(`Layout(`sm) |> Styles.space)]);
+  let gutter = style([marginBottom(`lg |> Styles.space)]);
 };
 
 let getInputValue = (e): string => ReactEvent.Form.target(e)##value;

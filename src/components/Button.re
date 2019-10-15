@@ -20,15 +20,11 @@ module Classes = {
   let sizeStyles = size => {
     let (height_css, padding_css, font_css) =
       switch (size) {
-      | `Small => (
-          `Component(`xxl) |> Styles.space,
-          `Component(`sm) |> Styles.space,
-          `xs |> Styles.font,
-        )
+      | `Small => (Styles.space(`lg), Styles.space(`xs), Styles.font(`xs))
       | `Medium => (
-          `Component(`xxxl) |> Styles.space,
-          `Component(`md) |> Styles.space,
-          `sm |> Styles.font,
+          Styles.space(`xxl),
+          Styles.space(`sm),
+          Styles.font(`sm),
         )
       };
 
@@ -38,8 +34,8 @@ module Classes = {
   let iconSizeStyle = size => {
     let size_css =
       switch (size) {
-      | `Small => `Component(`xl) |> Styles.space
-      | `Medium => `Component(`xxl) |> Styles.space
+      | `Small => `lg |> Styles.space
+      | `Medium => `xl |> Styles.space
       };
 
     [height(size_css), width(size_css)];

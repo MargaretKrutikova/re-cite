@@ -7,7 +7,7 @@ module Classes = {
 
   let citationText =
     style([
-      marginBottom(`Layout(`xs) |> Styles.space),
+      marginBottom(`md |> Styles.space),
       fontWeight(`light),
       ...Styles.font(`md),
     ]);

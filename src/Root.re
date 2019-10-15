@@ -5,13 +5,13 @@ let s = React.string;
 module Classes = {
   open Css;
 
-  let main = style([paddingTop(`Layout(`md) |> Styles.space)]);
+  let main = style([paddingTop(`xl |> Styles.space)]);
 
   let citation =
     style([
-      marginBottom(`Layout(`sm) |> Styles.space),
+      marginBottom(`lg |> Styles.space),
       borderBottom(px(1), `solid, `hex("dcdcdc")),
-      paddingBottom(`Layout(`xs) |> Styles.space),
+      paddingBottom(`md |> Styles.space),
     ]);
 };
 
