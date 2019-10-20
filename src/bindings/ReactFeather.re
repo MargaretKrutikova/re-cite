@@ -13,6 +13,21 @@ module SearchIcon = {
     "default";
 };
 
+module PlusIcon = {
+  [@bs.module "react-feather/dist/icons/plus.js"] [@react.component]
+  external make:
+    (
+      ~color: string=?,
+      ~disabled: bool=?,
+      ~onClick: 'c=?,
+      ~size: string=?,
+      ~className: string=?,
+      unit
+    ) =>
+    React.element =
+    "default";
+};
+
 module UserIcon = {
   [@bs.module "react-feather/dist/icons/user.js"] [@react.component]
   external make:

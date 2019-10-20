@@ -51,7 +51,14 @@ let isValid = state =>
   state.text != "" && state.authorName != "" && state.date != "";
 
 [@react.component]
-let make = (~citation, ~collectionId, ~collectionName, ~onSaved) => {
+let make =
+    (
+      ~citation,
+      ~authors: array(Types.author),
+      ~collectionId,
+      ~collectionName,
+      ~onSaved,
+    ) => {
   let (state, dispatch) =
     React.useReducer(reducer, getInitialState(citation));
 
@@ -99,10 +106,9 @@ let make = (~citation, ~collectionId, ~collectionName, ~onSaved) => {
       value={state.text}
       onChange={e => dispatch(UpdateText(getInputValue(e)))}
     />
-    <TextField
-      label="Author"
-      placeholder="Who was it?"
-      value={state.authorName}
+    <AuthorPicker
+      authors
+      authorName={state.authorName}
       onChange={e => dispatch(UpdateAuthor(getInputValue(e)))}
     />
     <TextField

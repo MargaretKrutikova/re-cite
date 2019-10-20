@@ -6,6 +6,10 @@ module GetCollection = [%graphql
     collections(where: {name: {_eq: $collectionName}}) @bsRecord {
       id
       name
+      authors @bsRecord {
+        id
+        name
+      }
       citations(order_by: {id: desc}) @bsRecord {
         id
         text

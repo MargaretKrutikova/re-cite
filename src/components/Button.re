@@ -38,7 +38,7 @@ module Classes = {
       | `Medium => `xl |> Styles.space
       };
 
-    [height(size_css), width(size_css)];
+    [height(size_css), width(size_css), flexGrow(0.0), flexShrink(0.0)];
   };
 
   let commonStyles = (~icon, ~fullWidth) => [

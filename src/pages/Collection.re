@@ -57,6 +57,7 @@ let make = (~route, ~name) => {
                  citation={state.citationUnderEdit}
                  collectionId={collection.id}
                  collectionName={collection.name}
+                 authors={collection.authors}
                  onSaved={() => dispatch(CloseSidebar)}
                />
              </Sidebar>

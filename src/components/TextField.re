@@ -50,6 +50,19 @@ module Classes = {
     ]);
 };
 
+module InputContainer = {
+  [@react.component]
+  let make = (~label=?, ~className="", ~children) => {
+    <div className={Css.merge([Classes.root, className])}>
+      {label->Belt.Option.mapWithDefault(React.null, labelText =>
+         <label className=Classes.label> {React.string(labelText)} </label>
+       )}
+      children
+      <span className=Classes.focusBorder />
+    </div>;
+  };
+};
+
 [@react.component]
 let make =
     (
@@ -61,10 +74,7 @@ let make =
       ~label=?,
       ~type_=?,
     ) => {
-  <div className={Css.merge([Classes.root, className])}>
-    {label->Belt.Option.mapWithDefault(React.null, labelText =>
-       <label className=Classes.label> {React.string(labelText)} </label>
-     )}
+  <InputContainer ?label className>
     {multiline
        ? <textarea
            ?type_
@@ -75,6 +85,25 @@ let make =
            className=Classes.input
          />
        : <input ?type_ ?placeholder ?value ?onChange className=Classes.input />}
-    <span className=Classes.focusBorder />
-  </div>;
+  </InputContainer>;
+};
+
+module NativeSelect = {
+  [@react.component]
+  let make =
+      (
+        ~value=?,
+        ~className="",
+        ~onChange=?,
+        ~multiline=false,
+        ~placeholder=?,
+        ~label=?,
+        ~children,
+      ) => {
+    <InputContainer ?label className>
+      <select ?value ?onChange ?placeholder className=Classes.input>
+        children
+      </select>
+    </InputContainer>;
+  };
 };
