@@ -56,6 +56,7 @@ module Classes = {
     justifyContent(`center),
     fullWidth ? width(pct(100.0)) : width(auto),
     transition(~duration=100, "background-color"),
+    disabled([opacity(0.7)]),
   ];
 
   let iconContainer = style([display(`flex)]);

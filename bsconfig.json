@@ -13,8 +13,15 @@
       "in-source": true
     }
   ],
+  "ppx-flags": ["graphql_ppx/ppx"],
   "suffix": ".bs.js",
   "namespace": true,
-  "bs-dependencies": ["reason-react", "bs-css", "bs-webapi"],
+  "bs-dependencies": [
+    "reason-react",
+    "bs-css",
+    "bs-webapi",
+    "reason-apollo-hooks",
+    "reason-apollo"
+  ],
   "refmt": 3
 }

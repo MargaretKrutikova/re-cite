@@ -1,2 +1,12 @@
 [%bs.raw {|require("./reset.css")|}];
-ReactDOMRe.renderToElementWithId(<Root />, "root");
+
+let client = GraphqlClient.makeApolloClient();
+
+ReactDOMRe.renderToElementWithId(
+  <ReasonApollo.Provider client>
+    <ReasonApolloHooks.ApolloProvider client>
+      <Root />
+    </ReasonApolloHooks.ApolloProvider>
+  </ReasonApollo.Provider>,
+  "root",
+);
