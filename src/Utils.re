@@ -10,3 +10,5 @@ let toInputDateFormat = date => {
 
   year ++ "-" ++ month ++ "-" ++ day;
 };
+
+let getInputValue = (e): string => ReactEvent.Form.target(e)##value;

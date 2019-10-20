@@ -40,9 +40,6 @@ let make = (~route, ~name) => {
       canAdd
       onAddClick={_ => dispatch(OpenSidebar(None))}
     />
-    <Sidebar show={state.showSidebar} onClose={_ => dispatch(CloseSidebar)}>
-      <EditCitation citation={state.citationUnderEdit} />
-    </Sidebar>
     <main className={Css.merge([Container.Styles.root, Classes.main])}>
       {switch (simple) {
        | Loading => <p> {React.string("Loading...")} </p>
@@ -53,10 +50,21 @@ let make = (~route, ~name) => {
            React.null;
 
          | [|collection|] =>
-           switch (route) {
-           | Route.Citations => <Citations citations={collection.citations} />
-           }
-
+           <>
+             <Sidebar
+               show={state.showSidebar} onClose={_ => dispatch(CloseSidebar)}>
+               <EditCitation
+                 citation={state.citationUnderEdit}
+                 collectionId={collection.id}
+                 collectionName={collection.name}
+                 onSaved={() => dispatch(CloseSidebar)}
+               />
+             </Sidebar>
+             {switch (route) {
+              | Route.Citations =>
+                <Citations citations={collection.citations} />
+              }}
+           </>
          | _ => React.null // Should never happen :)
          }
        | NoData
