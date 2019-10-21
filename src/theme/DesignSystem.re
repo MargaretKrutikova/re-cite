@@ -4,6 +4,7 @@ module Tokens = {
     | `Secondary
     | `Neutral
     | `BodyBg
+    | `HeaderBg
     | `BodyText
     | `InputBg
     | `Label
@@ -37,6 +38,8 @@ module Theme = {
   let baseLineGridPx = 4;
   let headingLineHeight = 1.2;
 
+  let borderRadius = 4;
+
   let fontVariant =
     fun
     | `xs => (`px(15), `px(18))
@@ -61,8 +64,9 @@ module Theme = {
 
   let color = (token: Tokens.color) =>
     switch (token) {
-    | `Primary => "9fd3c7"
+    | `Primary => "9fd3c7" // "#7d0f0f"
     | `Secondary => "9fd3c7"
+    | `HeaderBg => "fff"
     | `Neutral => ""
     | `BodyBg => "fcfcfc"
     | `BodyText => "171717"
@@ -99,6 +103,8 @@ module Styles = {
   let space = (token: Tokens.spacingScale) => `px(token |> Theme.space);
 
   let color = (token: Tokens.color) => `hex(token |> Theme.color);
+
+  let borderRadius = () => Css.borderRadius(`px(Theme.borderRadius));
 
   let animation = (token, name) => {
     let transition = token |> Theme.transition;

@@ -43,7 +43,7 @@ module Classes = {
 
   let commonStyles = (~icon, ~fullWidth) => [
     borderWidth(px(0)),
-    icon ? borderRadius(pct(50.0)) : borderRadius(px(0)),
+    icon ? borderRadius(pct(50.0)) : Styles.borderRadius(),
     textAlign(`center),
     textTransform(`uppercase),
     textDecoration(`none),
