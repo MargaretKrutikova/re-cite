@@ -2,7 +2,13 @@ open DesignSystem;
 
 module Classes = {
   let main =
-    Css.(style([paddingTop(`xl |> Styles.space), textAlign(center)]));
+    Css.(
+      style([
+        media(Breakpoint.up(`sm), [paddingTop(`md |> Styles.space)]),
+        paddingTop(`sm |> Styles.space),
+        textAlign(center),
+      ])
+    );
 };
 
 [@react.component]

@@ -23,14 +23,15 @@ module Classes = {
       right(px(0)),
       backgroundColor(`ModalBg |> Styles.color),
       height(pct(100.0)),
-      padding2(~v=`md |> Styles.space, ~h=`lg |> Styles.space),
       width(pct(100.0)),
       overflowY(auto),
       maxWidth(px(400)),
       unsafe("WebkitOverflowScrolling", "touch"),
+      media(Breakpoint.up(`sm), Styles.paddingH(`lg)),
+      ...Styles.paddingH(`md),
     ]);
 
-  let header = style([marginBottom(`md |> Styles.space)]);
+  let header = style(Styles.paddingV(`sm));
   let closeButton = style([marginLeft(`auto)]);
 };
 
@@ -38,7 +39,11 @@ module SidebarHeader = {
   [@react.component]
   let make = (~onClose) => {
     <div className=Classes.header>
-      <Button className=Classes.closeButton onClick={_ => onClose()} icon=true>
+      <Button
+        className=Classes.closeButton
+        variant=`Ghost
+        onClick={_ => onClose()}
+        icon=true>
         <ReactFeather.CloseIcon />
       </Button>
     </div>;

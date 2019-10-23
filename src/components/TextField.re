@@ -27,7 +27,7 @@ module Classes = {
       transition(~duration=300, "all"),
       padding2(~v=`sm |> Styles.space, ~h=`sm |> Styles.space),
       focus([borderColor(`Primary |> Styles.color)]),
-      ...Styles.font(`sm),
+      ...Styles.font(`base),
     ]);
 
   let label =
@@ -35,7 +35,7 @@ module Classes = {
       display(`block),
       marginBottom(`custom(1) |> Styles.space),
       color(`SecondaryText |> Styles.color),
-      ...Styles.font(`xs),
+      ...Styles.font(`sm),
     ]);
 };
 

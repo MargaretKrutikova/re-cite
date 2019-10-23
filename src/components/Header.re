@@ -15,7 +15,7 @@ module Classes = {
     Css.(
       style([
         height(`custom(16) |> Styles.space),
-        borderBottom(px(2), `solid, `Primary |> Styles.color),
+        borderBottom(px(1), `solid, `Primary |> Styles.color),
         backgroundColor(`HeaderBg |> Styles.color),
       ])
     );

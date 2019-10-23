@@ -1,6 +1,6 @@
 open DesignSystem;
 
-type variant = [ | `Primary | `Secondary];
+type variant = [ | `Primary | `Secondary | `Ghost];
 
 type size = [ | `Small | `Medium];
 
@@ -10,25 +10,25 @@ module Classes = {
   let variantStyles = variant => {
     let (bg_color, text_color) =
       switch (variant) {
-      | `Primary => (`Primary |> Theme.color, `BodyText |> Theme.color)
-      | `Secondary => (`Secondary |> Theme.color, "fff")
-      };
-
-    [backgroundColor(`hex(bg_color)), color(`hex(text_color))];
-  };
-
-  let sizeStyles = size => {
-    let (height_css, padding_css, font_css) =
-      switch (size) {
-      | `Small => (Styles.space(`lg), Styles.space(`xs), Styles.font(`xs))
-      | `Medium => (
-          Styles.space(`xxl),
-          Styles.space(`sm),
-          Styles.font(`sm),
+      | `Primary => (`Primary |> Styles.color, `hex("fff"))
+      | `Ghost => (`transparent, `PrimaryText |> Styles.color)
+      | `Secondary => (
+          `Secondary |> Styles.color,
+          `PrimaryText |> Styles.color,
         )
       };
 
-    [padding2(~h=padding_css, ~v=px(0)), height(height_css), ...font_css];
+    [backgroundColor(bg_color), color(text_color)];
+  };
+
+  let sizeStyles = size => {
+    let (padding_v, padding_h, font_css) =
+      switch (size) {
+      | `Small => (Styles.space(`sm), Styles.space(`xs), Styles.font(`xs))
+      | `Medium => (Styles.space(`xs), Styles.space(`sm), Styles.font(`sm))
+      };
+
+    [padding2(~h=padding_h, ~v=padding_v), ...font_css];
   };
 
   let iconSizeStyle = size => {
@@ -46,10 +46,10 @@ module Classes = {
     icon ? borderRadius(pct(50.0)) : Styles.borderRadius(),
     textAlign(`center),
     textTransform(`uppercase),
+    letterSpacing(`rem(0.07)),
     textDecoration(`none),
     whiteSpace(`nowrap),
     fontFamily("inherit"),
-    fontWeight(`medium),
     display(`flex),
     padding(px(0)),
     alignItems(`center),
