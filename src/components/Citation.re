@@ -9,6 +9,7 @@ module Classes = {
     style([
       marginBottom(`sm |> Styles.space),
       unsafe("wordBreak", "break-word"),
+      whiteSpace(`preWrap),
       ...Styles.font(`base),
     ]);
 
