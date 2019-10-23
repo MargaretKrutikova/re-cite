@@ -1,16 +1,4 @@
-open DesignSystem;
 open Types;
-
-module Classes = {
-  let citation =
-    Css.(
-      style([
-        marginBottom(`lg |> Styles.space),
-        borderBottom(px(1), `solid, `hex("dcdcdc")),
-        paddingBottom(`md |> Styles.space),
-      ])
-    );
-};
 
 module CitationsQuery = ReasonApolloHooks.Query.Make(Queries.GetCollection);
 
@@ -30,7 +18,6 @@ let make = (~citations) => {
         text={citation.text}
         author={citation.author.name}
         date={citation.added->Belt.Option.getWithDefault("")}
-        className=Classes.citation
       />
     )
     |> React.array
