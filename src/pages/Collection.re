@@ -2,7 +2,13 @@ open DesignSystem;
 open Types;
 
 module Classes = {
-  let main = Css.(style([paddingTop(`xl |> Styles.space)]));
+  let main =
+    Css.(
+      style([
+        media(Breakpoint.up(`sm), [paddingTop(`xl |> Styles.space)]),
+        paddingTop(`lg |> Styles.space),
+      ])
+    );
 };
 
 type state = {

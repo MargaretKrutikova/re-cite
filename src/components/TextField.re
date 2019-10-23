@@ -8,44 +8,33 @@ module Classes = {
       display(`flex),
       flexDirection(column),
       position(`relative),
-      marginBottom(`xs |> Styles.space),
+      marginBottom(`sm |> Styles.space),
       width(pct(100.0)),
     ]);
-
-  let focusBorder =
-    style([
-      position(`absolute),
-      bottom(px(0)),
-      left(pct(50.0)),
-      width(px(0)),
-      height(px(2)),
-      transition(~duration=300, "all"), // TODO: design system
-      backgroundColor(`Primary |> Styles.color),
-    ]);
-
-  let focusBorderVisible = [width(pct(100.0)), left(px(0))];
 
   let input =
     style([
       width(pct(100.0)),
       unsafe("appearance", "none"),
       margin(px(0)),
-      borderRadius(px(0)),
+      Styles.borderRadius(),
       outlineWidth(px(0)),
       borderWidth(px(0)),
+      boxSizing(`borderBox),
       backgroundColor(`InputBg |> Styles.color),
-      borderBottom(px(1), `solid, `NeutralBorder |> Styles.color),
+      color(`PrimaryText |> Styles.color),
+      border(px(1), `solid, `NeutralBorder |> Styles.color),
       transition(~duration=300, "all"),
-      padding2(~v=`xs |> Styles.space, ~h=`xs |> Styles.space),
-      focus([selector("~ ." ++ focusBorder, focusBorderVisible)]),
-      ...Styles.font(`base),
+      padding2(~v=`sm |> Styles.space, ~h=`sm |> Styles.space),
+      focus([borderColor(`Primary |> Styles.color)]),
+      ...Styles.font(`sm),
     ]);
 
   let label =
     style([
       display(`block),
       marginBottom(`custom(1) |> Styles.space),
-      color(`Label |> Styles.color),
+      color(`SecondaryText |> Styles.color),
       ...Styles.font(`xs),
     ]);
 };
@@ -58,7 +47,6 @@ module InputContainer = {
          <label className=Classes.label> {React.string(labelText)} </label>
        )}
       children
-      <span className=Classes.focusBorder />
     </div>;
   };
 };
