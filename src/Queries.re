@@ -10,7 +10,7 @@ module GetCollection = [%graphql
         id
         name
       }
-      citations(order_by: {id: desc}) @bsRecord {
+      citations(order_by: {added: desc}) @bsRecord {
         id
         text
         added @bsDecoder(fn: "Js.Json.decodeString")
