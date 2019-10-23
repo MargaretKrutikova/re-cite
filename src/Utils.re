@@ -4,7 +4,7 @@ let prependZero = str => str |> Js.String.length < 2 ? "0" ++ str : str;
 let toInputDateFormat = date => {
   let str = value => string_of_int @@ Js.Math.floor @@ value;
 
-  let month = date |> Js.Date.getMonth |> str |> prependZero;
+  let month = date |> Js.Date.getMonth |> (+.)(1.0) |> str |> prependZero;
   let day = date |> Js.Date.getDate |> str |> prependZero;
   let year = date |> Js.Date.getFullYear |> str;
 
