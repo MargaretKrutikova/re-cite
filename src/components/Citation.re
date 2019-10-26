@@ -5,6 +5,26 @@ let str = React.string;
 module Classes = {
   open Css;
 
+  let card = () =>
+    style([
+      backgroundColor(`CardBg |> Styles.useColor),
+      marginBottom(`md |> Styles.space),
+      padding2(~v=`md |> Styles.space, ~h=`md |> Styles.space),
+      media(
+        Breakpoint.up(`sm),
+        [padding2(~v=`lg |> Styles.space, ~h=`lg |> Styles.space)],
+      ),
+      boxShadow(
+        Shadow.box(
+          ~x=px(0),
+          ~y=px(2),
+          ~blur=px(5),
+          rgba(19, 41, 104, 0.2) // TODO: put in design system
+        ),
+      ),
+      Styles.borderRadius(`base),
+    ]);
+
   let citationText =
     style([
       marginBottom(`sm |> Styles.space),
@@ -13,48 +33,17 @@ module Classes = {
       ...Styles.font(`base),
     ]);
 
-  // TODO: create flex container component?
-  let infoContainer =
-    style([
-      display(`flex),
-      justifyContent(`spaceBetween),
-      alignItems(`flexEnd),
-    ]);
-
-  let author =
-    style([color(`SecondaryText |> Styles.color), ...Styles.font(`sm)]);
-
-  let date =
-    style([color(`SecondaryText |> Styles.color), ...`sm |> Styles.font]);
+  let secondaryText = () =>
+    style([color(`SecondaryText |> Styles.useColor), ...Styles.font(`sm)]);
 };
 
 [@react.component]
-let make = (~text, ~author, ~date, ~className=?) => {
-  <div
-    className=Css.(
-      style([
-        backgroundColor(`CardBg |> Styles.color),
-        marginBottom(`md |> Styles.space),
-        padding2(~v=`md |> Styles.space, ~h=`md |> Styles.space),
-        media(
-          Breakpoint.up(`sm),
-          [padding2(~v=`lg |> Styles.space, ~h=`lg |> Styles.space)],
-        ),
-        boxShadow(
-          Shadow.box(
-            ~x=px(0),
-            ~y=px(2),
-            ~blur=px(5),
-            rgba(19, 41, 104, 0.2),
-          ),
-        ),
-        Styles.borderRadius(),
-      ])
-    )>
+let make = (~text, ~author, ~date) => {
+  <div className={Classes.card()}>
     <div className=Classes.citationText> {str(text)} </div>
-    <div className=Classes.infoContainer>
-      <span className=Classes.author> {str(author)} </span>
-      <span className=Classes.date> {str(date)} </span>
-    </div>
+    <Flex justify=`spaceBetween align=`end_>
+      <span className={Classes.secondaryText()}> {str(author)} </span>
+      <span className={Classes.secondaryText()}> {str(date)} </span>
+    </Flex>
   </div>;
 };

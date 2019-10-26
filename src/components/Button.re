@@ -10,11 +10,11 @@ module Classes = {
   let variantStyles = variant => {
     let (bg_color, text_color) =
       switch (variant) {
-      | `Primary => (`Primary |> Styles.color, `hex("fff"))
-      | `Ghost => (`transparent, `PrimaryText |> Styles.color)
+      | `Primary => (`Primary |> Styles.useColor, `hex("fff"))
+      | `Ghost => (`transparent, `PrimaryText |> Styles.useColor)
       | `Secondary => (
-          `Secondary |> Styles.color,
-          `PrimaryText |> Styles.color,
+          `Secondary |> Styles.useColor,
+          `PrimaryText |> Styles.useColor,
         )
       };
 
@@ -43,7 +43,7 @@ module Classes = {
 
   let commonStyles = (~icon, ~fullWidth) => [
     borderWidth(px(0)),
-    icon ? borderRadius(pct(50.0)) : Styles.borderRadius(),
+    icon ? borderRadius(pct(50.0)) : Styles.borderRadius(`base),
     textAlign(`center),
     textTransform(`uppercase),
     letterSpacing(`rem(0.07)),

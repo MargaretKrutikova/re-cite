@@ -17,11 +17,11 @@ module Classes = {
 
   let root = show =>
     style([
-      Styles.animation(`Modal, show ? showAnimate : hideAnimate),
+      Styles.animation(`modal, show ? showAnimate : hideAnimate),
       position(`fixed),
       top(px(0)),
       right(px(0)),
-      backgroundColor(`ModalBg |> Styles.color),
+      backgroundColor(`BodyBg |> Styles.useColor),
       height(pct(100.0)),
       width(pct(100.0)),
       overflowY(auto),
@@ -63,13 +63,15 @@ let make = (~show, ~onClose, ~children) => {
     [|shouldRender|],
   );
 
+  let sidebarStyle = Classes.root(show);
+
   shouldRender
     ? <>
         <Overlay show />
         <aside
           onAnimationEnd
           ref={ref->ReactDOMRe.Ref.domRef}
-          className={Classes.root(show)}>
+          className=sidebarStyle>
           <SidebarHeader onClose />
           children
         </aside>

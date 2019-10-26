@@ -102,3 +102,33 @@ module FilterIcon = {
     React.element =
     "default";
 };
+
+module MoonIcon = {
+  [@bs.module "react-feather/dist/icons/moon.js"] [@react.component]
+  external make:
+    (
+      ~color: string=?,
+      ~disabled: bool=?,
+      ~onClick: 'c=?,
+      ~size: string=?,
+      ~className: string=?,
+      unit
+    ) =>
+    React.element =
+    "default";
+};
+
+module SunIcon = {
+  [@bs.module "react-feather/dist/icons/sun.js"] [@react.component]
+  external make:
+    (
+      ~color: string=?,
+      ~disabled: bool=?,
+      ~onClick: 'c=?,
+      ~size: string=?,
+      ~className: string=?,
+      unit
+    ) =>
+    React.element =
+    "default";
+};

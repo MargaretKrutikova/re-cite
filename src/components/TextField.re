@@ -12,29 +12,29 @@ module Classes = {
       width(pct(100.0)),
     ]);
 
-  let input =
+  let input = () =>
     style([
       width(pct(100.0)),
       unsafe("appearance", "none"),
       margin(px(0)),
-      Styles.borderRadius(),
+      Styles.borderRadius(`base),
       outlineWidth(px(0)),
       borderWidth(px(0)),
       boxSizing(`borderBox),
-      backgroundColor(`InputBg |> Styles.color),
-      color(`PrimaryText |> Styles.color),
-      border(px(1), `solid, `NeutralBorder |> Styles.color),
+      backgroundColor(`InputBg |> Styles.useColor),
+      color(`PrimaryText |> Styles.useColor),
+      border(px(1), `solid, `Neutral |> Styles.useColor),
       transition(~duration=300, "all"),
       padding2(~v=`sm |> Styles.space, ~h=`sm |> Styles.space),
-      focus([borderColor(`Primary |> Styles.color)]),
+      focus([borderColor(`Primary |> Styles.useColor)]),
       ...Styles.font(`base),
     ]);
 
-  let label =
+  let label = () =>
     style([
       display(`block),
       marginBottom(`custom(1) |> Styles.space),
-      color(`SecondaryText |> Styles.color),
+      color(`SecondaryText |> Styles.useColor),
       ...Styles.font(`sm),
     ]);
 };
@@ -44,7 +44,9 @@ module InputContainer = {
   let make = (~label=?, ~className="", ~children) => {
     <div className={Css.merge([Classes.root, className])}>
       {label->Belt.Option.mapWithDefault(React.null, labelText =>
-         <label className=Classes.label> {React.string(labelText)} </label>
+         <label className={Classes.label()}>
+           {React.string(labelText)}
+         </label>
        )}
       children
     </div>;
@@ -70,9 +72,15 @@ let make =
            ?value
            ?onChange
            rows=3
-           className=Classes.input
+           className={Classes.input()}
          />
-       : <input ?type_ ?placeholder ?value ?onChange className=Classes.input />}
+       : <input
+           ?type_
+           ?placeholder
+           ?value
+           ?onChange
+           className={Classes.input()}
+         />}
   </InputContainer>;
 };
 
@@ -89,7 +97,7 @@ module NativeSelect = {
         ~children,
       ) => {
     <InputContainer ?label className>
-      <select ?value ?onChange ?placeholder className=Classes.input>
+      <select ?value ?onChange ?placeholder className={Classes.input()}>
         children
       </select>
     </InputContainer>;
