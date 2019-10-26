@@ -33,7 +33,7 @@ module Tokens = {
     | `custom(int)
   ];
 
-  type transitions = [ | `modal | `component];
+  type transitions = [ | `modal | `component | `theme];
 
   type borderRadius = [ | `base | `lg | `xl];
 };
@@ -84,19 +84,35 @@ module Theme = {
     | `xxl => baseLineGridPx * 10
     | `custom(multiplier) => multiplier * baseLineGridPx;
 
-  let color = (token: Tokens.color) => {
+  let lightPalette = (token: Tokens.color) => {
     switch (token) {
-    | `Primary => Green.main // "#7d0f0f" // 916a70
+    | `Primary => Green.main
     | `Secondary => Gray.light1
     | `Neutral => Gray.light1
     | `HeaderBg => White.main
-    | `BodyBg => DarkBlue.light5 // dark: "1f364d"
+    | `BodyBg => DarkBlue.light5
     | `PrimaryBg => DarkBlue.light5
     | `SecondaryBg => DarkBlue.light4
-    | `CardBg => White.main //"274059"
+    | `CardBg => White.main
     | `InputBg => White.main
-    | `PrimaryText => DarkBlue.dark1 //"fff"
+    | `PrimaryText => DarkBlue.dark1
     | `SecondaryText => DarkBlue.light1
+    };
+  };
+
+  let darkPalette = (token: Tokens.color) => {
+    switch (token) {
+    | `Primary => Green.main
+    | `Secondary => Gray.light1
+    | `Neutral => Gray.light1
+    | `HeaderBg => DarkBlue.dark3
+    | `BodyBg => DarkBlue.dark2
+    | `PrimaryBg => DarkBlue.light5
+    | `SecondaryBg => DarkBlue.main
+    | `CardBg => DarkBlue.dark1
+    | `InputBg => DarkBlue.dark1
+    | `PrimaryText => DarkBlue.light5
+    | `SecondaryText => DarkBlue.light4
     };
   };
 
@@ -119,7 +135,8 @@ module Theme = {
   let transition =
     fun
     | `modal => {duration: 300, fn: Css.cubicBesier(0.77, 0.0, 0.175, 1.0)}
-    | `component => {duration: 150, fn: Css.easeInOut};
+    | `component => {duration: 150, fn: Css.easeInOut}
+    | `theme => {duration: 200, fn: Css.easeInOut};
 };
 
 module Styles = {
@@ -135,7 +152,20 @@ module Styles = {
 
   let space = (token: Tokens.spacing) => `px(token |> Theme.space);
 
-  let color = (token: Tokens.color) => `hex(token |> Theme.color);
+  let color = (token, theme: ThemeContext.theme) => {
+    switch (theme) {
+    | Dark =>
+      switch (token) {
+      | `Overlay => Colors.Overlay.light
+      | #Tokens.color as c => `hex(c |> Theme.darkPalette)
+      }
+    | Light =>
+      switch (token) {
+      | `Overlay => Colors.Overlay.dark
+      | #Tokens.color as c => `hex(c |> Theme.lightPalette)
+      }
+    };
+  };
 
   let borderRadius = (token: Tokens.borderRadius) =>
     Css.borderRadius(`px(token |> Theme.borderRadius));
@@ -169,10 +199,22 @@ module Styles = {
   let injectGlobal = () => {
     Css.global(
       "body",
+      [transition(`theme, "background-color, color"), ...font(`base)],
+    );
+
+    Css.global(
+      ".dark-theme",
       [
-        Css.backgroundColor(color(`BodyBg)),
-        Css.color(color(`PrimaryText)),
-        ...font(`base),
+        Css.backgroundColor(color(`BodyBg, Dark)),
+        Css.color(color(`PrimaryText, Dark)),
+      ],
+    );
+
+    Css.global(
+      ".light-theme",
+      [
+        Css.backgroundColor(color(`BodyBg, Light)),
+        Css.color(color(`PrimaryText, Light)),
       ],
     );
 
@@ -188,5 +230,22 @@ module Styles = {
     let toggle =
       disableScroll ? DomUtils.addBodyClass : DomUtils.removeBodyClass;
     toggle("block-scroll");
+  };
+
+  let useColor = token => {
+    let (theme, _) = ThemeContext.useTheme();
+    color(token, theme);
+  };
+
+  let useToggleBodyTheme = () => {
+    let (theme, _) = ThemeContext.useTheme();
+    switch (theme) {
+    | Dark =>
+      DomUtils.addBodyClass("dark-theme");
+      DomUtils.removeBodyClass("light-theme");
+    | Light =>
+      DomUtils.addBodyClass("light-theme");
+      DomUtils.removeBodyClass("dark-theme");
+    };
   };
 };

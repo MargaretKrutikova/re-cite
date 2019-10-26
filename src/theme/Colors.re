@@ -2,6 +2,8 @@ module DarkBlue = {
   let main = "4a5568";
 
   let dark1 = "353d4a";
+  let dark2 = "272c36";
+  let dark3 = "20242c";
 
   let light1 = "667590";
   let light2 = "8290a6";
@@ -28,4 +30,9 @@ module Gray = {
 
   let dark1 = "A4A4A4";
   let dark2 = "787878";
+};
+
+module Overlay = {
+  let light = `rgba((255, 255, 255, 0.2));
+  let dark = `rgba((0, 0, 0, 0.2));
 };
