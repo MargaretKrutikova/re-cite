@@ -33,7 +33,6 @@ module CollectionQuery = ReasonApolloHooks.Query.Make(Queries.GetCollection);
 
 [@react.component]
 let make = (~route, ~name) => {
-  Styles.injectGlobal();
   let variables =
     Queries.GetCollection.make(~collectionName=name, ())##variables;
   let (simple, full) = CollectionQuery.use(~variables, ());
@@ -41,11 +40,12 @@ let make = (~route, ~name) => {
   let (state, dispatch) = React.useReducer(reducer, initialState);
   let canAdd = full.data->Belt.Option.isSome;
 
+  let header =
+    Header.Collection({canAdd, onAdd: _ => dispatch(OpenSidebar(None))});
+  let (theme, toggleTheme) = ThemeContext.useTheme();
+
   <>
-    <Header.Collection
-      canAdd
-      onAddClick={_ => dispatch(OpenSidebar(None))}
-    />
+    <Header header theme toggleTheme />
     <main className={Css.merge([Container.Styles.root, Classes.main])}>
       {switch (simple) {
        | Loading => <p> {React.string("Loading...")} </p>
