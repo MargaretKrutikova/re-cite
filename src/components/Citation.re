@@ -29,7 +29,7 @@ module Classes = {
 };
 
 [@react.component]
-let make = (~text, ~author, ~date, ~className=?) => {
+let make = (~text, ~author, ~date) => {
   <div
     className=Css.(
       style([
@@ -48,7 +48,7 @@ let make = (~text, ~author, ~date, ~className=?) => {
             rgba(19, 41, 104, 0.2),
           ),
         ),
-        Styles.borderRadius(),
+        Styles.borderRadius(`base),
       ])
     )>
     <div className=Classes.citationText> {str(text)} </div>

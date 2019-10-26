@@ -17,11 +17,11 @@ module Classes = {
 
   let root = show =>
     style([
-      Styles.animation(`Modal, show ? showAnimate : hideAnimate),
+      Styles.animation(`modal, show ? showAnimate : hideAnimate),
       position(`fixed),
       top(px(0)),
       right(px(0)),
-      backgroundColor(`ModalBg |> Styles.color),
+      backgroundColor(`BodyBg |> Styles.color),
       height(pct(100.0)),
       width(pct(100.0)),
       overflowY(auto),

@@ -1,22 +1,28 @@
 module Tokens = {
+  type backgroundColor = [
+    | `BodyBg
+    | `PrimaryBg
+    | `SecondaryBg
+    | `HeaderBg
+    | `InputBg
+    | `CardBg
+  ];
+
+  type textColor = [ | `PrimaryText | `SecondaryText];
+
   type color = [
     | `Primary
     | `Secondary
-    | `BodyBg
-    | `HeaderBg
-    | `InputBg
-    | `NeutralBorder
-    | `ModalBg
-    | `CardBg
-    | `PrimaryText
-    | `SecondaryText
+    | `Neutral
+    | backgroundColor
+    | textColor
   ];
 
   type fontVariant = [ | `xs | `sm | `md | `lg | `xl | `xxl | `base];
 
-  type fontFamily = [ | `base];
+  type fontFamily = [ | `base | `heading];
 
-  type spacingScale = [
+  type spacing = [
     | `xxs
     | `xs
     | `sm
@@ -24,52 +30,48 @@ module Tokens = {
     | `lg
     | `xl
     | `xxl
-    | `xxxl
     | `custom(int)
   ];
 
-  type transitions = [ | `Modal];
-};
+  type transitions = [ | `modal | `component];
 
-module DarkBlue = {
-  let main = "4a5568";
-  let darker = "353d4a";
-  let lighter = "667590";
-  let extraLight = "f0f1f4";
-};
-
-module Green = {
-  let main = "449582";
-  let lighter = "9fd3c7";
-};
-
-module White = {
-  let main = "fff";
+  type borderRadius = [ | `base | `lg | `xl];
 };
 
 module Theme = {
-  // base values
-  let baseFontSizePx = 20; // Dont touch
-  let baseLineHeight = 1.4; // 28px
-  let baseLineGridPx = 4;
+  open Colors;
 
+  /** base values */
+  let baseFontSizePx = 20;
+  let baseLineHeight = 1.4; // 28px
   let headingLineHeight = 1.2;
+
+  let baseLineGridPx = 4; // factor of 28px
   let fontScale = 1.2;
 
-  let borderRadius = 4;
+  let fontSize = factor =>
+    Js.Math.pow_float(~base=fontScale, ~exp=factor |> float_of_int)
+    *. (baseFontSizePx |> float_of_int)
+    |> int_of_float;
 
-  let fontSize =
-    ThemeUtils.genFontSize(~baseFontSize=baseFontSizePx, ~fontScale);
-
-  let fontVariant =
+  let lineHeight =
     fun
-    | `xs => (fontSize(-2.0), baseLineHeight)
-    | `sm => (fontSize(-1.0), baseLineHeight)
-    | `base => (fontSize(0.0), baseLineHeight)
-    | `md => (fontSize(1.0), baseLineHeight)
-    | `lg => (fontSize(2.0), headingLineHeight)
-    | `xl => (fontSize(3.0), headingLineHeight)
-    | `xxl => (fontSize(4.0), headingLineHeight);
+    | `body => baseLineHeight
+    | `heading => headingLineHeight;
+
+  let fontVariant = (token: Tokens.fontVariant) => {
+    let variant = (factor, line) => (fontSize(factor), lineHeight(line));
+
+    switch (token) {
+    | `xs => variant(-2, `body)
+    | `sm => variant(-1, `body)
+    | `base => variant(0, `body)
+    | `md => variant(1, `body)
+    | `lg => variant(2, `heading)
+    | `xl => variant(3, `heading)
+    | `xxl => variant(4, `heading)
+    };
+  };
 
   let space =
     fun
@@ -80,38 +82,48 @@ module Theme = {
     | `lg => baseLineGridPx * 6
     | `xl => baseLineGridPx * 8
     | `xxl => baseLineGridPx * 10
-    | `xxxl => baseLineGridPx * 12
     | `custom(multiplier) => multiplier * baseLineGridPx;
 
-  let color = (token: Tokens.color) =>
+  let color = (token: Tokens.color) => {
     switch (token) {
     | `Primary => Green.main // "#7d0f0f" // 916a70
-    | `Secondary => "9fd3c7"
+    | `Secondary => Gray.light1
+    | `Neutral => Gray.light1
     | `HeaderBg => White.main
-    | `BodyBg => DarkBlue.extraLight // dark: "1f364d"
+    | `BodyBg => DarkBlue.light5 // dark: "1f364d"
+    | `PrimaryBg => DarkBlue.light5
+    | `SecondaryBg => DarkBlue.light4
     | `CardBg => White.main //"274059"
     | `InputBg => White.main
-    | `NeutralBorder => "dcdcdc"
-    | `ModalBg => DarkBlue.extraLight
-    | `PrimaryText => DarkBlue.darker //"fff"
-    | `SecondaryText => DarkBlue.lighter
+    | `PrimaryText => DarkBlue.dark1 //"fff"
+    | `SecondaryText => DarkBlue.light1
     };
+  };
 
   let fontFamily =
     fun
-    | `base => "Rubik, serif";
+    | `base => "Rubik, serif"
+    | `heading => "Muli, system-ui, sans-serif";
+
+  let borderRadius =
+    fun
+    | `base => 4
+    | `lg => 8
+    | `xl => 20;
 
   type transition = {
     duration: int,
     fn: Css_Types.TimingFunction.t,
   };
+
   let transition =
     fun
-    | `Modal => {duration: 300, fn: Css.cubicBesier(0.77, 0.0, 0.175, 1.0)};
+    | `modal => {duration: 300, fn: Css.cubicBesier(0.77, 0.0, 0.175, 1.0)}
+    | `component => {duration: 150, fn: Css.easeInOut};
 };
 
 module Styles = {
-  let font = (variant: Tokens.fontVariant) =>
+  let font = variant =>
     switch (variant |> Theme.fontVariant) {
     | (font_size, line_height) =>
       Css.[
@@ -121,18 +133,19 @@ module Styles = {
       ]
     };
 
-  let space = (token: Tokens.spacingScale) => `px(token |> Theme.space);
+  let space = (token: Tokens.spacing) => `px(token |> Theme.space);
 
   let color = (token: Tokens.color) => `hex(token |> Theme.color);
 
-  let borderRadius = () => Css.borderRadius(`px(Theme.borderRadius));
+  let borderRadius = (token: Tokens.borderRadius) =>
+    Css.borderRadius(`px(token |> Theme.borderRadius));
 
-  let paddingV = (token: Tokens.spacingScale) => [
+  let paddingV = token => [
     token |> space |> Css.paddingTop,
     token |> space |> Css.paddingBottom,
   ];
 
-  let paddingH = (token: Tokens.spacingScale) => [
+  let paddingH = token => [
     token |> space |> Css.paddingLeft,
     token |> space |> Css.paddingRight,
   ];
@@ -143,6 +156,13 @@ module Styles = {
       ~duration=transition.duration,
       ~timingFunction=transition.fn,
       name,
+    );
+  };
+
+  let transition = (token, property) => {
+    let value = token |> Theme.transition;
+    Css.(
+      transition(~duration=value.duration, ~timingFunction=value.fn, property)
     );
   };
 

@@ -10,7 +10,7 @@ module Classes = {
 
   let root = show =>
     style([
-      Styles.animation(`Modal, show ? showAnimate : hideAnimate),
+      Styles.animation(`modal, show ? showAnimate : hideAnimate),
       position(`fixed),
       top(px(0)),
       left(px(0)),
