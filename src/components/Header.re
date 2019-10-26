@@ -27,8 +27,14 @@ module Classes = {
 module ThemeSwitch = {
   [@react.component]
   let make = (~toggleTheme, ~theme) => {
+    let activeSide =
+      switch (theme) {
+      | ThemeContext.Light => Switch.Right
+      | Dark => Left
+      };
+
     <div className=Classes.themeSwitch>
-      <Switch activeSide=Switch.Left>
+      <Switch activeSide>
         <Switch.Button isActive={theme == ThemeContext.Dark}>
           <Button variant=`Ghost onClick={_ => toggleTheme()} icon=true>
             <ReactFeather.MoonIcon />
