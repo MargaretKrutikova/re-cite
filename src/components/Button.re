@@ -10,11 +10,11 @@ module Classes = {
   let variantStyles = variant => {
     let (bg_color, text_color) =
       switch (variant) {
-      | `Primary => (`Primary |> Styles.color, `hex("fff"))
-      | `Ghost => (`transparent, `PrimaryText |> Styles.color)
+      | `Primary => (`Primary |> Styles.useColor, `hex("fff"))
+      | `Ghost => (`transparent, `PrimaryText |> Styles.useColor)
       | `Secondary => (
-          `Secondary |> Styles.color,
-          `PrimaryText |> Styles.color,
+          `Secondary |> Styles.useColor,
+          `PrimaryText |> Styles.useColor,
         )
       };
 

@@ -18,7 +18,7 @@ module Classes = {
       left(px(0)),
       width(pct(100.0)),
       height(pct(100.0)),
-      backgroundColor(rgba(0, 0, 0, 0.2)),
+      backgroundColor(`Overlay |> Styles.useColor),
     ]);
 };
 
