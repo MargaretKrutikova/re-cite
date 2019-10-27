@@ -16,7 +16,6 @@ module Classes = {
       style([
         height(`custom(16) |> Styles.space),
         borderBottom(px(1), `solid, `Primary |> Styles.useColor),
-        backgroundColor(`HeaderBg |> Styles.useColor),
       ])
     );
   let logo = Css.(style([fontWeight(`num(500)), ...Styles.font(`lg)]));

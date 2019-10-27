@@ -1,14 +1,7 @@
 module Tokens = {
-  type backgroundColor = [
-    | `BodyBg
-    | `PrimaryBg
-    | `SecondaryBg
-    | `HeaderBg
-    | `InputBg
-    | `CardBg
-  ];
+  type backgroundColor = [ | `BodyBg1 | `BodyBg2 | `InputBg | `CardBg];
 
-  type textColor = [ | `PrimaryText | `SecondaryText];
+  type textColor = [ | `BodyText | `SecondaryText];
 
   type color = [
     | `Primary
@@ -50,7 +43,8 @@ module Theme = {
   let fontScale = 1.2;
 
   let fontSize = factor =>
-    Js.Math.pow_float(~base=fontScale, ~exp=factor |> float_of_int)
+    fontScale
+    ** (factor |> float_of_int)
     *. (baseFontSizePx |> float_of_int)
     |> int_of_float;
 
@@ -87,15 +81,13 @@ module Theme = {
   let lightPalette = (token: Tokens.color) => {
     switch (token) {
     | `Primary => Green.main
-    | `Secondary => Gray.light1
+    | `Secondary => DarkBlue.light4
     | `Neutral => Gray.light1
-    | `HeaderBg => White.main
-    | `BodyBg => DarkBlue.light5
-    | `PrimaryBg => DarkBlue.light5
-    | `SecondaryBg => DarkBlue.light4
+    | `BodyBg1 => White.main
+    | `BodyBg2 => DarkBlue.light5
     | `CardBg => White.main
     | `InputBg => White.main
-    | `PrimaryText => DarkBlue.dark1
+    | `BodyText => DarkBlue.dark1
     | `SecondaryText => DarkBlue.light1
     };
   };
@@ -103,22 +95,20 @@ module Theme = {
   let darkPalette = (token: Tokens.color) => {
     switch (token) {
     | `Primary => Green.main
-    | `Secondary => Gray.light1
+    | `Secondary => DarkBlue.light1
     | `Neutral => Gray.light1
-    | `HeaderBg => DarkBlue.dark3
-    | `BodyBg => DarkBlue.dark2
-    | `PrimaryBg => DarkBlue.light5
-    | `SecondaryBg => DarkBlue.main
+    | `BodyBg1 => DarkBlue.dark2
+    | `BodyBg2 => DarkBlue.dark2
     | `CardBg => DarkBlue.dark1
     | `InputBg => DarkBlue.dark1
-    | `PrimaryText => DarkBlue.light5
+    | `BodyText => DarkBlue.light5
     | `SecondaryText => DarkBlue.light4
     };
   };
 
   let fontFamily =
     fun
-    | `base => "Rubik, serif"
+    | `base => "Rubik, sans-serif"
     | `heading => "Muli, system-ui, sans-serif";
 
   let borderRadius =
@@ -205,16 +195,16 @@ module Styles = {
     Css.global(
       ".dark-theme",
       [
-        Css.backgroundColor(color(`BodyBg, Dark)),
-        Css.color(color(`PrimaryText, Dark)),
+        Css.backgroundColor(color(`BodyBg1, Dark)),
+        Css.color(color(`BodyText, Dark)),
       ],
     );
 
     Css.global(
       ".light-theme",
       [
-        Css.backgroundColor(color(`BodyBg, Light)),
-        Css.color(color(`PrimaryText, Light)),
+        Css.backgroundColor(color(`BodyBg1, Light)),
+        Css.color(color(`BodyText, Light)),
       ],
     );
 
@@ -232,7 +222,7 @@ module Styles = {
     toggle("block-scroll");
   };
 
-  let useColor = token => {
+  let useColor = (token: [ Tokens.color | `Overlay]) => {
     let (theme, _) = ThemeContext.useTheme();
     color(token, theme);
   };
