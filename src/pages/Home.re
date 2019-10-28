@@ -55,7 +55,7 @@ let make = () => {
     </Text>
     <Button
       gutter=`xl variant=`Primary onClick={_ => Route.push(CreateCollection)}>
-      {str("Create collection")}
+      {str("Get started")}
     </Button>
     <Text size=`Small variant=`Secondary>
       {str(
