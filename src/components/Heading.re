@@ -10,7 +10,8 @@ module Classes = {
       style([
         marginBottom(`sm |> Styles.space),
         fontWeight(`num(500)),
-        ...Styles.font(`xxl),
+        media(Breakpoint.up(`sm), Styles.font(`xxl)),
+        ...Styles.font(`xl),
       ])
     | `h2 =>
       style([
