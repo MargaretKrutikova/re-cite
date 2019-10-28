@@ -11,7 +11,7 @@ let fromUrl =
   fun
   | [] => Home
   | ["collections", "new"] => CreateCollection
-  | [collectionName, "citations"] => Collection(collectionName, Citations)
+  | [slug, "citations"] => Collection(slug, Citations)
   | _ => NotFound;
 
 let toUrl =

@@ -39,9 +39,8 @@ let initialState = {showSidebar: false, citationUnderEdit: None};
 module CollectionQuery = ReasonApolloHooks.Query.Make(Queries.GetCollection);
 
 [@react.component]
-let make = (~route, ~name) => {
-  let variables =
-    Queries.GetCollection.make(~collectionName=name, ())##variables;
+let make = (~route, ~slug) => {
+  let variables = Queries.GetCollection.make(~slug, ())##variables;
   let (simple, full) = CollectionQuery.use(~variables, ());
 
   let (state, dispatch) = React.useReducer(reducer, initialState);
@@ -69,7 +68,7 @@ let make = (~route, ~name) => {
                <EditCitation
                  citation={state.citationUnderEdit}
                  collectionId={collection.id}
-                 collectionName={collection.name}
+                 slug={collection.slug}
                  authors={collection.authors}
                  onSaved={() => dispatch(CloseSidebar)}
                />

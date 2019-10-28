@@ -56,7 +56,7 @@ let make =
       ~citation,
       ~authors: array(Types.author),
       ~collectionId,
-      ~collectionName,
+      ~slug,
       ~onSaved,
     ) => {
   let (state, dispatch) =
@@ -66,7 +66,7 @@ let make =
     CitationMutation.use(
       ~refetchQueries=
         _ => {
-          let query = Queries.GetCollection.make(~collectionName, ());
+          let query = Queries.GetCollection.make(~slug, ());
           [|ReasonApolloHooks.Utils.toQueryObj(query)|];
         },
       (),

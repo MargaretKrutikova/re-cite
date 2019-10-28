@@ -15,12 +15,12 @@ module Classes = {
   let btn = style([alignSelf(`flexEnd)]);
 };
 
-module GetAllCollectionNames =
-  ReasonApolloHooks.Query.Make(Queries.GetAllCollectionNames);
+module GetAllCollectionSlugs =
+  ReasonApolloHooks.Query.Make(Queries.GetAllCollectionSlugs);
 
 [@react.component]
 let make = () => {
-  let (collectionsResult, _) = GetAllCollectionNames.use();
+  let (collectionsResult, _) = GetAllCollectionSlugs.use();
   let (collectionName, setCollectionName) = React.useState(() => "");
 
   let nameIsValid = collectionName |> Utils.slugify != "";
@@ -30,7 +30,7 @@ let make = () => {
     | (false, _) => true
     | (true, Data(data)) =>
       let slug = collectionName |> Utils.slugify;
-      !data##collections->Belt.Array.some(c => c##name == slug);
+      !data##collections->Belt.Array.some(c => c##slug == slug);
     | _ => false
     };
 

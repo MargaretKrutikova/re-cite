@@ -22,7 +22,7 @@ let make = () => {
   Styles.useToggleBodyTheme();
 
   switch (url.path |> Route.fromUrl) {
-  | Collection(name, route) => <Collection name route />
+  | Collection(slug, route) => <Collection slug route />
   | other =>
     <>
       <Header toggleTheme theme header=Header.Default />

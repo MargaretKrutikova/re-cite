@@ -5054,6 +5054,22 @@
                 }
               },
               "description": null
+            },
+            {
+              "args": [],
+              "isDeprecated": false,
+              "deprecationReason": null,
+              "name": "slug",
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                }
+              },
+              "description": null
             }
           ]
         },
@@ -5343,6 +5359,16 @@
                 "ofType": null
               },
               "description": null
+            },
+            {
+              "name": "slug",
+              "defaultValue": null,
+              "type": {
+                "kind": "INPUT_OBJECT",
+                "name": "String_comparison_exp",
+                "ofType": null
+              },
+              "description": null
             }
           ],
           "kind": "INPUT_OBJECT",
@@ -5370,6 +5396,12 @@
               "isDeprecated": false,
               "deprecationReason": null,
               "name": "collections_pkey",
+              "description": "unique or primary key constraint"
+            },
+            {
+              "isDeprecated": false,
+              "deprecationReason": null,
+              "name": "collections_slug_key",
               "description": "unique or primary key constraint"
             }
           ],
@@ -5417,6 +5449,16 @@
                 "ofType": null
               },
               "description": null
+            },
+            {
+              "name": "slug",
+              "defaultValue": null,
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "description": null
             }
           ],
           "kind": "INPUT_OBJECT",
@@ -5447,6 +5489,18 @@
                 "ofType": null
               },
               "description": null
+            },
+            {
+              "args": [],
+              "isDeprecated": false,
+              "deprecationReason": null,
+              "name": "slug",
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "description": null
             }
           ]
         },
@@ -5454,6 +5508,16 @@
           "inputFields": [
             {
               "name": "name",
+              "defaultValue": null,
+              "type": {
+                "kind": "ENUM",
+                "name": "order_by",
+                "ofType": null
+              },
+              "description": null
+            },
+            {
+              "name": "slug",
               "defaultValue": null,
               "type": {
                 "kind": "ENUM",
@@ -5491,6 +5555,18 @@
                 "ofType": null
               },
               "description": null
+            },
+            {
+              "args": [],
+              "isDeprecated": false,
+              "deprecationReason": null,
+              "name": "slug",
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "description": null
             }
           ]
         },
@@ -5498,6 +5574,16 @@
           "inputFields": [
             {
               "name": "name",
+              "defaultValue": null,
+              "type": {
+                "kind": "ENUM",
+                "name": "order_by",
+                "ofType": null
+              },
+              "description": null
+            },
+            {
+              "name": "slug",
               "defaultValue": null,
               "type": {
                 "kind": "ENUM",
@@ -5689,6 +5775,16 @@
                 "ofType": null
               },
               "description": null
+            },
+            {
+              "name": "slug",
+              "defaultValue": null,
+              "type": {
+                "kind": "ENUM",
+                "name": "order_by",
+                "ofType": null
+              },
+              "description": null
             }
           ],
           "kind": "INPUT_OBJECT",
@@ -5717,6 +5813,12 @@
               "deprecationReason": null,
               "name": "name",
               "description": "column name"
+            },
+            {
+              "isDeprecated": false,
+              "deprecationReason": null,
+              "name": "slug",
+              "description": "column name"
             }
           ],
           "description": "select columns of table \"collections\"",
@@ -5736,6 +5838,16 @@
             },
             {
               "name": "name",
+              "defaultValue": null,
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "description": null
+            },
+            {
+              "name": "slug",
               "defaultValue": null,
               "type": {
                 "kind": "SCALAR",
@@ -5770,6 +5882,12 @@
               "isDeprecated": false,
               "deprecationReason": null,
               "name": "name",
+              "description": "column name"
+            },
+            {
+              "isDeprecated": false,
+              "deprecationReason": null,
+              "name": "slug",
               "description": "column name"
             }
           ],
