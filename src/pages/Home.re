@@ -73,8 +73,13 @@ let make = () => {
     <Text className={Classes.githubText()}>
       {str(
          "The project is continuously developed and improved, many features are about to land,
-         but if you have a specific request or found a bug, feel free to submit it on github!",
+         but if you have a specific request or found a bug, feel free to submit it on ",
        )}
+      <Link
+        href="https://github.com/margaretkrutikova/re-cite/issues" newTab=true>
+        "github"
+      </Link>
+      {str(".")}
     </Text>
   </div>;
 };

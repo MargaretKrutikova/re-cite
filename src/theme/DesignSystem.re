@@ -5,6 +5,7 @@ module Tokens = {
 
   type color = [
     | `Primary
+    | `PrimaryQuiet
     | `Secondary
     | `Neutral
     | backgroundColor
@@ -81,6 +82,7 @@ module Theme = {
   let lightPalette = (token: Tokens.color) => {
     switch (token) {
     | `Primary => Green.main
+    | `PrimaryQuiet => Green.dark1
     | `Secondary => DarkBlue.light4
     | `Neutral => Gray.light1
     | `BodyBg1 => White.main
@@ -95,6 +97,7 @@ module Theme = {
   let darkPalette = (token: Tokens.color) => {
     switch (token) {
     | `Primary => Green.main
+    | `PrimaryQuiet => Green.light1
     | `Secondary => DarkBlue.light1
     | `Neutral => Gray.light1
     | `BodyBg1 => DarkBlue.dark2
