@@ -12,3 +12,27 @@ let toInputDateFormat = date => {
 };
 
 let getInputValue = (e): string => ReactEvent.Form.target(e)##value;
+
+let slugify = (str: string) => {
+  let a = {j|àáâäæãåāăąçćčđďèéêëēėęěğǵḧîïíīįìłḿñńǹňôöòóœøōõṕŕřßśšşșťțûüùúūǘůűųẃẍÿýžźż·/_,:;|j};
+  let b = {j|aaaaaaaaaacccddeeeeeeeegghiiiiiilmnnnnooooooooprrsssssttuuuuuuuuuwxyyzzz------|j};
+
+  let replaceSpecialCharacters: (string, string, string) => string = [%bs.raw
+    {|
+    function (a, b, str) {
+      const p = new RegExp(a.split('').join('|'), 'g');
+      return str.replace(p, c => b.charAt(a.indexOf(c)));
+    } |}
+  ];
+
+  str
+  |> Js.String.toLowerCase
+  |> Js.String.trim
+  |> replaceSpecialCharacters(a, b)
+  |> Js.String.replaceByRe([%re "/\\s+/g"], "-")  // Replace spaces with -
+  |> Js.String.replaceByRe([%re "/&/g"], "-and-")  // Replace & with 'and'
+  |> Js.String.replaceByRe([%re "/[^\\w\\-]+/g"], "")  // Remove all non-word characters
+  |> Js.String.replaceByRe([%re "/\\-\\-+/g"], "-")  // Replace multiple - with single -
+  |> Js.String.replaceByRe([%re "/^-+/"], "")  // Trim - from start of text
+  |> Js.String.replaceByRe([%re "/-+$/"], ""); // Trim - from end of text
+};
