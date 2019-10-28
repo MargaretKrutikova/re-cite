@@ -1,5 +1,19 @@
 open DesignSystem;
 
+module Classes = {
+  open Css;
+
+  let root =
+    style([
+      marginTop(`xl |> Styles.space),
+      media(
+        Breakpoint.up(`sm),
+        [padding(px(0)), marginTop(`xxl |> Styles.space)],
+      ),
+      ...Styles.paddingH(`xxs),
+    ]);
+};
+
 [@react.component]
 let make = () => {
   Styles.injectGlobal();
@@ -13,10 +27,13 @@ let make = () => {
     <>
       <Header toggleTheme theme header=Header.Default />
       <main className=Container.Styles.root>
-        {switch (other) {
-         | Home => <Home />
-         | _ => <div> {React.string("Not found!")} </div>
-         }}
+        <div className=Classes.root>
+          {switch (other) {
+           | Home => <Home />
+           | CreateCollection => <CreateCollection />
+           | _ => <div> {React.string("Not found!")} </div>
+           }}
+        </div>
       </main>
     </>
   };
