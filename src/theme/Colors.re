@@ -23,6 +23,10 @@ module White = {
   let main = "fff";
 };
 
+module Red = {
+  let main = "f44336";
+};
+
 module Gray = {
   let main = "C8C8C8";
 

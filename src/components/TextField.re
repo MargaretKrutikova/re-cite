@@ -12,7 +12,7 @@ module Classes = {
       width(pct(100.0)),
     ]);
 
-  let input = () =>
+  let input = (~error) =>
     style([
       width(pct(100.0)),
       unsafe("appearance", "none"),
@@ -23,10 +23,10 @@ module Classes = {
       boxSizing(`borderBox),
       backgroundColor(`InputBg |> Styles.useColor),
       color(`BodyText |> Styles.useColor),
-      border(px(1), `solid, `Neutral |> Styles.useColor),
+      border(px(1), `solid, (error ? `Error : `Neutral) |> Styles.useColor),
       transition(~duration=300, "all"),
       padding2(~v=`xs |> Styles.space, ~h=`sm |> Styles.space),
-      focus([borderColor(`Primary |> Styles.useColor)]),
+      focus([borderColor((error ? `Error : `Primary) |> Styles.useColor)]),
       placeholder([color(`Placeholder |> Styles.useColor)]),
       ...Styles.font(`base),
     ]);
@@ -64,6 +64,7 @@ let make =
       ~placeholder=?,
       ~label=?,
       ~type_=?,
+      ~error=false,
     ) => {
   <InputContainer ?label className>
     {multiline
@@ -73,14 +74,14 @@ let make =
            ?value
            ?onChange
            rows=3
-           className={Classes.input()}
+           className={Classes.input(~error)}
          />
        : <input
            ?type_
            ?placeholder
            ?value
            ?onChange
-           className={Classes.input()}
+           className={Classes.input(~error)}
          />}
   </InputContainer>;
 };
@@ -96,9 +97,10 @@ module NativeSelect = {
         ~placeholder=?,
         ~label=?,
         ~children,
+        ~error=false,
       ) => {
     <InputContainer ?label className>
-      <select ?value ?onChange ?placeholder className={Classes.input()}>
+      <select ?value ?onChange ?placeholder className={Classes.input(~error)}>
         children
       </select>
     </InputContainer>;

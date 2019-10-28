@@ -9,6 +9,7 @@ module Tokens = {
     | `Secondary
     | `Neutral
     | `Placeholder
+    | `Error
     | backgroundColor
     | textColor
   ];
@@ -87,6 +88,7 @@ module Theme = {
     | `Secondary => DarkBlue.light4
     | `Neutral => Gray.light1
     | `Placeholder => Gray.dark1
+    | `Error => Red.main
     | `BodyBg1 => White.main
     | `BodyBg2 => DarkBlue.light5
     | `CardBg => White.main
@@ -103,6 +105,7 @@ module Theme = {
     | `Secondary => DarkBlue.light1
     | `Neutral => Gray.light1
     | `Placeholder => Gray.dark1
+    | `Error => Red.main
     | `BodyBg1 => DarkBlue.dark2
     | `BodyBg2 => DarkBlue.dark2
     | `CardBg => DarkBlue.dark1
