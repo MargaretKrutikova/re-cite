@@ -18,18 +18,50 @@ module Classes = {
 module GetAllCollectionSlugs =
   ReasonApolloHooks.Query.Make(Queries.GetAllCollectionSlugs);
 
+module CreateCollectionMutation =
+  ReasonApolloHooks.Mutation.Make(Mutations.CreateCollection);
+
 [@react.component]
 let make = () => {
   let (collectionsResult, _) = GetAllCollectionSlugs.use();
+  let (mutation, mutationResult, _) =
+    CreateCollectionMutation.use(
+      ~refetchQueries=
+        _ => {
+          let query = Queries.GetAllCollectionSlugs.make();
+          [|ReasonApolloHooks.Utils.toQueryObj(query)|];
+        },
+      (),
+    );
+
   let (collectionName, setCollectionName) = React.useState(() => "");
 
-  let nameIsValid = collectionName |> Utils.slugify != "";
+  let create = () => {
+    let slug = collectionName |> Utils.slugify;
+    let variables =
+      Mutations.CreateCollection.make(~name=collectionName, ~slug, ())##variables;
 
+    mutation(~variables, ())
+    |> Js.Promise.(
+         then_(result => {
+           switch (result) {
+           | ReasonApolloHooks.Mutation.Data(_) =>
+             Route.push(Collection(slug, Citations))
+           | _ => ignore()
+           };
+           resolve();
+         })
+       )
+    |> ignore;
+  };
+
+  let nameIsValid = collectionName |> Utils.slugify != "";
   let nameIsAvailable =
     switch (nameIsValid, collectionsResult) {
     | (false, _) => true
     | (true, Data(data)) =>
       let slug = collectionName |> Utils.slugify;
+      Js.log(slug);
       !data##collections->Belt.Array.some(c => c##slug == slug);
     | _ => false
     };
@@ -61,7 +93,7 @@ let make = () => {
          ? <Text size=`Small variant=`Secondary>
              {React.string(
                 "Sorry, but the name you entered is occupied.
-                Make sure to include something that can identify your collection.",
+                Make sure to include something that can uniquely identify your collection.",
               )}
            </Text>
          : React.null}
@@ -69,8 +101,8 @@ let make = () => {
     <Hr gutter=`md />
     <Button
       className=Classes.btn
-      disabled={!nameIsValid || !nameIsAvailable}
-      onClick={_ => Js.log(collectionName |> Utils.slugify)}
+      disabled={!nameIsValid || !nameIsAvailable || mutationResult == Loading}
+      onClick={_ => create()}
       gutter=`xxl>
       {React.string("Create collection")}
     </Button>

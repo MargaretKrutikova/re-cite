@@ -28,3 +28,17 @@ module EditCitation = [%graphql
   }
 |}
 ];
+
+module CreateCollection = [%graphql
+  {|
+  mutation ($name: String!, $slug: String!) {
+    insert_collections(objects: {name: $name, slug: $slug}) {
+      returning {
+        id
+        name
+        slug
+      }
+    }
+  }
+  |}
+];
