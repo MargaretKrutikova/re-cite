@@ -15,7 +15,7 @@ module Classes = {
       ])
     | `h2 =>
       style([
-        marginBottom(`sm |> Styles.space),
+        marginBottom(`md |> Styles.space),
         fontWeight(`normal),
         ...Styles.font(`xl),
       ])

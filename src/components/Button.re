@@ -40,7 +40,7 @@ module Classes = {
     [height(size_css), width(size_css), flexGrow(0.0), flexShrink(0.0)];
   };
 
-  let commonStyles = (~icon, ~fullWidth) => [
+  let commonStyles = (~icon, ~fullWidth, ~gutter) => [
     borderWidth(px(0)),
     icon ? borderRadius(pct(50.0)) : Styles.borderRadius(`base),
     textAlign(`center),
@@ -55,13 +55,16 @@ module Classes = {
     justifyContent(`center),
     fullWidth ? width(pct(100.0)) : width(auto),
     transition(~duration=100, "background-color"),
-    disabled([opacity(0.7)]),
+    disabled([backgroundColor(`Neutral |> Styles.useColor)]),
+    ...gutter->Belt.Option.mapWithDefault([], size =>
+         [marginBottom(size |> Styles.space)]
+       ),
   ];
 
   let iconContainer = style([display(`flex)]);
 
-  let button = (~variant, ~size, ~icon, ~fullWidth) =>
-    commonStyles(~icon, ~fullWidth)
+  let button = (~variant, ~size, ~icon, ~fullWidth, ~gutter) =>
+    commonStyles(~icon, ~fullWidth, ~gutter)
     ->List.append(icon ? iconSizeStyle(size) : sizeStyles(size))
     ->List.append(variantStyles(variant))
     |> style;
@@ -79,10 +82,11 @@ let make =
       ~icon=false,
       ~fullWidth=false,
       ~type_=?,
+      ~gutter=?,
     ) => {
   let styles =
     Css.merge([
-      Classes.button(~variant, ~size, ~icon, ~fullWidth),
+      Classes.button(~variant, ~size, ~icon, ~fullWidth, ~gutter),
       className,
     ]);
 

@@ -4,8 +4,6 @@ type variant = [ | `Primary | `Secondary];
 
 type size = [ | `Medium | `Small];
 
-type gutter = [ | `Medium | `Large];
-
 let toFontSize =
   fun
   | `Medium => `base
@@ -16,17 +14,12 @@ let toTextColor =
   | `Primary => `BodyText
   | `Secondary => `SecondaryText;
 
-let toMarginBottom =
-  fun
-  | `Medium => `lg
-  | `Large => `xl;
-
 [@react.component]
 let make =
     (
       ~children,
       ~variant=`Primary,
-      ~gutter=`Medium,
+      ~gutter=`lg,
       ~size as sz=`Medium,
       ~className as cn="",
     ) => {
@@ -34,8 +27,8 @@ let make =
     Css.(
       merge([
         style([
-          gutter |> toMarginBottom |> Styles.space |> marginBottom,
           variant |> toTextColor |> Styles.useColor |> color,
+          marginBottom(gutter |> Styles.space),
           ...sz |> toFontSize |> Styles.font,
         ]),
         cn,
