@@ -21,7 +21,7 @@ module Classes = {
       position(`fixed),
       top(px(0)),
       right(px(0)),
-      backgroundColor(`BodyBg |> Styles.useColor),
+      backgroundColor(`BodyBg2 |> Styles.useColor),
       height(pct(100.0)),
       width(pct(100.0)),
       overflowY(auto),

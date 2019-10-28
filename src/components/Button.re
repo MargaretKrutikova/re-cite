@@ -1,5 +1,4 @@
 open DesignSystem;
-
 type variant = [ | `Primary | `Secondary | `Ghost];
 
 type size = [ | `Small | `Medium];
@@ -11,10 +10,10 @@ module Classes = {
     let (bg_color, text_color) =
       switch (variant) {
       | `Primary => (`Primary |> Styles.useColor, `hex("fff"))
-      | `Ghost => (`transparent, `PrimaryText |> Styles.useColor)
+      | `Ghost => (`transparent, `BodyText |> Styles.useColor)
       | `Secondary => (
           `Secondary |> Styles.useColor,
-          `PrimaryText |> Styles.useColor,
+          `BodyText |> Styles.useColor,
         )
       };
 

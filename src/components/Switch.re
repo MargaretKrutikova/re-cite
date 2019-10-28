@@ -9,14 +9,14 @@ module Classes = {
     Css.(
       style([
         display(`flex),
-        border(px(2), solid, `PrimaryText |> Styles.useColor),
+        border(px(2), solid, `BodyText |> Styles.useColor),
         position(relative),
         Styles.borderRadius(`xl),
         before([
           unsafe("content", "''"),
           position(absolute),
           left(px(0)),
-          backgroundColor(`SecondaryBg |> Styles.useColor),
+          backgroundColor(`Secondary |> Styles.useColor),
           borderRadius(pct(50.0)),
           width(pct(50.0)),
           height(pct(100.0)),

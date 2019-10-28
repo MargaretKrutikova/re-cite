@@ -6,7 +6,14 @@ module Classes = {
     Css.(
       style([
         media(Breakpoint.up(`sm), [paddingTop(`xl |> Styles.space)]),
-        paddingTop(`lg |> Styles.space),
+        ...Styles.paddingV(`lg),
+      ])
+    );
+  let root = () =>
+    Css.(
+      style([
+        backgroundColor(`BodyBg2 |> Styles.useColor),
+        minHeight(vh(100.0)),
       ])
     );
 };
@@ -44,7 +51,7 @@ let make = (~route, ~name) => {
     Header.Collection({canAdd, onAdd: _ => dispatch(OpenSidebar(None))});
   let (theme, toggleTheme) = ThemeContext.useTheme();
 
-  <>
+  <div className={Classes.root()}>
     <Header header theme toggleTheme />
     <main className={Css.merge([Container.Styles.root, Classes.main])}>
       {switch (simple) {
@@ -78,5 +85,5 @@ let make = (~route, ~name) => {
        | Error(_) => <p> {React.string("Error")} </p>
        }}
     </main>
-  </>;
+  </div>;
 };

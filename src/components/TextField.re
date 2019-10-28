@@ -22,7 +22,7 @@ module Classes = {
       borderWidth(px(0)),
       boxSizing(`borderBox),
       backgroundColor(`InputBg |> Styles.useColor),
-      color(`PrimaryText |> Styles.useColor),
+      color(`BodyText |> Styles.useColor),
       border(px(1), `solid, `Neutral |> Styles.useColor),
       transition(~duration=300, "all"),
       padding2(~v=`sm |> Styles.space, ~h=`sm |> Styles.space),
