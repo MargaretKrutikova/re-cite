@@ -6,11 +6,11 @@ module CitationsQuery = ReasonApolloHooks.Query.Make(Queries.GetCollection);
 let make = (~citations) => {
   switch (citations) {
   | [||] =>
-    <div>
-      {React.string(
-         {j|The list is empty! Start by adding something funny 🙂|j},
-       )}
-    </div>
+    <>
+      <Text>
+        {React.string("There are no citations in your collection.")}
+      </Text>
+    </>
   | array =>
     array->Belt.Array.map(citation =>
       <Citation

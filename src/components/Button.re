@@ -55,7 +55,10 @@ module Classes = {
     justifyContent(`center),
     fullWidth ? width(pct(100.0)) : width(auto),
     transition(~duration=100, "background-color"),
-    disabled([backgroundColor(`Neutral |> Styles.useColor)]),
+    disabled([
+      backgroundColor(`Disabled |> Styles.useColor),
+      cursor(`notAllowed),
+    ]),
     ...gutter->Belt.Option.mapWithDefault([], size =>
          [marginBottom(size |> Styles.space)]
        ),
