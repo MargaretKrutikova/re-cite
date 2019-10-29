@@ -1,14 +1,17 @@
 open DesignSystem;
 
 module Classes = {
-  let main =
-    Css.(
-      style([
-        media(Breakpoint.up(`sm), [paddingTop(`md |> Styles.space)]),
-        paddingTop(`sm |> Styles.space),
-        textAlign(center),
-      ])
-    );
+  open Css;
+
+  let root =
+    style([
+      marginTop(`xl |> Styles.space),
+      media(
+        Breakpoint.up(`sm),
+        [padding(px(0)), marginTop(`xxl |> Styles.space)],
+      ),
+      ...Styles.paddingH(`xxs),
+    ]);
 };
 
 [@react.component]
@@ -19,15 +22,18 @@ let make = () => {
   Styles.useToggleBodyTheme();
 
   switch (url.path |> Route.fromUrl) {
-  | Collection(name, route) => <Collection name route />
+  | Collection(slug, route) => <Collection slug route />
   | other =>
     <>
       <Header toggleTheme theme header=Header.Default />
-      <main className=Classes.main>
-        {switch (other) {
-         | Home => <div> {React.string({j|Not implemented yet 🙂|j})} </div>
-         | _ => <div> {React.string("Not found!")} </div>
-         }}
+      <main className=Container.Styles.root>
+        <div className=Classes.root>
+          {switch (other) {
+           | Home => <Home />
+           | CreateCollection => <CreateCollection />
+           | _ => <div> {React.string("Not found!")} </div>
+           }}
+        </div>
       </main>
     </>
   };

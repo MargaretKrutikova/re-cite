@@ -13,6 +13,7 @@ type citation = {
 type collection = {
   id: Js.Json.t,
   name: string,
+  slug: string,
   authors: array(author),
   citations: array(citation),
 };

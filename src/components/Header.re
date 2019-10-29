@@ -16,10 +16,17 @@ module Classes = {
       style([
         height(`custom(16) |> Styles.space),
         borderBottom(px(1), `solid, `Primary |> Styles.useColor),
-        backgroundColor(`HeaderBg |> Styles.useColor),
+        backgroundColor(`BodyBg1 |> Styles.useColor),
       ])
     );
-  let logo = Css.(style([fontWeight(`num(500)), ...Styles.font(`lg)]));
+  let logo =
+    Css.(
+      style([
+        fontWeight(`num(500)),
+        cursor(`pointer),
+        ...Styles.font(`lg),
+      ])
+    );
   let themeSwitch =
     Css.(style([marginRight(auto), marginLeft(`md |> Styles.space)]));
 };
@@ -53,7 +60,11 @@ module ThemeSwitch = {
 module Logo = {
   [@react.component]
   let make = () => {
-    <div className=Classes.logo> {React.string("ReCite.")} </div>;
+    <a
+      className=Classes.logo
+      onClick={RouteLink.handleClick(Route.toUrl(Home))}>
+      {React.string("ReCite.")}
+    </a>;
   };
 };
 

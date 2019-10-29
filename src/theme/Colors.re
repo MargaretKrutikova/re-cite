@@ -13,13 +13,18 @@ module DarkBlue = {
 };
 
 module Green = {
-  let main = "449582";
+  let main = "1bb38f";
+  let dark1 = "127C63";
 
-  let light1 = "9fd3c7";
+  let light1 = "20D1A7";
 };
 
 module White = {
   let main = "fff";
+};
+
+module Red = {
+  let main = "f44336";
 };
 
 module Gray = {

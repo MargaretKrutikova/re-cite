@@ -6,7 +6,14 @@ module Classes = {
     Css.(
       style([
         media(Breakpoint.up(`sm), [paddingTop(`xl |> Styles.space)]),
-        paddingTop(`lg |> Styles.space),
+        ...Styles.paddingV(`lg),
+      ])
+    );
+  let root = () =>
+    Css.(
+      style([
+        backgroundColor(`BodyBg2 |> Styles.useColor),
+        minHeight(vh(100.0)),
       ])
     );
 };
@@ -32,9 +39,8 @@ let initialState = {showSidebar: false, citationUnderEdit: None};
 module CollectionQuery = ReasonApolloHooks.Query.Make(Queries.GetCollection);
 
 [@react.component]
-let make = (~route, ~name) => {
-  let variables =
-    Queries.GetCollection.make(~collectionName=name, ())##variables;
+let make = (~route, ~slug) => {
+  let variables = Queries.GetCollection.make(~slug, ())##variables;
   let (simple, full) = CollectionQuery.use(~variables, ());
 
   let (state, dispatch) = React.useReducer(reducer, initialState);
@@ -44,7 +50,7 @@ let make = (~route, ~name) => {
     Header.Collection({canAdd, onAdd: _ => dispatch(OpenSidebar(None))});
   let (theme, toggleTheme) = ThemeContext.useTheme();
 
-  <>
+  <div className={Classes.root()}>
     <Header header theme toggleTheme />
     <main className={Css.merge([Container.Styles.root, Classes.main])}>
       {switch (simple) {
@@ -62,7 +68,7 @@ let make = (~route, ~name) => {
                <EditCitation
                  citation={state.citationUnderEdit}
                  collectionId={collection.id}
-                 collectionName={collection.name}
+                 slug={collection.slug}
                  authors={collection.authors}
                  onSaved={() => dispatch(CloseSidebar)}
                />
@@ -78,5 +84,5 @@ let make = (~route, ~name) => {
        | Error(_) => <p> {React.string("Error")} </p>
        }}
     </main>
-  </>;
+  </div>;
 };

@@ -3,18 +3,21 @@ type collectionRoute =
 
 type t =
   | Home
+  | CreateCollection
   | Collection(string, collectionRoute)
   | NotFound;
 
 let fromUrl =
   fun
   | [] => Home
-  | [collectionName, "citations"] => Collection(collectionName, Citations)
+  | ["collections", "new"] => CreateCollection
+  | [slug, "citations"] => Collection(slug, Citations)
   | _ => NotFound;
 
 let toUrl =
   fun
   | Home => "/"
+  | CreateCollection => "/collections/new"
   | Collection(collectionName, Citations) =>
     "/" ++ collectionName ++ "/citations"
   | NotFound => "/404";

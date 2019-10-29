@@ -2,10 +2,11 @@ open Types;
 
 module GetCollection = [%graphql
   {|
-  query($collectionName: String!) {
-    collections(where: {name: {_eq: $collectionName}}) @bsRecord {
+  query($slug: String!) {
+    collections(where: {slug: {_eq: $slug}}) @bsRecord {
       id
       name
+      slug
       authors @bsRecord {
         id
         name
@@ -19,6 +20,16 @@ module GetCollection = [%graphql
           name
         }
       }
+    }
+  }
+|}
+];
+
+module GetAllCollectionSlugs = [%graphql
+  {|
+  query {
+    collections {
+      slug
     }
   }
 |}
