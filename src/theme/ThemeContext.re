@@ -2,6 +2,17 @@ type theme =
   | Dark
   | Light;
 
+let themeToString =
+  fun
+  | Dark => "Dark"
+  | Light => "Light";
+
+let themeFromString =
+  fun
+  | "Dark" => Dark
+  | "Light" => Light
+  | unknownTheme => Js.Exn.raiseError("Unknown theme: " ++ unknownTheme);
+
 let context = React.createContext((Light, () => ignore()));
 let useTheme = () => React.useContext(context);
 

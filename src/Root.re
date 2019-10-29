@@ -3,17 +3,6 @@ open ThemeContext;
 
 let themeStorageKey = "theme";
 
-let themeToString =
-  fun
-  | Dark => "Dark"
-  | Light => "Light";
-
-let themeFromString =
-  fun
-  | "Dark" => Dark
-  | "Light" => Light
-  | unknownTheme => Js.Exn.raiseError("Unknown theme: " ++ unknownTheme);
-
 [@react.component]
 let make = () => {
   let savedTheme = localStorage->getItem(themeStorageKey);
