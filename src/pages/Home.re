@@ -41,7 +41,7 @@ let make = () => {
     <Text>
       {str(
          "An app that helps you manage citations from your
-         collegues, friends, books, movies, your cat or even yourself.",
+         colleagues, friends, books, movies, your cat or even yourself.",
        )}
     </Text>
     <Text>
