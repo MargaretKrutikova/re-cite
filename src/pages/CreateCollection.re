@@ -6,7 +6,7 @@ module Classes = {
   let textField = style([marginBottom(`sm |> Styles.space)]);
   let block =
     style([
-      height(`custom(16) |> Styles.space),
+      height(`custom(12) |> Styles.space),
       marginBottom(`xl |> Styles.space),
       position(relative),
     ]);
@@ -61,7 +61,6 @@ let make = () => {
     | (false, _) => true
     | (true, Data(data)) =>
       let slug = collectionName |> Utils.slugify;
-      Js.log(slug);
       !data##collections->Belt.Array.some(c => c##slug == slug);
     | _ => false
     };
@@ -98,7 +97,7 @@ let make = () => {
            </Text>
          : React.null}
     </div>
-    <Hr gutter=`md />
+    <Hr gutter=`xl />
     <Button
       className=Classes.btn
       disabled={!nameIsValid || !nameIsAvailable || mutationResult == Loading}
