@@ -1,36 +1,50 @@
 # Re-cite app
 
+An app that helps you manage citations from your colleagues, friends, books, movies, your cat or even yourself.
+
+A deliberate place for citations — no more notepad, slack messages to yourself, or worse, pen and paper. Create a collection and start adding citations right now, https://recite.netlify.com/.
+
+## How to use
+
+- create a collection at https://recite.netlify.com/collections/new,
+- the app will generate a url derived from the collection name,
+- use the url to save citations to that collection.
+
+## Features
+
+- simple to use, no login required,
+- create as many collections as you like,
+- add citations to any collection,
+- dark mode 😎
+
+## Tech stack
+
+- `ReasonML`
+- `ReasonReact`
+- `GraphQL`
+- `Apollo`
+- `CSS-in-Reason`
+
+Built with `Hasura` on `Heroku` and `Netlify`.
+
+The project is showcasing an example app built with a design system in `ReasonML`.
+
+## Roadmap
+
+The project is continuously developed and improved, many features are about to land, including:
+
+- edit / delete citations,
+- filter by author,
+- permalink to a specific citation,
+  etc.
+
+Contributions and feature requests are very welcome! Feel free to submit an issue here on [github](https://github.com/MargaretKrutikova/re-cite/issues).
+
 ## Run Project
 
 ```sh
 npm install
 npm start
 # in another tab
-npm run webpack
+npm run server
 ```
-
-After you see the webpack compilation succeed (the `npm run webpack` step), open up `build/index.html` (**no server needed!**). Then modify whichever `.re` file in `src` and refresh the page to see the changes.
-
-**For more elaborate ReasonReact examples**, please see https://github.com/reasonml-community/reason-react-example
-
-## Run Project with Server
-
-To run with the webpack development server run `npm run server` and view in the browser at http://localhost:8000. Running in this environment provides hot reloading and support for routing; just edit and save the file and the browser will automatically refresh.
-
-Note that any hot reload on a route will fall back to the root (`/`), so `ReasonReact.Router.dangerouslyGetInitialUrl` will likely be needed alongside the `ReasonReact.Router.watchUrl` logic to handle routing correctly on hot reload refreshes or simply opening the app at a URL that is not the root.
-
-To use a port other than 8000 set the `PORT` environment variable (`PORT=8080 npm run server`).
-
-## Build for Production
-
-```sh
-npm run clean
-npm run build
-npm run webpack:production
-```
-
-This will replace the development artifact `build/Index.js` for an optimized version as well as copy `src/index.html` into `build/`. You can then deploy the contents of the `build` directory (`index.html` and `Index.js`).
-
-If you make use of routing (via `ReasonReact.Router` or similar logic) ensure that server-side routing handles your routes or that 404's are directed back to `index.html` (which is how the dev server is set up).
-
-**To enable dead code elimination**, change `bsconfig.json`'s `package-specs` `module` from `"commonjs"` to `"es6"`. Then re-run the above 2 commands. This will allow Webpack to remove unused code.
