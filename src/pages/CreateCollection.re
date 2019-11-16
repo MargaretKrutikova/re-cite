@@ -37,7 +37,7 @@ let make = () => {
   let (collectionName, setCollectionName) = React.useState(() => "");
 
   let create = () => {
-    let slug = collectionName |> Utils.slugify;
+    let slug = collectionName |> Slug.make;
     let variables =
       Mutations.CreateCollection.make(~name=collectionName, ~slug, ())##variables;
 
@@ -55,12 +55,12 @@ let make = () => {
     |> ignore;
   };
 
-  let nameIsValid = collectionName |> Utils.slugify != "";
+  let nameIsValid = collectionName |> Slug.make != "";
   let nameIsAvailable =
     switch (nameIsValid, collectionsResult) {
     | (false, _) => true
     | (true, Data(data)) =>
-      let slug = collectionName |> Utils.slugify;
+      let slug = collectionName |> Slug.make;
       !data##collections->Belt.Array.some(c => c##slug == slug);
     | _ => false
     };
