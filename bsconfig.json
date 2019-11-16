@@ -3,10 +3,16 @@
   "reason": {
     "react-jsx": 3
   },
-  "sources": {
-    "dir": "src",
-    "subdirs": true
-  },
+  "sources": [
+    {
+      "dir": "src",
+      "subdirs": true
+    },
+    {
+      "dir": "__tests__",
+      "type": "dev"
+    }
+  ],
   "package-specs": [
     {
       "module": "es6",
@@ -21,7 +27,8 @@
     "bs-css",
     "bs-webapi",
     "reason-apollo-hooks",
-    "reason-apollo"
+    "reason-apollo",
+    "@glennsl/bs-jest"
   ],
   "refmt": 3
 }

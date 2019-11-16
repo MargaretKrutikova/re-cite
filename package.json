@@ -5,8 +5,9 @@
     "build": "bsb -make-world",
     "start": "bsb -make-world -w",
     "clean": "bsb -clean-world",
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "npm run build && jest --coverage && npm run coverage",
     "webpack": "webpack -w",
+    "watch:jest": "npm run build && jest --coverage --watchAll",
     "webpack:production": "NODE_ENV=production webpack",
     "add_redirects": "echo '/* /index.html 200' >./build/_redirects",
     "deploy:netlify": "npm run clean && npm run build && npm run webpack:production && npm run add_redirects",
@@ -30,9 +31,10 @@
     "reason-react": ">=0.7.0"
   },
   "devDependencies": {
+    "@glennsl/bs-jest": "^0.4.9",
     "bs-platform": "^5.0.6",
-    "graphql_ppx": "^0.2.8",
     "css-loader": "^3.2.0",
+    "graphql_ppx": "^0.2.8",
     "html-webpack-plugin": "^3.2.0",
     "style-loader": "^1.0.0",
     "webpack": "^4.0.1",
