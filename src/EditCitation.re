@@ -1,5 +1,19 @@
 open DesignSystem;
 open Utils;
+open Types;
+
+module Fragment = [%graphql
+  {|
+  fragment Collection on collections {
+    id
+    slug
+    authors @bsRecord {
+      id
+      name
+    }
+  }
+  |}
+];
 
 module Classes = {
   open Css;
@@ -51,36 +65,21 @@ let isValid = state =>
   state.text != "" && state.authorName != "" && state.date != "";
 
 [@react.component]
-let make =
-    (
-      ~citation,
-      ~authors: array(Types.author),
-      ~collectionId,
-      ~slug,
-      ~onSaved,
-    ) => {
+let make = (~citation, ~collection, ~onSaved, ~refetchQueries) => {
   let (state, dispatch) =
     React.useReducer(reducer, getInitialState(citation));
 
-  let (mutation, _simple, full) =
-    CitationMutation.use(
-      ~refetchQueries=
-        _ => {
-          let query = Queries.GetCollection.make(~slug, ());
-          [|ReasonApolloHooks.Utils.toQueryObj(query)|];
-        },
-      (),
-    );
+  let (mutation, _simple, full) = CitationMutation.use(~refetchQueries, ());
 
   let save = () => {
     let variables =
-      Mutations.EditCitation.make(
-        ~collectionId,
+      Mutations.EditCitation.makeVariables(
+        ~collectionId=collection##id,
         ~text=state.text,
         ~authorName=state.authorName,
         ~date=state.date |> Js.Json.string,
         (),
-      )##variables;
+      );
 
     mutation(~variables, ())
     |> Js.Promise.(
@@ -107,7 +106,7 @@ let make =
       onChange={e => dispatch(UpdateText(getInputValue(e)))}
     />
     <AuthorPicker
-      authors
+      authors=collection##authors
       authorName={state.authorName}
       onChange={e => dispatch(UpdateAuthor(getInputValue(e)))}
     />
