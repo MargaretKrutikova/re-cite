@@ -18,14 +18,13 @@ module Classes = {
 let make = () => {
   Styles.injectGlobal();
   let url = ReasonReactRouter.useUrl();
-  let (theme, toggleTheme) = ThemeContext.useTheme();
   Styles.useToggleBodyTheme();
 
   switch (url.path |> Route.fromUrl) {
   | Collection(slug, route) => <Collection slug route />
   | other =>
     <>
-      <Header toggleTheme theme header=Header.Default />
+      <Header header=Header.Default />
       <main className=Container.Styles.root>
         <div className=Classes.root>
           {switch (other) {

@@ -51,7 +51,7 @@ let make = (~route, ~slug) => {
   let (theme, toggleTheme) = ThemeContext.useTheme();
 
   <div className={Classes.root()}>
-    <Header header theme toggleTheme />
+    <Header header />
     <main className={Css.merge([Container.Styles.root, Classes.main])}>
       {switch (simple) {
        | Loading => <p> {React.string("Loading...")} </p>

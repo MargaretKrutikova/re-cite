@@ -78,7 +78,9 @@ type header =
   | Collection(collectionHeader);
 
 [@react.component]
-let make = (~toggleTheme, ~theme, ~header) => {
+let make = (~header) => {
+  let (theme, toggleTheme) = ThemeContext.useTheme();
+
   <header className={Classes.root()}>
     <Container className=Classes.container>
       <Logo />

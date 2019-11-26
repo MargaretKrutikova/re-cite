@@ -1,5 +1,6 @@
 type collectionRoute =
-  | Citations;
+  | Citations
+  | CitationById(string);
 
 type t =
   | Home
@@ -12,6 +13,7 @@ let fromUrl =
   | [] => Home
   | ["collections", "new"] => CreateCollection
   | [slug, "citations"] => Collection(slug, Citations)
+  | [slug, "citation", id] => Collection(slug, CitationById(id))
   | _ => NotFound;
 
 let toUrl =
@@ -20,6 +22,8 @@ let toUrl =
   | CreateCollection => "/collections/new"
   | Collection(collectionName, Citations) =>
     "/" ++ collectionName ++ "/citations"
+  | Collection(collectionName, CitationById(id)) =>
+    "/" ++ collectionName ++ "/citation/" ++ id
   | NotFound => "/404";
 
 let push = route => route |> toUrl |> ReasonReactRouter.push;
