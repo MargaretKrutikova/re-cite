@@ -1,5 +1,15 @@
 open DesignSystem;
 
+module GetAllCollectionSlugs = [%graphql
+  {|
+  query {
+    collections {
+      slug
+    }
+  }
+|}
+];
+
 module Classes = {
   open Css;
   let root = style([textAlign(center)]);
@@ -15,20 +25,19 @@ module Classes = {
   let btn = style([alignSelf(`flexEnd)]);
 };
 
-module GetAllCollectionSlugs =
-  ReasonApolloHooks.Query.Make(Queries.GetAllCollectionSlugs);
+module GetAlllugsQuery = ReasonApolloHooks.Query.Make(GetAllCollectionSlugs);
 
 module CreateCollectionMutation =
   ReasonApolloHooks.Mutation.Make(Mutations.CreateCollection);
 
 [@react.component]
 let make = () => {
-  let (collectionsResult, _) = GetAllCollectionSlugs.use();
+  let (collectionsResult, _) = GetAlllugsQuery.use();
   let (mutation, mutationResult, _) =
     CreateCollectionMutation.use(
       ~refetchQueries=
         _ => {
-          let query = Queries.GetAllCollectionSlugs.make();
+          let query = GetAllCollectionSlugs.make();
           [|ReasonApolloHooks.Utils.toQueryObj(query)|];
         },
       (),
