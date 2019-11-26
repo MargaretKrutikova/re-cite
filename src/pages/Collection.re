@@ -63,6 +63,15 @@ let make = (~route, ~slug) => {
   <div className={Classes.root()}>
     <Header header />
     <main className={Css.merge([Container.Styles.root, Classes.main])}>
+      {switch (route) {
+       | Route.Citations => <CitationsPage slug />
+       | Route.CitationById(stringId) =>
+         switch (int_of_string(stringId)) {
+         | exception _ =>
+           <Text> {React.string("The citation is not found")} </Text>
+         | id => <CitationPage slug id />
+         }
+       }}
       {switch (simple) {
        | Data(data) =>
          switch (data##collections) {
