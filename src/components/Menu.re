@@ -134,6 +134,7 @@ module MenuItem = {
       backgroundColor(
         isSelected ? `rgba((0, 0, 0, 0.4)) : `BodyBg1 |> Styles.useColor,
       ),
+      width(pct(100.0)),
       display(`flex),
       alignItems(center),
       Styles.transition(`component, "all"),
