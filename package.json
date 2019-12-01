@@ -24,8 +24,10 @@
     "bs-css": "^10.0.1",
     "bs-webapi": "^0.15.5",
     "react": "^16.8.1",
+    "react-copy-to-clipboard": "^5.0.2",
     "react-dom": "^16.8.1",
     "react-feather": "^2.0.3",
+    "react-toastify": "^5.4.1",
     "reason-apollo": "^0.17.0",
     "reason-apollo-hooks": "^2.7.0",
     "reason-react": ">=0.7.0"
