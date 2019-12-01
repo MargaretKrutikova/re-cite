@@ -30,12 +30,14 @@ module Classes = {
       width(px(20)),
       marginRight(`xs |> Styles.space),
       color(`Primary |> Styles.useColor),
+      flexShrink(0.0),
     ]);
 };
 
 [@react.component]
-let make = (~text, ~author, ~date) => {
+let make = (~text, ~author, ~date, ~slug, ~id) => {
   let iconStyle = Classes.menuIcon();
+  let citationUrl = Route.toUrl(Collection(slug, CitationById(id)));
 
   <Card>
     <div className=Classes.citationText> {str(text)} </div>
@@ -51,12 +53,27 @@ let make = (~text, ~author, ~date) => {
             <ReactFeather.ChevronDownIcon />
           </Button>
         }
-        renderOptions={() =>
+        renderOptions={toggle =>
           <React.Fragment>
-            <Menu.MenuItem>
-              <ReactFeather.LinkIcon className=iconStyle />
-              {str("Copy link")}
-            </Menu.MenuItem>
+            <CopyToClipboard
+              text=citationUrl
+              onCopy={() => {
+                toggle();
+                ReactToastify.toast("Copied!");
+              }}>
+              <Menu.MenuItem>
+                <ReactFeather.LinkIcon className=iconStyle />
+                {str("Copy link")}
+              </Menu.MenuItem>
+            </CopyToClipboard>
+            <Menu.MenuItem.Link
+              href=citationUrl
+              newTab=true
+              variant=`Text
+              onClick={_ => toggle()}>
+              <ReactFeather.ExternalLinkIcon className=iconStyle />
+              {str("Go to link")}
+            </Menu.MenuItem.Link>
           </React.Fragment>
         }
       />

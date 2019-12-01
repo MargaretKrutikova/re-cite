@@ -45,10 +45,12 @@ let make = (~slug) => {
       | array =>
         array->Belt.Array.map(citation =>
           <Citation
+            slug
             key={citation.id |> string_of_int}
             text={citation.text}
             author={citation.author.name}
             date={citation.added->Belt.Option.getWithDefault("")}
+            id={citation.id |> string_of_int}
           />
         )
         |> React.array

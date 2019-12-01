@@ -162,3 +162,18 @@ module LinkIcon = {
     React.element =
     "default";
 };
+
+module ExternalLinkIcon = {
+  [@bs.module "react-feather/dist/icons/external-link.js"] [@react.component]
+  external make:
+    (
+      ~color: string=?,
+      ~disabled: bool=?,
+      ~onClick: 'c=?,
+      ~size: string=?,
+      ~className: string=?,
+      unit
+    ) =>
+    React.element =
+    "default";
+};
