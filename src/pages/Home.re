@@ -67,7 +67,7 @@ let make = () => {
        )}
       <Link
         href="https://github.com/margaretkrutikova/re-cite/issues" newTab=true>
-        "github"
+        {React.string("github")}
       </Link>
       {str(".")}
     </Text>

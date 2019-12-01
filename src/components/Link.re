@@ -1,30 +1,53 @@
 open DesignSystem;
 
+type variant = [ | `Link | `Text];
+
 module Classes = {
   open Css;
 
-  let root = () => {
+  let root = variant => {
+    let variantStyles =
+      switch (variant) {
+      | `Link => [
+          textDecoration(`underline),
+          color(`PrimaryQuiet |> Styles.useColor),
+          transition(~duration=200, "color"),
+          hover([color(`Primary |> Styles.useColor)]),
+          active([opacity(0.5)]),
+        ]
+      | `Text => [
+          textDecoration(`none),
+          unsafe("color", "inherit"),
+          hover([unsafe("color", "inherit")]),
+        ]
+      };
+
     style([
-      display(`inline),
+      display(`flex),
+      alignItems(center),
       cursor(`pointer),
       borderStyle(`none),
-      textDecoration(`underline),
-      color(`PrimaryQuiet |> Styles.useColor),
-      transition(~duration=200, "color"),
-      hover([color(`Primary |> Styles.useColor)]),
-      active([opacity(0.5)]),
+      ...variantStyles,
     ]);
   };
 };
 
 [@react.component]
-let make = (~href, ~onClick=ignore, ~newTab=false, ~children) => {
+let make =
+    (
+      ~href,
+      ~variant=`Link,
+      ~onClick=ignore,
+      ~className="",
+      ~newTab=false,
+      ~children,
+    ) => {
   <a
     href
     onClick
-    className={Classes.root()}
+    className={Classes.root(variant) ++ " " ++ className}
     target={newTab ? "_blank" : "_self"}
     rel="noopener noreferrer">
-    children->React.string
+    children
   </a>;
 };

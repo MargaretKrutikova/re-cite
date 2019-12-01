@@ -118,7 +118,7 @@ let make = (~renderTrigger, ~renderOptions, ~align=`Center) => {
     {state.isOpen
        ? <div className=Clases.optionsContainer>
            <div className=triangleStyles />
-           <div className=optionsStyle> {renderOptions()} </div>
+           <div className=optionsStyle> {renderOptions(toggleOpen)} </div>
          </div>
        : ReasonReact.null}
   </div>;
@@ -150,5 +150,23 @@ module MenuItem = {
   [@react.component]
   let make = (~onClick=?, ~selected=false, ~children) => {
     <div ?onClick className={itemStyle(selected)}> children </div>;
+  };
+
+  module Link = {
+    [@react.component]
+    let make =
+        (
+          ~href,
+          ~variant=`Link,
+          ~onClick=?,
+          ~className="",
+          ~newTab,
+          ~selected=false,
+          ~children,
+        ) => {
+      <Link ?onClick href variant newTab className={itemStyle(selected)}>
+        children
+      </Link>;
+    };
   };
 };
