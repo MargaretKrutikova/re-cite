@@ -1,5 +1,11 @@
 module Tokens = {
-  type backgroundColor = [ | `BodyBg1 | `BodyBg2 | `InputBg | `CardBg];
+  type backgroundColor = [
+    | `BodyBg1
+    | `BodyBg2
+    | `InputBg
+    | `CardBg
+    | `Overlay
+  ];
 
   type textColor = [ | `BodyText | `SecondaryText];
 
@@ -11,6 +17,7 @@ module Tokens = {
     | `Placeholder
     | `Error
     | `Disabled
+    | `Border
     | backgroundColor
     | textColor
   ];
@@ -88,6 +95,7 @@ module Theme = {
     | `PrimaryQuiet => Green.dark1
     | `Secondary => DarkBlue.light4
     | `Neutral => Gray.light1
+    | `Border => Gray.light1
     | `Placeholder => Gray.dark1
     | `Error => Red.main
     | `Disabled => Gray.main
@@ -97,6 +105,7 @@ module Theme = {
     | `InputBg => White.main
     | `BodyText => DarkBlue.dark1
     | `SecondaryText => DarkBlue.light1
+    | `Overlay => Colors.Overlay.dark
     };
   };
 
@@ -106,6 +115,7 @@ module Theme = {
     | `PrimaryQuiet => Green.light1
     | `Secondary => DarkBlue.light1
     | `Neutral => Gray.light1
+    | `Border => Gray.dark1
     | `Placeholder => Gray.dark1
     | `Error => Red.main
     | `Disabled => Gray.dark2
@@ -115,6 +125,7 @@ module Theme = {
     | `InputBg => DarkBlue.dark1
     | `BodyText => DarkBlue.light5
     | `SecondaryText => DarkBlue.light4
+    | `Overlay => Colors.Overlay.light
     };
   };
 
@@ -156,16 +167,8 @@ module Styles = {
 
   let color = (token, theme: ThemeContext.theme) => {
     switch (theme) {
-    | Dark =>
-      switch (token) {
-      | `Overlay => Colors.Overlay.light
-      | #Tokens.color as c => `hex(c |> Theme.darkPalette)
-      }
-    | Light =>
-      switch (token) {
-      | `Overlay => Colors.Overlay.dark
-      | #Tokens.color as c => `hex(c |> Theme.lightPalette)
-      }
+    | Dark => token |> Theme.darkPalette
+    | Light => token |> Theme.lightPalette
     };
   };
 
@@ -198,45 +201,29 @@ module Styles = {
     );
   };
 
-  let injectGlobal = () => {
-    Css.global(
-      "body",
-      [transition(`theme, "background-color, color"), ...font(`base)],
-    );
-
-    Css.global(
-      ".dark-theme",
-      [
-        Css.backgroundColor(color(`BodyBg1, Dark)),
-        Css.color(color(`BodyText, Dark)),
-      ],
-    );
-
-    Css.global(
-      ".light-theme",
-      [
-        Css.backgroundColor(color(`BodyBg1, Light)),
-        Css.color(color(`BodyText, Light)),
-      ],
-    );
-
-    Css.(
-      global(
-        ".block-scroll",
-        [width(pct(100.0)), height(pct(100.0)), overflow(hidden)],
-      )
-    );
-  };
-
   let toggleBodyScroll = (~disableScroll) => {
     let toggle =
       disableScroll ? DomUtils.addBodyClass : DomUtils.removeBodyClass;
     toggle("block-scroll");
   };
 
+  let withOpacity = (opacity, color) =>
+    switch (color) {
+    | `rgb(r, g, b) => `rgba((r, g, b, opacity))
+    | `rgba(r, g, b, _) => `rgba((r, g, b, opacity))
+    };
+
   let useColor = (token: [ Tokens.color | `Overlay]) => {
     let (theme, _) = ThemeContext.useTheme();
     color(token, theme);
+  };
+
+  let useBoxShadow = () => {
+    let (theme, _) = ThemeContext.useTheme();
+    switch (theme) {
+    | Dark => `rgba((242, 242, 242, 0.0)) // Temp remove all box shadow from dark mode
+    | Light => `rgba((19, 41, 104, 0.2))
+    };
   };
 
   let useToggleBodyTheme = () => {

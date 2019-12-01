@@ -41,7 +41,7 @@ module SidebarHeader = {
     <div className=Classes.header>
       <Button
         className=Classes.closeButton
-        variant=`Ghost
+        variant=`Text
         onClick={_ => onClose()}
         icon=true>
         <ReactFeather.CloseIcon />

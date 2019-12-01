@@ -29,5 +29,6 @@ let make = () => {
 
   <ThemeContext.Provider value=(theme, toggleTheme)>
     <Page />
+    <ToastContainer />
   </ThemeContext.Provider>;
 };

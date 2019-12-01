@@ -46,6 +46,8 @@ let make =
                ])
              )
              icon=true
+             variant=`Contained
+             color=`Primary
              onClick={_ => setIsInputMode(_ => true)}>
              <ReactFeather.PlusIcon />
            </Button>

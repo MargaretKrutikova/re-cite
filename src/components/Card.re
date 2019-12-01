@@ -8,17 +8,13 @@ module Classes = {
       backgroundColor(`CardBg |> Styles.useColor),
       marginBottom(`md |> Styles.space),
       padding2(~v=`md |> Styles.space, ~h=`md |> Styles.space),
+      position(`relative),
       media(
         Breakpoint.up(`sm),
         [padding2(~v=`lg |> Styles.space, ~h=`lg |> Styles.space)],
       ),
       boxShadow(
-        Shadow.box(
-          ~x=px(0),
-          ~y=px(2),
-          ~blur=px(5),
-          rgba(19, 41, 104, 0.2) // TODO: put in design system
-        ),
+        Shadow.box(~x=px(0), ~y=px(2), ~blur=px(5), Styles.useBoxShadow()),
       ),
       Styles.borderRadius(`base),
     ]);

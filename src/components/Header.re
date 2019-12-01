@@ -43,12 +43,12 @@ module ThemeSwitch = {
     <div className=Classes.themeSwitch>
       <Switch activeSide>
         <Switch.Button isActive={theme == ThemeContext.Dark}>
-          <Button variant=`Ghost onClick={_ => toggleTheme()} icon=true>
+          <Button variant=`None onClick={_ => toggleTheme()} icon=true>
             <ReactFeather.MoonIcon />
           </Button>
         </Switch.Button>
         <Switch.Button isActive={theme == ThemeContext.Light}>
-          <Button variant=`Ghost onClick={_ => toggleTheme()} icon=true>
+          <Button variant=`None onClick={_ => toggleTheme()} icon=true>
             <ReactFeather.SunIcon />
           </Button>
         </Switch.Button>
@@ -78,7 +78,9 @@ type header =
   | Collection(collectionHeader);
 
 [@react.component]
-let make = (~toggleTheme, ~theme, ~header) => {
+let make = (~header) => {
+  let (theme, toggleTheme) = ThemeContext.useTheme();
+
   <header className={Classes.root()}>
     <Container className=Classes.container>
       <Logo />
@@ -86,7 +88,11 @@ let make = (~toggleTheme, ~theme, ~header) => {
       {switch (header) {
        | Default => React.null
        | Collection({onAdd, canAdd}) =>
-         <Button disabled={!canAdd} variant=`Primary onClick={_ => onAdd()}>
+         <Button
+           disabled={!canAdd}
+           variant=`Contained
+           color=`Primary
+           onClick={_ => onAdd()}>
            {React.string("Add")}
          </Button>
        }}

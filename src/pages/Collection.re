@@ -1,6 +1,16 @@
 open DesignSystem;
 open Types;
 
+module GetPageData = [%graphql
+  {|
+  query($slug: String!) {
+    collections(where: {slug: {_eq: $slug}}) {
+      ...EditCitation.Fragment.Collection
+    }
+  }
+|}
+];
+
 module Classes = {
   let main =
     Css.(
@@ -36,52 +46,60 @@ let reducer = (_, action) => {
 
 let initialState = {showSidebar: false, citationUnderEdit: None};
 
-module CollectionQuery = ReasonApolloHooks.Query.Make(Queries.GetCollection);
+module PageQuery = ReasonApolloHooks.Query.Make(GetPageData);
 
 [@react.component]
 let make = (~route, ~slug) => {
-  let variables = Queries.GetCollection.make(~slug, ())##variables;
-  let (simple, full) = CollectionQuery.use(~variables, ());
+  let variables = GetPageData.make(~slug, ())##variables;
+
+  let (simple, full) = PageQuery.use(~variables, ());
 
   let (state, dispatch) = React.useReducer(reducer, initialState);
   let canAdd = full.data->Belt.Option.isSome;
 
   let header =
     Header.Collection({canAdd, onAdd: _ => dispatch(OpenSidebar(None))});
-  let (theme, toggleTheme) = ThemeContext.useTheme();
 
   <div className={Classes.root()}>
-    <Header header theme toggleTheme />
+    <Header header />
     <main className={Css.merge([Container.Styles.root, Classes.main])}>
+      {switch (route) {
+       | Route.Citations => <CitationsPage slug />
+       | Route.CitationById(stringId) =>
+         switch (int_of_string(stringId)) {
+         | exception _ =>
+           <Text> {React.string("The citation is not found")} </Text>
+         | id => <CitationPage slug id />
+         }
+       }}
       {switch (simple) {
-       | Loading => <p> {React.string("Loading...")} </p>
        | Data(data) =>
          switch (data##collections) {
-         | [||] =>
-           Route.push(NotFound);
-           React.null;
-
          | [|collection|] =>
            <>
              <Sidebar
                show={state.showSidebar} onClose={_ => dispatch(CloseSidebar)}>
                <EditCitation
                  citation={state.citationUnderEdit}
-                 collectionId={collection.id}
-                 slug={collection.slug}
-                 authors={collection.authors}
+                 collection
                  onSaved={() => dispatch(CloseSidebar)}
+                 refetchQueries={_ =>
+                   [|
+                     ReasonApolloHooks.Utils.toQueryObj(
+                       CitationsPage.GetCitations.make(~slug, ()),
+                     ),
+                   |]
+                 }
                />
              </Sidebar>
-             {switch (route) {
-              | Route.Citations =>
-                <Citations citations={collection.citations} />
-              }}
            </>
          | _ => React.null // Should never happen :)
          }
        | NoData
-       | Error(_) => <p> {React.string("Error")} </p>
+       | Loading => React.null
+       | Error(e) =>
+         Js.log(e);
+         React.null;
        }}
     </main>
   </div>;

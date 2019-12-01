@@ -19,7 +19,7 @@
       "in-source": true
     }
   ],
-  "ppx-flags": ["graphql_ppx/ppx"],
+  "ppx-flags": ["@baransu/graphql_ppx_re/ppx"],
   "suffix": ".bs.js",
   "namespace": true,
   "bs-dependencies": [

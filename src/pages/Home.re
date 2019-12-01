@@ -54,7 +54,10 @@ let make = () => {
       {str("Create a collection and start adding citations right now.")}
     </Text>
     <Button
-      gutter=`xl variant=`Primary onClick={_ => Route.push(CreateCollection)}>
+      gutter=`xl
+      color=`Primary
+      variant=`Contained
+      onClick={_ => Route.push(CreateCollection)}>
       {str("Get started")}
     </Button>
     <Text size=`Small variant=`Secondary>
@@ -64,7 +67,7 @@ let make = () => {
        )}
       <Link
         href="https://github.com/margaretkrutikova/re-cite/issues" newTab=true>
-        "github"
+        {React.string("github")}
       </Link>
       {str(".")}
     </Text>
