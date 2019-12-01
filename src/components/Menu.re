@@ -8,7 +8,7 @@ module Styles = {
   open Css;
 
   let triangleWidthPx = 9;
-  let alignShiftPx = 6;
+  let alignShiftPx = Theme.space(`sm);
   let optionsTopPx = Theme.space(`sm);
   let minWidthPx = 150;
 
@@ -38,7 +38,7 @@ module Styles = {
         position(absolute),
         top(px(0)),
         minWidth(px(minWidthPx)),
-        padding2(~h=px(0), ~v=`sm |> Styles.space),
+        padding2(~h=px(0), ~v=`xs |> Styles.space),
         border(px(1), solid, `Border |> Styles.useColor),
         background(`BodyBg1 |> Styles.useColor),
         marginTop(px(optionsTopPx)),
@@ -122,4 +122,28 @@ let make = (~renderTrigger, ~renderOptions, ~align=`Center) => {
          </div>
        : ReasonReact.null}
   </div>;
+};
+
+module MenuItem = {
+  open Css;
+
+  let itemStyle = isSelected =>
+    style([
+      padding2(
+        ~h=`sm |> DesignSystem.Styles.space,
+        ~v=`xs |> DesignSystem.Styles.space,
+      ),
+      backgroundColor(isSelected ? `rgba((0, 0, 0, 0.4)) : transparent),
+      hover([
+        background(
+          isSelected ? `rgba((0, 0, 0, 0.4)) : `rgba((0, 0, 0, 0.1)),
+        ),
+      ]),
+      ...`sm |> DesignSystem.Styles.font,
+    ]);
+
+  [@react.component]
+  let make = (~onClick=?, ~selected=false, ~children) => {
+    <div ?onClick className={itemStyle(selected)}> children </div>;
+  };
 };
