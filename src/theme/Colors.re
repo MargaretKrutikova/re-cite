@@ -1,40 +1,40 @@
 module DarkBlue = {
-  let main = "4a5568";
+  let main = `rgb((74, 85, 104));
 
-  let dark1 = "353d4a";
-  let dark2 = "272c36";
-  let dark3 = "20242c";
+  let dark1 = `rgb((53, 61, 74));
+  let dark2 = `rgb((39, 44, 54));
+  let dark3 = `rgb((32, 36, 44));
 
-  let light1 = "667590";
-  let light2 = "8290a6";
-  let light3 = "96a1b5";
-  let light4 = "b4bcca";
-  let light5 = "f0f1f4";
+  let light1 = `rgb((102, 117, 144));
+  let light2 = `rgb((130, 144, 166));
+  let light3 = `rgb((150, 161, 181));
+  let light4 = `rgb((180, 188, 202));
+  let light5 = `rgb((240, 241, 244));
 };
 
 module Green = {
-  let main = "1bb38f";
-  let dark1 = "127C63";
+  let main = `rgb((27, 179, 143));
+  let dark1 = `rgb((18, 124, 99));
 
-  let light1 = "20D1A7";
+  let light1 = `rgb((32, 209, 167));
 };
 
 module White = {
-  let main = "fff";
+  let main = `rgb((255, 255, 255));
 };
 
 module Red = {
-  let main = "f44336";
+  let main = `rgb((244, 67, 54));
 };
 
 module Gray = {
-  let main = "C8C8C8";
+  let main = `rgb((200, 200, 200));
 
-  let light1 = "DCDCDC";
-  let light2 = "F2F2F2";
+  let light1 = `rgb((220, 220, 220));
+  let light2 = `rgb((242, 242, 242));
 
-  let dark1 = "A4A4A4";
-  let dark2 = "787878";
+  let dark1 = `rgb((164, 164, 164));
+  let dark2 = `rgb((120, 120, 120));
 };
 
 module Overlay = {

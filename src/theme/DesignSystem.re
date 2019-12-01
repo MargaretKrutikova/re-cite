@@ -1,5 +1,11 @@
 module Tokens = {
-  type backgroundColor = [ | `BodyBg1 | `BodyBg2 | `InputBg | `CardBg];
+  type backgroundColor = [
+    | `BodyBg1
+    | `BodyBg2
+    | `InputBg
+    | `CardBg
+    | `Overlay
+  ];
 
   type textColor = [ | `BodyText | `SecondaryText];
 
@@ -97,6 +103,7 @@ module Theme = {
     | `InputBg => White.main
     | `BodyText => DarkBlue.dark1
     | `SecondaryText => DarkBlue.light1
+    | `Overlay => Colors.Overlay.dark
     };
   };
 
@@ -115,6 +122,7 @@ module Theme = {
     | `InputBg => DarkBlue.dark1
     | `BodyText => DarkBlue.light5
     | `SecondaryText => DarkBlue.light4
+    | `Overlay => Colors.Overlay.light
     };
   };
 
@@ -156,16 +164,8 @@ module Styles = {
 
   let color = (token, theme: ThemeContext.theme) => {
     switch (theme) {
-    | Dark =>
-      switch (token) {
-      | `Overlay => Colors.Overlay.light
-      | #Tokens.color as c => `hex(c |> Theme.darkPalette)
-      }
-    | Light =>
-      switch (token) {
-      | `Overlay => Colors.Overlay.dark
-      | #Tokens.color as c => `hex(c |> Theme.lightPalette)
-      }
+    | Dark => token |> Theme.darkPalette
+    | Light => token |> Theme.lightPalette
     };
   };
 
@@ -223,7 +223,12 @@ module Styles = {
     Css.(
       global(
         ".block-scroll",
-        [width(pct(100.0)), height(pct(100.0)), overflow(hidden)],
+        [
+          width(pct(100.0)),
+          height(pct(100.0)),
+          overflow(hidden),
+          paddingRight(px(15)),
+        ],
       )
     );
   };
@@ -237,6 +242,14 @@ module Styles = {
   let useColor = (token: [ Tokens.color | `Overlay]) => {
     let (theme, _) = ThemeContext.useTheme();
     color(token, theme);
+  };
+
+  let useBoxShadow = () => {
+    let (theme, _) = ThemeContext.useTheme();
+    switch (theme) {
+    | Dark => `rgba((242, 242, 242, 0.2))
+    | Light => `rgba((19, 41, 104, 0.2))
+    };
   };
 
   let useToggleBodyTheme = () => {
