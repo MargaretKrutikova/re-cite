@@ -17,6 +17,7 @@ module Tokens = {
     | `Placeholder
     | `Error
     | `Disabled
+    | `Border
     | backgroundColor
     | textColor
   ];
@@ -94,6 +95,7 @@ module Theme = {
     | `PrimaryQuiet => Green.dark1
     | `Secondary => DarkBlue.light4
     | `Neutral => Gray.light1
+    | `Border => Gray.light1
     | `Placeholder => Gray.dark1
     | `Error => Red.main
     | `Disabled => Gray.main
@@ -113,6 +115,7 @@ module Theme = {
     | `PrimaryQuiet => Green.light1
     | `Secondary => DarkBlue.light1
     | `Neutral => Gray.light1
+    | `Border => Gray.dark1
     | `Placeholder => Gray.dark1
     | `Error => Red.main
     | `Disabled => Gray.dark2
@@ -239,6 +242,12 @@ module Styles = {
     toggle("block-scroll");
   };
 
+  let withOpacity = (opacity, color) =>
+    switch (color) {
+    | `rgb(r, g, b) => `rgba((r, g, b, opacity))
+    | `rgba(r, g, b, _) => `rgba((r, g, b, opacity))
+    };
+
   let useColor = (token: [ Tokens.color | `Overlay]) => {
     let (theme, _) = ThemeContext.useTheme();
     color(token, theme);
@@ -247,7 +256,7 @@ module Styles = {
   let useBoxShadow = () => {
     let (theme, _) = ThemeContext.useTheme();
     switch (theme) {
-    | Dark => `rgba((242, 242, 242, 0.2))
+    | Dark => `rgba((242, 242, 242, 0.0)) // Temp remove all box shadow from dark mode
     | Light => `rgba((19, 41, 104, 0.2))
     };
   };

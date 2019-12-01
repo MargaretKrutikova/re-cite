@@ -1,29 +1,65 @@
 open DesignSystem;
-type variant = [ | `Primary | `Secondary | `Ghost];
+type color = [ | `Primary | `Secondary | `Default];
+
+type variant = [ | `Contained | `Text | `Outlined | `None];
 
 type size = [ | `Small | `Medium];
 
 module Classes = {
   open Css;
 
-  let variantStyles = variant => {
-    let (bg_color, text_color) =
-      switch (variant) {
-      | `Primary => (`Primary |> Styles.useColor, `hex("fff"))
-      | `Ghost => (`transparent, `BodyText |> Styles.useColor)
-      | `Secondary => (
-          `Secondary |> Styles.useColor,
-          `BodyText |> Styles.useColor,
-        )
+  let variantStyles = (variant, color) => {
+    let mainColor =
+      switch (color) {
+      | `Primary => `Primary |> Styles.useColor
+      | `Secondary => `Secondary |> Styles.useColor
+      | `Default => `BodyText |> Styles.useColor
       };
 
-    [backgroundColor(bg_color), color(text_color)];
+    let bg_color =
+      switch (variant) {
+      | `Contained => mainColor
+      | _ => `transparent
+      };
+
+    let text_color =
+      switch (variant) {
+      | `None => `BodyText |> Styles.useColor
+      | `Contained => Colors.White.main
+      | `Outlined => mainColor
+      | `Text => mainColor
+      };
+
+    let hover_bg =
+      switch (variant) {
+      | `None => `transparent
+      | `Contained => mainColor |> Styles.withOpacity(0.9)
+      | `Outlined => mainColor |> Styles.withOpacity(0.2)
+      | `Text => mainColor |> Styles.withOpacity(0.2)
+      };
+
+    let border_color =
+      switch (variant) {
+      | `Outlined => Some(mainColor)
+      | _ => None
+      };
+
+    let borderStyle =
+      Belt.Option.mapWithDefault(border_color, [], color =>
+        [border(px(1), `solid, color)]
+      );
+    [
+      backgroundColor(bg_color),
+      Css.color(text_color),
+      selector(":hover:enabled", [backgroundColor(hover_bg)]),
+      ...borderStyle,
+    ];
   };
 
   let sizeStyles = size => {
     let (padding_v, padding_h, font_css) =
       switch (size) {
-      | `Small => (Styles.space(`sm), Styles.space(`xs), Styles.font(`xs))
+      | `Small => (Styles.space(`xxs), Styles.space(`xs), Styles.font(`xs))
       | `Medium => (Styles.space(`xs), Styles.space(`sm), Styles.font(`sm))
       };
 
@@ -54,7 +90,7 @@ module Classes = {
     alignItems(`center),
     justifyContent(`center),
     fullWidth ? width(pct(100.0)) : width(auto),
-    transition(~duration=100, "background-color"),
+    Styles.transition(`component, "all"),
     disabled([
       backgroundColor(`Disabled |> Styles.useColor),
       cursor(`notAllowed),
@@ -66,17 +102,18 @@ module Classes = {
 
   let iconContainer = style([display(`flex)]);
 
-  let button = (~variant, ~size, ~icon, ~fullWidth, ~gutter) =>
+  let button = (~variant, ~color, ~size, ~icon, ~fullWidth, ~gutter) =>
     commonStyles(~icon, ~fullWidth, ~gutter)
     ->List.append(icon ? iconSizeStyle(size) : sizeStyles(size))
-    ->List.append(variantStyles(variant))
+    ->List.append(variantStyles(variant, color))
     |> style;
 };
 
 [@react.component]
 let make =
     (
-      ~variant=`Primary,
+      ~variant=`Text,
+      ~color=`Default,
       ~size=`Medium,
       ~onClick=?,
       ~disabled=?,
@@ -89,7 +126,7 @@ let make =
     ) => {
   let styles =
     Css.merge([
-      Classes.button(~variant, ~size, ~icon, ~fullWidth, ~gutter),
+      Classes.button(~variant, ~color, ~size, ~icon, ~fullWidth, ~gutter),
       className,
     ]);
 
