@@ -56,7 +56,7 @@ let make = (~text, ~author, ~date, ~slug, ~id) => {
         renderOptions={toggle =>
           <React.Fragment>
             <CopyToClipboard
-              text=citationUrl
+              text={citationUrl |> Route.toAbsoluteUrl}
               onCopy={() => {
                 toggle();
                 ReactToastify.toast("Copied!");

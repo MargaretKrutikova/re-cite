@@ -1,3 +1,5 @@
+[@bs.val] external location: string = "window.location.origin";
+
 type collectionRoute =
   | Citations
   | CitationById(string);
@@ -25,5 +27,7 @@ let toUrl =
   | Collection(collectionName, CitationById(id)) =>
     "/" ++ collectionName ++ "/citation/" ++ id
   | NotFound => "/404";
+
+let toAbsoluteUrl = url => location ++ url;
 
 let push = route => route |> toUrl |> ReasonReactRouter.push;
