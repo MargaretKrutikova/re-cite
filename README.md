@@ -15,6 +15,7 @@ A deliberate place for citations — no more notepad, slack messages to yourself
 - simple to use, no login required,
 - create as many collections as you like,
 - add citations to any collection,
+- get permalink to a specific citation,
 - dark mode 😎
 
 ## Tech stack
