@@ -120,7 +120,8 @@ let make = (~citation, ~collection, ~onSaved, ~refetchQueries) => {
     />
     <Button
       fullWidth=true
-      variant=`Primary
+      variant=`Contained
+      color=`Primary
       type_="submit"
       onClick={_ => save()}
       disabled={!isValid(state) || full.loading}>

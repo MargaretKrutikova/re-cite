@@ -8,6 +8,8 @@ module Classes = {
   let citationText =
     style([
       marginBottom(`sm |> Styles.space),
+      paddingTop(`xs |> Styles.space),
+      media(Breakpoint.up(`sm), [paddingTop(px(0))]),
       unsafe("wordBreak", "break-word"),
       whiteSpace(`preWrap),
       ...Styles.font(`base),
