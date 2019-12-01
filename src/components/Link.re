@@ -23,7 +23,7 @@ module Classes = {
       };
 
     style([
-      display(`flex),
+      display(`inlineFlex),
       alignItems(center),
       cursor(`pointer),
       borderStyle(`none),
