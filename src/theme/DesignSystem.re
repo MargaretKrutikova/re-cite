@@ -230,7 +230,7 @@ module Styles = {
           width(pct(100.0)),
           height(pct(100.0)),
           overflow(hidden),
-          paddingRight(px(15)),
+          media(Breakpoint.up(`md), [paddingRight(px(15))]),
         ],
       )
     );

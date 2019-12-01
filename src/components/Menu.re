@@ -4,7 +4,7 @@ let str = ReasonReact.string;
 
 type alignType = [ | `Left | `Right | `Center];
 
-module Styles = {
+module Clases = {
   open Css;
 
   let triangleWidthPx = 9;
@@ -38,7 +38,7 @@ module Styles = {
         position(absolute),
         top(px(0)),
         minWidth(px(minWidthPx)),
-        padding2(~h=px(0), ~v=`xs |> Styles.space),
+        padding2(~h=px(0), ~v=`xxs |> Styles.space),
         border(px(1), solid, `Border |> Styles.useColor),
         background(`BodyBg1 |> Styles.useColor),
         marginTop(px(optionsTopPx)),
@@ -110,13 +110,13 @@ let make = (~renderTrigger, ~renderOptions, ~align=`Center) => {
   let menuRef = ClickOutside.use(_ => dispatch(Close));
   let toggleOpen = _ => dispatch(Toggle);
 
-  let optionsStyle = Styles.options(align);
-  let triangleStyles = Styles.triangle();
+  let optionsStyle = Clases.options(align);
+  let triangleStyles = Clases.triangle();
 
-  <div className=Styles.menu ref={ReactDOMRe.Ref.domRef(menuRef)}>
+  <div className=Clases.menu ref={ReactDOMRe.Ref.domRef(menuRef)}>
     {renderTrigger(toggleOpen)}
     {state.isOpen
-       ? <div className=Styles.optionsContainer>
+       ? <div className=Clases.optionsContainer>
            <div className=triangleStyles />
            <div className=optionsStyle> {renderOptions()} </div>
          </div>
@@ -129,17 +129,22 @@ module MenuItem = {
 
   let itemStyle = isSelected =>
     style([
-      padding2(
-        ~h=`sm |> DesignSystem.Styles.space,
-        ~v=`xs |> DesignSystem.Styles.space,
+      padding2(~h=`md |> Styles.space, ~v=`xs |> Styles.space),
+      cursor(`pointer),
+      backgroundColor(
+        isSelected ? `rgba((0, 0, 0, 0.4)) : `BodyBg1 |> Styles.useColor,
       ),
-      backgroundColor(isSelected ? `rgba((0, 0, 0, 0.4)) : transparent),
+      display(`flex),
+      alignItems(center),
+      Styles.transition(`component, "all"),
       hover([
         background(
-          isSelected ? `rgba((0, 0, 0, 0.4)) : `rgba((0, 0, 0, 0.1)),
+          isSelected
+            ? `rgba((0, 0, 0, 0.4))
+            : `Placeholder |> Styles.useColor |> Styles.withOpacity(0.2),
         ),
       ]),
-      ...`sm |> DesignSystem.Styles.font,
+      ...`sm |> Styles.font,
     ]);
 
   [@react.component]

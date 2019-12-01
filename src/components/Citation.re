@@ -24,10 +24,19 @@ module Classes = {
       top(`xxs |> Styles.space),
       right(`xs |> Styles.space),
     ]);
+
+  let menuIcon = () =>
+    style([
+      width(px(20)),
+      marginRight(`xs |> Styles.space),
+      color(`Primary |> Styles.useColor),
+    ]);
 };
 
 [@react.component]
 let make = (~text, ~author, ~date) => {
+  let iconStyle = Classes.menuIcon();
+
   <Card>
     <div className=Classes.citationText> {str(text)} </div>
     <Flex justify=`spaceBetween align=`end_>
@@ -45,7 +54,7 @@ let make = (~text, ~author, ~date) => {
         renderOptions={() =>
           <React.Fragment>
             <Menu.MenuItem>
-              <ReactFeather.LinkIcon />
+              <ReactFeather.LinkIcon className=iconStyle />
               {str("Copy link")}
             </Menu.MenuItem>
           </React.Fragment>
