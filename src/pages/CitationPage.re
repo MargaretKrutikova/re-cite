@@ -29,6 +29,7 @@ module Classes = {
       borderLeft(`xxs |> Styles.space, `solid, `Primary |> Styles.useColor),
       marginBottom(`xl |> Styles.space),
       paddingLeft(`lg |> Styles.space),
+      marginTop(`lg |> Styles.space),
       media(
         Breakpoint.up(`sm),
         [
@@ -66,12 +67,6 @@ let make = (~slug, ~id) => {
     switch (data##citations) {
     | [||] => <Text> {React.string("No citation found!")} </Text>
     | [|citation|] => <BigCitation citation />
-    // <Citation
-    //   key={citation.id |> string_of_int}
-    //   text={citation.text}
-    //   author={citation.author.name}
-    //   date={citation.added->Belt.Option.getWithDefault("")}
-    // />
     | _ => React.string("Multiple citations exist under the same id")
     }
   };
