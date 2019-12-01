@@ -201,41 +201,6 @@ module Styles = {
     );
   };
 
-  let injectGlobal = () => {
-    Css.global(
-      "body",
-      [transition(`theme, "background-color, color"), ...font(`base)],
-    );
-
-    Css.global(
-      ".dark-theme",
-      [
-        Css.backgroundColor(color(`BodyBg1, Dark)),
-        Css.color(color(`BodyText, Dark)),
-      ],
-    );
-
-    Css.global(
-      ".light-theme",
-      [
-        Css.backgroundColor(color(`BodyBg1, Light)),
-        Css.color(color(`BodyText, Light)),
-      ],
-    );
-
-    Css.(
-      global(
-        ".block-scroll",
-        [
-          width(pct(100.0)),
-          height(pct(100.0)),
-          overflow(hidden),
-          media(Breakpoint.up(`md), [paddingRight(px(15))]),
-        ],
-      )
-    );
-  };
-
   let toggleBodyScroll = (~disableScroll) => {
     let toggle =
       disableScroll ? DomUtils.addBodyClass : DomUtils.removeBodyClass;

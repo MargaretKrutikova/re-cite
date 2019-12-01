@@ -16,7 +16,7 @@ module Classes = {
 
 [@react.component]
 let make = () => {
-  Styles.injectGlobal();
+  GlobalCss.injectGlobal();
   let url = ReasonReactRouter.useUrl();
   Styles.useToggleBodyTheme();
 

@@ -1,4 +1,5 @@
 [%bs.raw {|require("./reset.css")|}];
+[%bs.raw {|require("react-toastify/dist/ReactToastify.css")|}];
 
 let client = GraphqlClient.makeApolloClient();
 
