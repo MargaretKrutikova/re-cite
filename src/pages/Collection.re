@@ -64,7 +64,11 @@ let make = (~route, ~slug) => {
     <Header header />
     <main className={Css.merge([Container.Styles.root, Classes.main])}>
       {switch (route) {
-       | Route.Citations => <CitationsPage slug />
+       | Route.Citations =>
+         <CitationsPage
+           slug
+           onEdit={citation => dispatch(OpenSidebar(Some(citation)))}
+         />
        | Route.CitationById(stringId) =>
          switch (int_of_string(stringId)) {
          | exception _ =>

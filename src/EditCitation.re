@@ -32,6 +32,7 @@ module CitationMutation =
   ReasonApolloHooks.Mutation.Make(Mutations.EditCitation);
 
 type state = {
+  id: option(int),
   text: string,
   authorName: string,
   date: string,
@@ -50,11 +51,18 @@ let reducer = (state, action) => {
   };
 };
 
+let getNewCitation = () => {
+  text: "",
+  authorName: "",
+  date: Js.Date.make() |> toInputDateFormat,
+  id: None,
+};
+
 let getInitialState = citation =>
   citation->Belt.Option.mapWithDefault(
-    {text: "", authorName: "", date: Js.Date.make() |> toInputDateFormat},
-    ({text, added, author}: Types.citation) =>
+    getNewCitation(), ({text, added, author, id}: Types.citation) =>
     {
+      id: Some(id),
       text,
       date: added->Belt.Option.getWithDefault(""),
       authorName: author.name,
@@ -74,6 +82,7 @@ let make = (~citation, ~collection, ~onSaved, ~refetchQueries) => {
   let save = () => {
     let variables =
       Mutations.EditCitation.makeVariables(
+        ~id=?state.id,
         ~collectionId=collection##id,
         ~text=state.text,
         ~authorName=state.authorName,

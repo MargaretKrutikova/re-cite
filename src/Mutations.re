@@ -1,7 +1,8 @@
 module EditCitation = [%graphql
   {|
-  mutation ($text: String!, $collectionId: uuid!, $authorName: String!, $date: date!) {
+  mutation ($id: Int, $text: String!, $collectionId: uuid!, $authorName: String!, $date: date!) {
     insert_citations(objects: {
+      id: $id,
       text: $text,
       collectionId: $collectionId,
       added: $date,
@@ -15,6 +16,10 @@ module EditCitation = [%graphql
           update_columns: name
         }
       }
+    },
+    on_conflict:{
+      constraint: citations_pkey,
+      update_columns: [id, text, authorId, collectionId, added]
     }) {
       returning {
         id
