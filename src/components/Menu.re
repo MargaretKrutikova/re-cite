@@ -137,6 +137,7 @@ module MenuItem = {
       width(pct(100.0)),
       display(`flex),
       alignItems(center),
+      whiteSpace(nowrap),
       Styles.transition(`component, "all"),
       hover([
         background(
