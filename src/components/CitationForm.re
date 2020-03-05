@@ -33,32 +33,12 @@ let reducer = (state, action) => {
   };
 };
 
-type operation =
-  | Updating(Types.citation)
-  | Adding;
-
-let getNewCitation = () => {
-  text: "",
-  authorName: "",
-  date: Js.Date.make() |> toInputDateFormat,
-};
-
-let getFormState =
-  fun
-  | Updating({text, added, author}) => {
-      text,
-      date: added->Belt.Option.getWithDefault(""),
-      authorName: author.name,
-    }
-  | Adding => getNewCitation();
-
 let isValid = state =>
   state.text != "" && state.authorName != "" && state.date != "";
 
 [@react.component]
-let make = (~operation, ~authors, ~onSave, ~isSaving) => {
-  let (state, dispatch) =
-    React.useReducer(reducer, operation |> getFormState);
+let make = (~citation, ~authors, ~onSave, ~isSaving) => {
+  let (state, dispatch) = React.useReducer(reducer, citation);
 
   <form className=Classes.root>
     <div className=Classes.header>

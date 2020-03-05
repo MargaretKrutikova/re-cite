@@ -1,5 +1,11 @@
 module Mutation = ReasonApolloHooks.Mutation.Make(Mutations.AddCitation);
 
+let getNewCitation = (): CitationForm.state => {
+  text: "",
+  authorName: "",
+  date: Js.Date.make() |> Utils.toInputDateFormat,
+};
+
 [@react.component]
 let make = (~collection, ~onSaved, ~refetchQueries) => {
   let (mutation, _simple, full) = Mutation.use(~refetchQueries, ());
@@ -30,7 +36,7 @@ let make = (~collection, ~onSaved, ~refetchQueries) => {
   let authors = collection##authors;
   <CitationForm
     authors
-    operation=CitationForm.Adding
+    citation={getNewCitation()}
     onSave=save
     isSaving={full.loading}
   />;

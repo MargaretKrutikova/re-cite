@@ -3,6 +3,12 @@ open Types;
 module CitationMutation =
   ReasonApolloHooks.Mutation.Make(Mutations.UpdateCitation);
 
+let getCitationToUpdate = ({text, added, author}): CitationForm.state => {
+  text,
+  date: added->Belt.Option.getWithDefault(""),
+  authorName: author.name,
+};
+
 [@react.component]
 let make = (~citation: Types.citation, ~collection, ~onSaved, ~refetchQueries) => {
   let (mutation, _simple, full) = CitationMutation.use(~refetchQueries, ());
@@ -35,7 +41,7 @@ let make = (~citation: Types.citation, ~collection, ~onSaved, ~refetchQueries) =
 
   <CitationForm
     authors
-    operation={CitationForm.Updating(citation)}
+    citation={getCitationToUpdate(citation)}
     onSave=save
     isSaving={full.loading}
   />;
