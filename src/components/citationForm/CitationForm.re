@@ -1,19 +1,5 @@
 open DesignSystem;
 open Utils;
-open Types;
-
-module Fragment = [%graphql
-  {|
-  fragment Collection on collections {
-    id
-    slug
-    authors @bsRecord {
-      id
-      name
-    }
-  }
-  |}
-];
 
 module Classes = {
   open Css;
@@ -28,11 +14,7 @@ module Classes = {
   let gutter = style([marginBottom(`lg |> Styles.space)]);
 };
 
-module CitationMutation =
-  ReasonApolloHooks.Mutation.Make(Mutations.EditCitation);
-
 type state = {
-  id: option(int),
   text: string,
   authorName: string,
   date: string,
@@ -51,57 +33,32 @@ let reducer = (state, action) => {
   };
 };
 
+type operation =
+  | Updating(Types.citation)
+  | Adding;
+
 let getNewCitation = () => {
   text: "",
   authorName: "",
   date: Js.Date.make() |> toInputDateFormat,
-  id: None,
 };
 
-let getInitialState = citation =>
-  citation->Belt.Option.mapWithDefault(
-    getNewCitation(), ({text, added, author, id}: Types.citation) =>
-    {
-      id: Some(id),
+let getFormState =
+  fun
+  | Updating({text, added, author}) => {
       text,
       date: added->Belt.Option.getWithDefault(""),
       authorName: author.name,
     }
-  );
+  | Adding => getNewCitation();
 
 let isValid = state =>
   state.text != "" && state.authorName != "" && state.date != "";
 
 [@react.component]
-let make = (~citation, ~collection, ~onSaved, ~refetchQueries) => {
+let make = (~operation, ~authors, ~onSave, ~isSaving) => {
   let (state, dispatch) =
-    React.useReducer(reducer, getInitialState(citation));
-
-  let (mutation, _simple, full) = CitationMutation.use(~refetchQueries, ());
-
-  let save = () => {
-    let variables =
-      Mutations.EditCitation.makeVariables(
-        ~id=?state.id,
-        ~collectionId=collection##id,
-        ~text=state.text,
-        ~authorName=state.authorName,
-        ~date=state.date |> Js.Json.string,
-        (),
-      );
-
-    mutation(~variables, ())
-    |> Js.Promise.(
-         then_(result => {
-           switch (result) {
-           | ReasonApolloHooks.Mutation.Data(_) => onSaved()
-           | _ => ignore()
-           };
-           resolve();
-         })
-       )
-    |> ignore;
-  };
+    React.useReducer(reducer, operation |> getFormState);
 
   <form className=Classes.root>
     <div className=Classes.header>
@@ -115,7 +72,7 @@ let make = (~citation, ~collection, ~onSaved, ~refetchQueries) => {
       onChange={e => dispatch(UpdateText(getInputValue(e)))}
     />
     <AuthorPicker
-      authors=collection##authors
+      authors
       authorName={state.authorName}
       onChange={e => dispatch(UpdateAuthor(getInputValue(e)))}
     />
@@ -132,8 +89,8 @@ let make = (~citation, ~collection, ~onSaved, ~refetchQueries) => {
       variant=`Contained
       color=`Primary
       type_="submit"
-      onClick={_ => save()}
-      disabled={!isValid(state) || full.loading}>
+      onClick={_ => onSave(state)}
+      disabled={!isValid(state) || isSaving}>
       {React.string("Save citation")}
     </Button>
   </form>;
