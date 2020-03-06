@@ -15,6 +15,7 @@ A deliberate place for citations — no more notepad, slack messages to yourself
 - simple to use, no login required,
 - create as many collections as you like,
 - add citations to any collection,
+- edit citations,
 - get permalink to a specific citation,
 - dark mode 😎
 
@@ -34,7 +35,7 @@ The project is showcasing an example app built with a design system in `ReasonML
 
 The project is continuously developed and improved, many features are about to land, including:
 
-- edit / delete citations,
+- delete citations,
 - filter by author,
 - permalink to a specific citation,
   etc.
