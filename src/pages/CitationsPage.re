@@ -21,7 +21,7 @@ module GetCitations = [%graphql
 module PageQuery = ReasonApolloHooks.Query.Make(GetCitations);
 
 [@react.component]
-let make = (~slug) => {
+let make = (~slug, ~onEdit) => {
   let variables = GetCitations.make(~slug, ())##variables;
   let (simple, _) = PageQuery.use(~variables, ());
 
@@ -51,6 +51,7 @@ let make = (~slug) => {
             author={citation.author.name}
             date={citation.added->Belt.Option.getWithDefault("")}
             id={citation.id |> string_of_int}
+            onEdit={() => onEdit(citation)}
           />
         )
         |> React.array

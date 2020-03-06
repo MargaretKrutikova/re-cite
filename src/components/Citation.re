@@ -35,7 +35,7 @@ module Classes = {
 };
 
 [@react.component]
-let make = (~text, ~author, ~date, ~slug, ~id) => {
+let make = (~text, ~author, ~date, ~slug, ~id, ~onEdit) => {
   let iconStyle = Classes.menuIcon();
   let citationUrl = Route.toUrl(Collection(slug, CitationById(id)));
 
@@ -74,6 +74,14 @@ let make = (~text, ~author, ~date, ~slug, ~id) => {
               <ReactFeather.ExternalLinkIcon className=iconStyle />
               {str("Go to link")}
             </Menu.MenuItem.Link>
+            <Menu.MenuItem
+              onClick={_ => {
+                toggle();
+                onEdit();
+              }}>
+              <ReactFeather.EditIcon className=iconStyle />
+              {str("Edit citation")}
+            </Menu.MenuItem>
           </React.Fragment>
         }
       />
