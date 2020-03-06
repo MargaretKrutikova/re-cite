@@ -10,8 +10,8 @@ let getCitationToUpdate = ({text, added, author}): CitationForm.state => {
 };
 
 [@react.component]
-let make = (~citation: Types.citation, ~collection, ~onSaved, ~refetchQueries) => {
-  let (mutation, _simple, full) = CitationMutation.use(~refetchQueries, ());
+let make = (~citation: Types.citation, ~collection, ~onSaved) => {
+  let (mutation, _simple, full) = CitationMutation.use();
 
   let save = (formState: CitationForm.state) => {
     let variables =

@@ -5,7 +5,12 @@ module GetPageData = [%graphql
   {|
   query($slug: String!) {
     collections(where: {slug: {_eq: $slug}}) {
-      ...EditCitation.Fragment.Collection
+      id
+      slug
+      authors @bsRecord {
+        id
+        name
+      }
     }
   }
 |}
@@ -28,23 +33,35 @@ module Classes = {
     );
 };
 
-type state = {
-  showSidebar: bool,
-  citationUnderEdit: option(citation),
-};
+type status =
+  | UpdatingCitation(citation)
+  | AddingCitation
+  | Idle;
+
+type state = {status};
+
+let shouldShowSidebar =
+  fun
+  | UpdatingCitation(_)
+  | AddingCitation => true
+  | _ => false;
 
 type action =
-  | OpenSidebar(option(citation))
-  | CloseSidebar;
+  | RequestEditCitation(citation)
+  | RequestAddCitation
+  | SidebarClosed;
 
 let reducer = (_, action) => {
   switch (action) {
-  | OpenSidebar(citationUnderEdit) => {showSidebar: true, citationUnderEdit}
-  | CloseSidebar => {showSidebar: false, citationUnderEdit: None}
+  | RequestEditCitation(citationUnderEdit) => {
+      status: UpdatingCitation(citationUnderEdit),
+    }
+  | RequestAddCitation => {status: AddingCitation}
+  | SidebarClosed => {status: Idle}
   };
 };
 
-let initialState = {showSidebar: false, citationUnderEdit: None};
+let initialState = {status: Idle};
 
 module PageQuery = ReasonApolloHooks.Query.Make(GetPageData);
 
@@ -58,7 +75,12 @@ let make = (~route, ~slug) => {
   let canAdd = full.data->Belt.Option.isSome;
 
   let header =
-    Header.Collection({canAdd, onAdd: _ => dispatch(OpenSidebar(None))});
+    Header.Collection({canAdd, onAdd: _ => dispatch(RequestAddCitation)});
+
+  let refetchCitationsQuery =
+    ReasonApolloHooks.Utils.toQueryObj(
+      CitationsPage.GetCitations.make(~slug, ()),
+    );
 
   <div className={Classes.root()}>
     <Header header />
@@ -67,7 +89,7 @@ let make = (~route, ~slug) => {
        | Route.Citations =>
          <CitationsPage
            slug
-           onEdit={citation => dispatch(OpenSidebar(Some(citation)))}
+           onEdit={citation => dispatch(RequestEditCitation(citation))}
          />
        | Route.CitationById(stringId) =>
          switch (int_of_string(stringId)) {
@@ -80,23 +102,25 @@ let make = (~route, ~slug) => {
        | Data(data) =>
          switch (data##collections) {
          | [|collection|] =>
-           <>
-             <Sidebar
-               show={state.showSidebar} onClose={_ => dispatch(CloseSidebar)}>
-               <EditCitation
-                 citation={state.citationUnderEdit}
-                 collection
-                 onSaved={() => dispatch(CloseSidebar)}
-                 refetchQueries={_ =>
-                   [|
-                     ReasonApolloHooks.Utils.toQueryObj(
-                       CitationsPage.GetCitations.make(~slug, ()),
-                     ),
-                   |]
-                 }
-               />
-             </Sidebar>
-           </>
+           <Sidebar
+             show={shouldShowSidebar(state.status)}
+             onClose={_ => dispatch(SidebarClosed)}>
+             {switch (state.status) {
+              | Idle => React.null
+              | AddingCitation =>
+                <AddCitation
+                  collection
+                  onSaved={() => dispatch(SidebarClosed)}
+                  refetchQueries={_ => [|refetchCitationsQuery|]}
+                />
+              | UpdatingCitation(citation) =>
+                <UpdateCitation
+                  citation
+                  collection
+                  onSaved={() => dispatch(SidebarClosed)}
+                />
+              }}
+           </Sidebar>
          | _ => React.null // Should never happen :)
          }
        | NoData
