@@ -40,7 +40,8 @@ let isValid = state =>
 let make = (~citation, ~authors, ~onSave, ~isSaving) => {
   let (state, dispatch) = React.useReducer(reducer, citation);
 
-  <form className=Classes.root>
+  <form
+    className=Classes.root onSubmit={e => ReactEvent.Form.preventDefault(e)}>
     <div className=Classes.header>
       {React.string("Someone said something cool?")}
     </div>
@@ -68,7 +69,7 @@ let make = (~citation, ~authors, ~onSave, ~isSaving) => {
       fullWidth=true
       variant=`Contained
       color=`Primary
-      type_="submit"
+      type_="button"
       onClick={_ => onSave(state)}
       disabled={!isValid(state) || isSaving}>
       {React.string("Save citation")}
