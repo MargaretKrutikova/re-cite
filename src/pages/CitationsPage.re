@@ -4,7 +4,7 @@ module GetCitations = [%graphql
   {|
   query($slug: String!) {
     collections(where: {slug: {_eq: $slug}}) {
-      citations(order_by: {added: desc}) @bsRecord {
+      citations(order_by: {added: desc, id: desc}) @bsRecord {
         id
         text
         added @bsDecoder(fn: "Js.Json.decodeString")
