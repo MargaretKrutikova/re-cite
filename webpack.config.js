@@ -13,11 +13,11 @@ module.exports = {
     filename: "Index.js"
   },
   plugins: [
-    new FaviconWebpackPlugin(),
     new HtmlWebpackPlugin({
       template: "src/index.html",
-      inject: false
-    })
+      inject: true
+    }),
+    new FaviconWebpackPlugin()
   ],
   devServer: {
     compress: true,
