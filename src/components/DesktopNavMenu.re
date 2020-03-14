@@ -13,10 +13,7 @@ module Classes = {
         ...Styles.font(`sm),
       ])
     );
-  let link =
-    Css.(
-      style([textDecoration(`none) |> important, fontWeight(`num(500))])
-    );
+  let link = Css.(style([textDecoration(`none), fontWeight(`num(500))]));
 };
 
 module MenuItem = {
@@ -40,14 +37,18 @@ module MenuItem = {
   };
 };
 
+type item = {
+  route: Route.t,
+  text: string,
+};
+
 [@react.component]
-let make = (~slug) => {
-  <Flex>
-    <MenuItem route={Route.Collection(slug, Citations)}>
-      {React.string("All")}
-    </MenuItem>
-    <MenuItem route={Route.Collection(slug, RandomCitation)}>
-      {React.string("Random")}
-    </MenuItem>
+let make = (~items, ~className="") => {
+  <Flex className>
+    {items
+     ->Belt.Array.map(({route, text}) =>
+         <MenuItem route> {React.string(text)} </MenuItem>
+       )
+     ->React.array}
   </Flex>;
 };

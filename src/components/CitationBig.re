@@ -6,9 +6,10 @@ module Classes = {
 
   let citationText =
     style([
-      lineHeight(`abs(1.4)),
+      lineHeight(`abs(Theme.baseLineHeight)),
       unsafe("wordBreak", "break-word"),
       whiteSpace(`preWrap),
+      media(Breakpoint.down(`md), Styles.font(`lg)),
     ]);
 
   let bigQuote = () =>
@@ -26,7 +27,11 @@ module Classes = {
       ),
     ]);
   let citation = () =>
-    style([color(`SecondaryText |> Styles.useColor), ...Styles.font(`md)]);
+    style([
+      color(`SecondaryText |> Styles.useColor),
+      media(Breakpoint.down(`md), [fontSize(px(20))]),
+      ...Styles.font(`md),
+    ]);
 };
 
 [@react.component]
