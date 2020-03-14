@@ -10,7 +10,8 @@ module.exports = {
   mode: isProd ? "production" : "development",
   output: {
     path: outputDir,
-    filename: "./Index.js"
+    publicPath: "/",
+    filename: "Index.js"
   },
   plugins: [
     new HtmlWebpackPlugin({
