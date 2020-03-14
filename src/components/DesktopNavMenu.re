@@ -37,17 +37,12 @@ module MenuItem = {
   };
 };
 
-type item = {
-  route: Route.t,
-  text: string,
-};
-
 [@react.component]
-let make = (~items, ~className="") => {
-  <Flex className>
-    {items
-     ->Belt.Array.map(({route, text}) =>
-         <MenuItem route> {React.string(text)} </MenuItem>
+let make = (~slug) => {
+  <Flex className=Utils.Display.hideMobile>
+    {NavMenu.getMenuItems(slug)
+     ->Belt.Array.map(({route, desktopText}) =>
+         <MenuItem route> {React.string(desktopText)} </MenuItem>
        )
      ->React.array}
   </Flex>;

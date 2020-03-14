@@ -6,7 +6,7 @@ module Classes = {
 
   let citationText =
     style([
-      lineHeight(`abs(Theme.baseLineHeight)),
+      lineHeight(`abs(Theme.baseLineHeight)) |> important,
       unsafe("wordBreak", "break-word"),
       whiteSpace(`preWrap),
       media(Breakpoint.down(`md), Styles.font(`lg)),

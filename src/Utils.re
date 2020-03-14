@@ -12,3 +12,11 @@ let toInputDateFormat = date => {
 };
 
 let getInputValue = (e): string => ReactEvent.Form.target(e)##value;
+
+module Display = {
+  let hideMobile =
+    Css.(style([media(Breakpoint.down(`sm), [display(none)])]));
+
+  let hideDesktop =
+    Css.(style([media(Breakpoint.up(`sm), [display(none)])]));
+};

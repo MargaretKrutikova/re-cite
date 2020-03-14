@@ -97,7 +97,8 @@ let make = (~header) => {
        | Default => React.null
        | Collection({onAdd, canAdd, slug}) =>
          <>
-           <NavMenu slug />
+           <DesktopNavMenu slug />
+           <MobileNavMenu slug />
            <Button
              className=Classes.addButton
              disabled={!canAdd}
