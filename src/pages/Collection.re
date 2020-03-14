@@ -1,20 +1,6 @@
+open Queries;
 open DesignSystem;
 open Types;
-
-module GetPageData = [%graphql
-  {|
-  query($slug: String!) {
-    collections(where: {slug: {_eq: $slug}}) {
-      id
-      slug
-      authors @bsRecord {
-        id
-        name
-      }
-    }
-  }
-|}
-];
 
 module Classes = {
   let main =
@@ -63,11 +49,11 @@ let reducer = (_, action) => {
 
 let initialState = {status: Idle};
 
-module PageQuery = ReasonApolloHooks.Query.Make(GetPageData);
+module PageQuery = ReasonApolloHooks.Query.Make(GetCollectionBySlug);
 
 [@react.component]
 let make = (~route, ~slug) => {
-  let variables = GetPageData.make(~slug, ())##variables;
+  let variables = GetCollectionBySlug.make(~slug, ())##variables;
 
   let (simple, full) = PageQuery.use(~variables, ());
 
@@ -78,9 +64,7 @@ let make = (~route, ~slug) => {
     Header.Collection({canAdd, onAdd: _ => dispatch(RequestAddCitation)});
 
   let refetchCitationsQuery =
-    ReasonApolloHooks.Utils.toQueryObj(
-      CitationsPage.GetCitations.make(~slug, ()),
-    );
+    ReasonApolloHooks.Utils.toQueryObj(GetCitations.make(~slug, ()));
 
   <div className={Classes.root()}>
     <Header header />

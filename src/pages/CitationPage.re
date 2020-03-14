@@ -3,23 +3,7 @@ open DesignSystem;
 
 let str = React.string;
 
-module GetCitationById = [%graphql
-  {|
-  query ($slug: String!, $id: Int!) {
-    citations(where: {id: {_eq: $id}, collection: {slug: {_eq: $slug}}}) @bsRecord {
-      id
-      text
-      added @bsDecoder(fn: "Js.Json.decodeString")
-      author @bsRecord {
-        id
-        name
-      }
-    }
-  }
-|}
-];
-
-module PageQuery = ReasonApolloHooks.Query.Make(GetCitationById);
+module PageQuery = ReasonApolloHooks.Query.Make(Queries.GetCitationById);
 
 module Classes = {
   open Css;
@@ -54,7 +38,7 @@ module BigCitation = {
 
 [@react.component]
 let make = (~slug, ~id) => {
-  let variables = GetCitationById.make(~slug, ~id, ())##variables;
+  let variables = Queries.GetCitationById.make(~slug, ~id, ())##variables;
   let (simple, _) = PageQuery.use(~variables, ());
 
   switch (simple) {
