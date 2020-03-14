@@ -1,20 +1,31 @@
 open DesignSystem;
 
+type color = [ | `Primary | `Secondary];
+
 type variant = [ | `Link | `Text];
 
 module Classes = {
   open Css;
 
-  let root = variant => {
+  let root = (variant, linkColor) => {
     let variantStyles =
       switch (variant) {
       | `Link => [
           textDecoration(`underline),
-          color(`PrimaryQuiet |> Styles.useColor),
           transition(~duration=200, "color"),
-          hover([color(`Primary |> Styles.useColor)]),
           active([opacity(0.5)]),
+          ...switch (linkColor) {
+             | `Primary => [
+                 color(`PrimaryQuiet |> Styles.useColor),
+                 hover([color(`Primary |> Styles.useColor)]),
+               ]
+             | `Secondary => [
+                 color(`SecondaryText |> Styles.useColor),
+                 hover([color(`BodyText |> Styles.useColor)]),
+               ]
+             },
         ]
+
       | `Text => [
           textDecoration(`none),
           unsafe("color", "inherit"),
@@ -37,6 +48,7 @@ let make =
     (
       ~href,
       ~variant=`Link,
+      ~color=`Primary,
       ~onClick=ignore,
       ~className="",
       ~newTab=false,
@@ -45,7 +57,7 @@ let make =
   <a
     href
     onClick
-    className={Classes.root(variant) ++ " " ++ className}
+    className={Classes.root(variant, color) ++ " " ++ className}
     target={newTab ? "_blank" : "_self"}
     rel="noopener noreferrer">
     children

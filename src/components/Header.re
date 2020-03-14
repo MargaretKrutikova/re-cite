@@ -27,8 +27,15 @@ module Classes = {
         ...Styles.font(`lg),
       ])
     );
+  let addButton =
+    Css.(
+      style([
+        marginLeft(`sm |> Styles.space),
+        media(Breakpoint.up(`sm), [marginLeft(`lg |> Styles.space)]),
+      ])
+    );
   let themeSwitch =
-    Css.(style([marginRight(auto), marginLeft(`md |> Styles.space)]));
+    Css.(style([marginRight(auto), marginLeft(`sm |> Styles.space)]));
 };
 
 module ThemeSwitch = {
@@ -88,13 +95,17 @@ let make = (~header) => {
       {switch (header) {
        | Default => React.null
        | Collection({onAdd, canAdd}) =>
-         <Button
-           disabled={!canAdd}
-           variant=`Contained
-           color=`Primary
-           onClick={_ => onAdd()}>
-           {React.string("Add")}
-         </Button>
+         <>
+           <NavMenu slug="test" />
+           <Button
+             className=Classes.addButton
+             disabled={!canAdd}
+             variant=`Contained
+             color=`Primary
+             onClick={_ => onAdd()}>
+             {React.string("Add")}
+           </Button>
+         </>
        }}
     </Container>
   </header>;

@@ -9,6 +9,8 @@ let handleClick = (href, event) =>
   };
 
 [@react.component]
-let make = (~href, ~children) => {
-  <Link href onClick={handleClick(href)}> children </Link>;
+let make = (~href, ~variant=`Link, ~color=`Primary, ~className="", ~children) => {
+  <Link href variant color className onClick={handleClick(href)}>
+    children
+  </Link>;
 };
