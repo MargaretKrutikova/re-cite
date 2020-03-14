@@ -10,13 +10,13 @@ module.exports = {
   mode: isProd ? "production" : "development",
   output: {
     path: outputDir,
-    filename: "./Index.js"
+    filename: "Index.js"
   },
   plugins: [
     new HtmlWebpackPlugin({
       template: "src/index.html",
       favicon: "src/favicon.ico",
-      inject: true
+      inject: "head"
     }),
     new FaviconWebpackPlugin({
       favicons: {
