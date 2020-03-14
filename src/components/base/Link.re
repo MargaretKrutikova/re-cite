@@ -62,7 +62,10 @@ let make =
   <a
     href
     onClick
-    className={Classes.root(variant, color, ~isActive) ++ " " ++ className}
+    className={Css.merge([
+      Classes.root(variant, color, ~isActive),
+      className,
+    ])}
     target={newTab ? "_blank" : "_self"}
     rel="noopener noreferrer">
     children

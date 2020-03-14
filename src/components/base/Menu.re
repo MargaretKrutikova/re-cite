@@ -104,7 +104,14 @@ let reducer = (state, action) => {
 };
 
 [@react.component]
-let make = (~renderTrigger, ~renderOptions, ~align=`Center) => {
+let make =
+    (
+      ~renderTrigger,
+      ~renderOptions,
+      ~hasOverlay=false,
+      ~className="",
+      ~align=`Center,
+    ) => {
   let (state, dispatch) = React.useReducer(reducer, {isOpen: false});
 
   let menuRef = ClickOutside.use(_ => dispatch(Close));
@@ -113,15 +120,20 @@ let make = (~renderTrigger, ~renderOptions, ~align=`Center) => {
   let optionsStyle = Clases.options(align);
   let triangleStyles = Clases.triangle();
 
-  <div className=Clases.menu ref={ReactDOMRe.Ref.domRef(menuRef)}>
-    {renderTrigger(toggleOpen)}
-    {state.isOpen
-       ? <div className=Clases.optionsContainer>
-           <div className=triangleStyles />
-           <div className=optionsStyle> {renderOptions(toggleOpen)} </div>
-         </div>
-       : ReasonReact.null}
-  </div>;
+  <>
+    {hasOverlay ? <Overlay show={state.isOpen} /> : React.null}
+    <div
+      className={Css.merge([Clases.menu, className])}
+      ref={ReactDOMRe.Ref.domRef(menuRef)}>
+      {renderTrigger(toggleOpen)}
+      {state.isOpen
+         ? <div className=Clases.optionsContainer>
+             <div className=triangleStyles />
+             <div className=optionsStyle> {renderOptions(toggleOpen)} </div>
+           </div>
+         : ReasonReact.null}
+    </div>
+  </>;
 };
 
 module MenuItem = {
@@ -150,8 +162,10 @@ module MenuItem = {
     ]);
 
   [@react.component]
-  let make = (~onClick=?, ~selected=false, ~children) => {
-    <div ?onClick className={itemStyle(selected)}> children </div>;
+  let make = (~onClick=?, ~className="", ~selected=false, ~children) => {
+    <div ?onClick className={Css.merge([itemStyle(selected), className])}>
+      children
+    </div>;
   };
 
   module Link = {
@@ -160,13 +174,20 @@ module MenuItem = {
         (
           ~href,
           ~variant=`Link,
+          ~color=`Primary,
           ~onClick=?,
           ~className="",
-          ~newTab,
+          ~newTab=false,
           ~selected=false,
           ~children,
         ) => {
-      <Link ?onClick href variant newTab className={itemStyle(selected)}>
+      <Link
+        ?onClick
+        href
+        color
+        variant
+        newTab
+        className={Css.merge([itemStyle(selected), className])}>
         children
       </Link>;
     };

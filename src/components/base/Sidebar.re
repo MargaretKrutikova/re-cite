@@ -17,6 +17,7 @@ module Classes = {
 
   let root = show =>
     style([
+      zIndex(1),
       Styles.animation(`modal, show ? showAnimate : hideAnimate),
       position(`fixed),
       top(px(0)),

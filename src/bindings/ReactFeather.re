@@ -207,3 +207,18 @@ module RefreshIcon = {
     React.element =
     "default";
 };
+
+module MenuIcon = {
+  [@bs.module "react-feather/dist/icons/menu.js"] [@react.component]
+  external make:
+    (
+      ~color: string=?,
+      ~disabled: bool=?,
+      ~onClick: 'c=?,
+      ~size: string=?,
+      ~className: string=?,
+      unit
+    ) =>
+    React.element =
+    "default";
+};
