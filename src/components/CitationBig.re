@@ -15,13 +15,12 @@ module Classes = {
   let bigQuote = () =>
     style([
       borderLeft(`xxs |> Styles.space, `solid, `Primary |> Styles.useColor),
-      marginBottom(`xl |> Styles.space),
-      paddingLeft(`lg |> Styles.space),
       marginTop(`lg |> Styles.space),
+      paddingLeft(`lg |> Styles.space),
       media(
         Breakpoint.up(`sm),
         [
-          marginBottom(`xxl |> Styles.space),
+          marginBottom(`lg |> Styles.space),
           paddingLeft(`xl |> Styles.space),
         ],
       ),
@@ -35,8 +34,8 @@ module Classes = {
 };
 
 [@react.component]
-let make = (~citation) => {
-  <div className={Classes.bigQuote()}>
+let make = (~citation, ~className="") => {
+  <div className={Css.merge([Classes.bigQuote(), className])}>
     <Heading level=`h2 className=Classes.citationText>
       {React.string(citation.text)}
     </Heading>
