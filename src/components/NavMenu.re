@@ -21,9 +21,19 @@ module Classes = {
 
 module MenuItem = {
   [@react.component]
-  let make = (~href, ~children) => {
+  let make = (~route, ~children) => {
+    let url = ReasonReactRouter.useUrl();
+    let isActive = () => {
+      let activeRoute = url.path |> Route.fromUrl;
+      route == activeRoute;
+    };
+
     <li className=Classes.menuItem>
-      <RouteLink color=`Secondary href className=Classes.link>
+      <RouteLink
+        isActive={isActive()}
+        color=`Secondary
+        href={Route.toUrl(route)}
+        className=Classes.link>
         children
       </RouteLink>
     </li>;
@@ -33,10 +43,10 @@ module MenuItem = {
 [@react.component]
 let make = (~slug) => {
   <Flex>
-    <MenuItem href={Route.toUrl(Collection(slug, Citations))}>
+    <MenuItem route={Route.Collection(slug, Citations)}>
       {React.string("All")}
     </MenuItem>
-    <MenuItem href={Route.toUrl(Collection(slug, RandomCitation))}>
+    <MenuItem route={Route.Collection(slug, RandomCitation)}>
       {React.string("Random")}
     </MenuItem>
   </Flex>;

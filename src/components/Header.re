@@ -76,6 +76,7 @@ module Logo = {
 };
 
 type collectionHeader = {
+  slug: string,
   canAdd: bool,
   onAdd: unit => unit,
 };
@@ -94,9 +95,9 @@ let make = (~header) => {
       <ThemeSwitch toggleTheme theme />
       {switch (header) {
        | Default => React.null
-       | Collection({onAdd, canAdd}) =>
+       | Collection({onAdd, canAdd, slug}) =>
          <>
-           <NavMenu slug="test" />
+           <NavMenu slug />
            <Button
              className=Classes.addButton
              disabled={!canAdd}

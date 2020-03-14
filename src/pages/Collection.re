@@ -58,10 +58,11 @@ let make = (~route, ~slug) => {
   let (simple, full) = PageQuery.use(~variables, ());
 
   let (state, dispatch) = React.useReducer(reducer, initialState);
-  let canAdd = full.data->Belt.Option.isSome;
 
-  let header =
-    Header.Collection({canAdd, onAdd: _ => dispatch(RequestAddCitation)});
+  let canAdd = full.data->Belt.Option.isSome;
+  let onAdd = _ => dispatch(RequestAddCitation);
+
+  let header = Header.Collection({slug, canAdd, onAdd});
 
   let refetchCitationsQuery =
     ReasonApolloHooks.Utils.toQueryObj(GetCitations.make(~slug, ()));

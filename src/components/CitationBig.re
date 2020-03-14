@@ -4,7 +4,12 @@ open Types;
 module Classes = {
   open Css;
 
-  let citationText = style([lineHeight(`abs(1.4))]);
+  let citationText =
+    style([
+      lineHeight(`abs(1.4)),
+      unsafe("wordBreak", "break-word"),
+      whiteSpace(`preWrap),
+    ]);
 
   let bigQuote = () =>
     style([
