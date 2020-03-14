@@ -23,6 +23,16 @@ module GetCitations = [%graphql
 |}
 ];
 
+module GetRandomCitation = [%graphql
+  {|
+  query($slug: String!) {
+    get_random_citation_by_slug(args: {collectionslug: $slug}) {
+      ...CitationFragment.Citation
+    }
+  }
+|}
+];
+
 module GetCollectionBySlug = [%graphql
   {|
   query($slug: String!) {
@@ -33,6 +43,16 @@ module GetCollectionBySlug = [%graphql
         id
         name
       }
+    }
+  }
+|}
+];
+
+module GetAllCollectionSlugs = [%graphql
+  {|
+  query {
+    collections {
+      slug
     }
   }
 |}
