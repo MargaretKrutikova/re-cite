@@ -3,7 +3,7 @@ type color = [ | `Primary | `Secondary | `Default];
 
 type variant = [ | `Contained | `Text | `Outlined | `None];
 
-type size = [ | `Small | `Medium];
+type size = [ | `Small | `Medium | `Large];
 
 module Classes = {
   open Css;
@@ -61,6 +61,7 @@ module Classes = {
       switch (size) {
       | `Small => (Styles.space(`xxs), Styles.space(`xs), Styles.font(`xs))
       | `Medium => (Styles.space(`xs), Styles.space(`sm), Styles.font(`sm))
+      | `Large => (Styles.space(`sm), Styles.space(`md), Styles.font(`md))
       };
 
     [padding2(~h=padding_h, ~v=padding_v), ...font_css];
@@ -71,6 +72,7 @@ module Classes = {
       switch (size) {
       | `Small => `lg |> Styles.space
       | `Medium => `xl |> Styles.space
+      | `Large => `custom(12) |> Styles.space
       };
 
     [height(size_css), width(size_css), flexGrow(0.0), flexShrink(0.0)];

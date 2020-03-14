@@ -4,6 +4,8 @@ open Types;
 module Classes = {
   open Css;
 
+  let citationText = style([lineHeight(`abs(1.4))]);
+
   let bigQuote = () =>
     style([
       borderLeft(`xxs |> Styles.space, `solid, `Primary |> Styles.useColor),
@@ -25,7 +27,9 @@ module Classes = {
 [@react.component]
 let make = (~citation) => {
   <div className={Classes.bigQuote()}>
-    <Heading level=`h2> {React.string(citation.text)} </Heading>
+    <Heading level=`h2 className=Classes.citationText>
+      {React.string(citation.text)}
+    </Heading>
     <div className={Classes.citation()}>
       {React.string(citation.author.name)}
     </div>
