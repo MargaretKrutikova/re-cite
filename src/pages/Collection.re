@@ -81,6 +81,7 @@ let make = (~route, ~slug) => {
            <Text> {React.string("The citation is not found")} </Text>
          | id => <CitationPage slug id />
          }
+       | Route.RandomCitation => <RandomCitation slug />
        }}
       {switch (simple) {
        | Data(data) =>

@@ -27,7 +27,7 @@ let make = (~slug, ~onEdit) => {
         </Text>
       | array =>
         array->Belt.Array.map(citation =>
-          <Citation
+          <CitationListItem
             slug
             key={citation.id |> string_of_int}
             text={citation.text}
