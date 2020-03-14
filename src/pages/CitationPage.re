@@ -1,40 +1,6 @@
-open Types;
-open DesignSystem;
-
 let str = React.string;
 
 module PageQuery = ReasonApolloHooks.Query.Make(Queries.GetCitationById);
-
-module Classes = {
-  open Css;
-
-  let bigQuote = () =>
-    style([
-      borderLeft(`xxs |> Styles.space, `solid, `Primary |> Styles.useColor),
-      marginBottom(`xl |> Styles.space),
-      paddingLeft(`lg |> Styles.space),
-      marginTop(`lg |> Styles.space),
-      media(
-        Breakpoint.up(`sm),
-        [
-          marginBottom(`xxl |> Styles.space),
-          paddingLeft(`xl |> Styles.space),
-        ],
-      ),
-    ]);
-  let citation = () =>
-    style([color(`SecondaryText |> Styles.useColor), ...Styles.font(`md)]);
-};
-
-module BigCitation = {
-  [@react.component]
-  let make = (~citation) => {
-    <div className={Classes.bigQuote()}>
-      <Heading level=`h2> {str(citation.text)} </Heading>
-      <div className={Classes.citation()}> {str(citation.author.name)} </div>
-    </div>;
-  };
-};
 
 [@react.component]
 let make = (~slug, ~id) => {
@@ -45,13 +11,13 @@ let make = (~slug, ~id) => {
   | NoData => React.null
   | Error(e) =>
     Js.log(e);
-    <p> {React.string("Error")} </p>;
-  | Loading => <p> {React.string("Loading...")} </p>
+    <p> {str("Error")} </p>;
+  | Loading => <p> {str("Loading...")} </p>
   | Data(data) =>
     switch (data##citations) {
-    | [||] => <Text> {React.string("No citation found!")} </Text>
-    | [|citation|] => <BigCitation citation />
-    | _ => React.string("Multiple citations exist under the same id")
+    | [||] => <Text> {str("No citation found!")} </Text>
+    | [|citation|] => <CitationBig citation />
+    | _ => str("Multiple citations exist under the same id")
     }
   };
 };
