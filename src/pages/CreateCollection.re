@@ -1,14 +1,5 @@
 open DesignSystem;
-
-module GetAllCollectionSlugs = [%graphql
-  {|
-  query {
-    collections {
-      slug
-    }
-  }
-|}
-];
+open Queries;
 
 module Classes = {
   open Css;

@@ -1,0 +1,64 @@
+- args:
+    allowlist: []
+    functions: []
+    query_collections: []
+    remote_schemas: []
+    tables:
+    - array_relationships:
+      - comment: null
+        name: citations
+        using:
+          foreign_key_constraint_on:
+            column: collectionId
+            table: citations
+      - comment: null
+        name: authors
+        using:
+          foreign_key_constraint_on:
+            column: collectionId
+            table: authors
+      delete_permissions: []
+      event_triggers: []
+      insert_permissions: []
+      is_enum: false
+      object_relationships: []
+      select_permissions: []
+      table: collections
+      update_permissions: []
+    - array_relationships:
+      - comment: null
+        name: citations
+        using:
+          foreign_key_constraint_on:
+            column: authorId
+            table: citations
+      delete_permissions: []
+      event_triggers: []
+      insert_permissions: []
+      is_enum: false
+      object_relationships:
+      - comment: null
+        name: collection
+        using:
+          foreign_key_constraint_on: collectionId
+      select_permissions: []
+      table: authors
+      update_permissions: []
+    - array_relationships: []
+      delete_permissions: []
+      event_triggers: []
+      insert_permissions: []
+      is_enum: false
+      object_relationships:
+      - comment: null
+        name: author
+        using:
+          foreign_key_constraint_on: authorId
+      - comment: null
+        name: collection
+        using:
+          foreign_key_constraint_on: collectionId
+      select_permissions: []
+      table: citations
+      update_permissions: []
+  type: replace_metadata
