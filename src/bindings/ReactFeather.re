@@ -192,3 +192,18 @@ module EditIcon = {
     React.element =
     "default";
 };
+
+module RefreshIcon = {
+  [@bs.module "react-feather/dist/icons/refresh-cw.js"] [@react.component]
+  external make:
+    (
+      ~color: string=?,
+      ~disabled: bool=?,
+      ~onClick: 'c=?,
+      ~size: string=?,
+      ~className: string=?,
+      unit
+    ) =>
+    React.element =
+    "default";
+};

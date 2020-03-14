@@ -1,20 +1,6 @@
+open Queries;
 open DesignSystem;
 open Types;
-
-module GetPageData = [%graphql
-  {|
-  query($slug: String!) {
-    collections(where: {slug: {_eq: $slug}}) {
-      id
-      slug
-      authors @bsRecord {
-        id
-        name
-      }
-    }
-  }
-|}
-];
 
 module Classes = {
   let main =
@@ -63,24 +49,23 @@ let reducer = (_, action) => {
 
 let initialState = {status: Idle};
 
-module PageQuery = ReasonApolloHooks.Query.Make(GetPageData);
+module PageQuery = ReasonApolloHooks.Query.Make(GetCollectionBySlug);
 
 [@react.component]
 let make = (~route, ~slug) => {
-  let variables = GetPageData.make(~slug, ())##variables;
+  let variables = GetCollectionBySlug.make(~slug, ())##variables;
 
   let (simple, full) = PageQuery.use(~variables, ());
 
   let (state, dispatch) = React.useReducer(reducer, initialState);
-  let canAdd = full.data->Belt.Option.isSome;
 
-  let header =
-    Header.Collection({canAdd, onAdd: _ => dispatch(RequestAddCitation)});
+  let canAdd = full.data->Belt.Option.isSome;
+  let onAdd = _ => dispatch(RequestAddCitation);
+
+  let header = Header.Collection({slug, canAdd, onAdd});
 
   let refetchCitationsQuery =
-    ReasonApolloHooks.Utils.toQueryObj(
-      CitationsPage.GetCitations.make(~slug, ()),
-    );
+    ReasonApolloHooks.Utils.toQueryObj(GetCitations.make(~slug, ()));
 
   <div className={Classes.root()}>
     <Header header />
@@ -97,6 +82,7 @@ let make = (~route, ~slug) => {
            <Text> {React.string("The citation is not found")} </Text>
          | id => <CitationPage slug id />
          }
+       | Route.RandomCitation => <RandomCitation slug />
        }}
       {switch (simple) {
        | Data(data) =>

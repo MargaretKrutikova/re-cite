@@ -12,7 +12,7 @@
     "add_redirects": "echo '/* /index.html 200' >./build/_redirects",
     "deploy:netlify": "npm run clean && npm run build && npm run webpack:production && npm run add_redirects",
     "server": "webpack-dev-server --host 0.0.0.0 --port 8087",
-    "introspection": "./node_modules/graphql_ppx/sendIntrospectionQuery.js https://re-cite.herokuapp.com/v1/graphql"
+    "introspection": "get-graphql-schema https://recite-api.margareta.dev/v1/graphql -j > graphql_schema.json"
   },
   "keywords": [
     "BuckleScript"
@@ -28,17 +28,18 @@
     "react-dom": "^16.8.1",
     "react-feather": "^2.0.3",
     "react-toastify": "^5.4.1",
-    "reason-apollo": "^0.17.0",
+    "reason-apollo": "^0.18.0",
     "reason-apollo-hooks": "^2.7.0",
     "reason-react": ">=0.7.0"
   },
   "devDependencies": {
-    "@baransu/graphql_ppx_re": "^0.4.0",
-    "@glennsl/bs-jest": "^0.4.9",
-    "bs-platform": "^5.0.6",
+    "@baransu/graphql_ppx_re": "^0.7.1",
+    "@glennsl/bs-jest": "^0.5.0",
+    "bs-platform": "7.0.1",
     "css-loader": "^3.2.0",
     "favicons-webpack-plugin": "^3.0.1",
     "html-webpack-plugin": "^4.0.0-beta.11",
+    "get-graphql-schema": "^2.1.2",
     "style-loader": "^1.0.0",
     "webpack": "^4.42.0",
     "webpack-cli": "^3.1.1",

@@ -27,8 +27,15 @@ module Classes = {
         ...Styles.font(`lg),
       ])
     );
+  let addButton =
+    Css.(
+      style([
+        marginLeft(`sm |> Styles.space),
+        media(Breakpoint.up(`sm), [marginLeft(`lg |> Styles.space)]),
+      ])
+    );
   let themeSwitch =
-    Css.(style([marginRight(auto), marginLeft(`md |> Styles.space)]));
+    Css.(style([marginRight(auto), marginLeft(`sm |> Styles.space)]));
 };
 
 module ThemeSwitch = {
@@ -69,6 +76,7 @@ module Logo = {
 };
 
 type collectionHeader = {
+  slug: string,
   canAdd: bool,
   onAdd: unit => unit,
 };
@@ -87,14 +95,18 @@ let make = (~header) => {
       <ThemeSwitch toggleTheme theme />
       {switch (header) {
        | Default => React.null
-       | Collection({onAdd, canAdd}) =>
-         <Button
-           disabled={!canAdd}
-           variant=`Contained
-           color=`Primary
-           onClick={_ => onAdd()}>
-           {React.string("Add")}
-         </Button>
+       | Collection({onAdd, canAdd, slug}) =>
+         <>
+           <NavMenu slug />
+           <Button
+             className=Classes.addButton
+             disabled={!canAdd}
+             variant=`Contained
+             color=`Primary
+             onClick={_ => onAdd()}>
+             {React.string("Add")}
+           </Button>
+         </>
        }}
     </Container>
   </header>;
