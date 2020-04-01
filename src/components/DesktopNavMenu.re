@@ -41,8 +41,10 @@ module MenuItem = {
 let make = (~slug) => {
   <Flex className=Utils.Display.hideMobile>
     {NavMenu.getMenuItems(slug)
-     ->Belt.Array.map(({route, desktopText}) =>
-         <MenuItem route> {React.string(desktopText)} </MenuItem>
+     ->Belt.Array.mapWithIndex((index, {route, desktopText}) =>
+         <MenuItem route key={index |> string_of_int}>
+           {React.string(desktopText)}
+         </MenuItem>
        )
      ->React.array}
   </Flex>;
