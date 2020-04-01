@@ -31,9 +31,11 @@ module Classes = {
     Css.(
       style([
         marginLeft(`sm |> Styles.space),
-        media(Breakpoint.up(`sm), [marginLeft(`lg |> Styles.space)]),
+        media(Breakpoint.up(`sm), [marginLeft(`md |> Styles.space)]),
       ])
     );
+
+  let loginButtom = Css.(style([marginLeft(`sm |> Styles.space)]));
   let themeSwitch =
     Css.(style([marginRight(auto), marginLeft(`sm |> Styles.space)]));
 };
@@ -99,6 +101,16 @@ let make = (~header) => {
          <>
            <DesktopNavMenu slug />
            <MobileNavMenu slug />
+           <Button
+             className={Css.merge([
+               Utils.Display.hideMobile,
+               Classes.loginButtom,
+             ])}
+             variant=`Outlined
+             color=`Primary
+             onClick={_ => onAdd()}>
+             {React.string("Log in")}
+           </Button>
            <Button
              className=Classes.addButton
              disabled={!canAdd}
