@@ -40,7 +40,7 @@ module Classes = {
 
 module Menu = {
   [@react.component]
-  let make = (~onClose, ~slug) => {
+  let make = (~onClose, ~onLogin, ~slug) => {
     let menuRef = ClickOutside.use(_ => onClose());
     let url = ReasonReactRouter.useUrl();
     let isActive = route => {
@@ -50,9 +50,13 @@ module Menu = {
 
     <div className={Classes.menu()} ref={menuRef->ReactDOMRe.Ref.domRef}>
       <Menu.MenuItem
-        className={Classes.menuItem(false)} onClick={_ => onClose()}>
+        className={Classes.menuItem(false)}
+        onClick={_ => {
+          onLogin();
+          onClose();
+        }}>
         <ReactFeather.LoginIcon className={Classes.menuIcon()} />
-        {React.string("Log in")}
+        {React.string("Login / Sign up")}
       </Menu.MenuItem>
       {NavMenu.getMenuItems(slug)
        ->Belt.Array.mapWithIndex((ind, {route, mobileText}) =>
@@ -76,7 +80,7 @@ module Menu = {
 };
 
 [@react.component]
-let make = (~slug) => {
+let make = (~slug, ~onLogin) => {
   let (menuIsOpen, setMenuIsOpen) = React.useState(_ => false);
   let toggle = _ => setMenuIsOpen(open_ => !open_);
 
@@ -89,6 +93,6 @@ let make = (~slug) => {
       className=Utils.Display.hideDesktop>
       {menuIsOpen ? <ReactFeather.CloseIcon /> : <ReactFeather.MenuIcon />}
     </Button>
-    {menuIsOpen ? <Menu slug onClose=toggle /> : React.null}
+    {menuIsOpen ? <Menu slug onClose=toggle onLogin /> : React.null}
   </>;
 };

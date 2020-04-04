@@ -90,8 +90,14 @@ type header =
 [@react.component]
 let make = (~header) => {
   let (theme, toggleTheme) = ThemeContext.useTheme();
+  let (showLogin, setShowLogin) = React.useState(() => false);
+
+  let toggleLoginSidebar = () => setShowLogin(show => !show);
 
   <header className={Classes.root()}>
+    <Sidebar show=showLogin onClose={_ => toggleLoginSidebar()}>
+      <LoginForm />
+    </Sidebar>
     <Container className=Classes.container>
       <Logo />
       <ThemeSwitch toggleTheme theme />
@@ -100,7 +106,7 @@ let make = (~header) => {
        | Collection({onAdd, canAdd, slug}) =>
          <>
            <DesktopNavMenu slug />
-           <MobileNavMenu slug />
+           <MobileNavMenu slug onLogin=toggleLoginSidebar />
            <Button
              className={Css.merge([
                Utils.Display.hideMobile,
@@ -108,7 +114,7 @@ let make = (~header) => {
              ])}
              variant=`Outlined
              color=`Primary
-             onClick={_ => onAdd()}>
+             onClick={_ => toggleLoginSidebar()}>
              {React.string("Log in")}
            </Button>
            <Button
