@@ -35,35 +35,9 @@ module Classes = {
       ])
     );
 
-  let loginButtom = Css.(style([marginLeft(`sm |> Styles.space)]));
+  let loginButton = Css.(style([marginLeft(`sm |> Styles.space)]));
   let themeSwitch =
     Css.(style([marginRight(auto), marginLeft(`sm |> Styles.space)]));
-};
-
-module ThemeSwitch = {
-  [@react.component]
-  let make = (~toggleTheme, ~theme) => {
-    let activeSide =
-      switch (theme) {
-      | ThemeContext.Light => Switch.Right
-      | Dark => Left
-      };
-
-    <div className=Classes.themeSwitch>
-      <Switch activeSide>
-        <Switch.Button isActive={theme == ThemeContext.Dark}>
-          <Button variant=`None onClick={_ => toggleTheme()} icon=true>
-            <ReactFeather.MoonIcon />
-          </Button>
-        </Switch.Button>
-        <Switch.Button isActive={theme == ThemeContext.Light}>
-          <Button variant=`None onClick={_ => toggleTheme()} icon=true>
-            <ReactFeather.SunIcon />
-          </Button>
-        </Switch.Button>
-      </Switch>
-    </div>;
-  };
 };
 
 module Logo = {
@@ -89,7 +63,6 @@ type header =
 
 [@react.component]
 let make = (~header) => {
-  let (theme, toggleTheme) = ThemeContext.useTheme();
   let (showLogin, setShowLogin) = React.useState(() => false);
 
   let toggleLoginSidebar = () => setShowLogin(show => !show);
@@ -100,7 +73,7 @@ let make = (~header) => {
     </Sidebar>
     <Container className=Classes.container>
       <Logo />
-      <ThemeSwitch toggleTheme theme />
+      <ThemeSwitch className=Classes.themeSwitch />
       {switch (header) {
        | Default => React.null
        | Collection({onAdd, canAdd, slug}) =>
@@ -110,7 +83,7 @@ let make = (~header) => {
            <Button
              className={Css.merge([
                Utils.Display.hideMobile,
-               Classes.loginButtom,
+               Classes.loginButton,
              ])}
              variant=`Outlined
              color=`Primary
