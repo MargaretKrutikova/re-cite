@@ -8,8 +8,6 @@ module Classes = {
         justifyContent(`center),
         textTransform(`uppercase),
         borderBottom(px(1), `solid, `Border |> Styles.useColor),
-        paddingTop(Styles.space(`sm)),
-        paddingBottom(Styles.space(`sm)),
         lastChild([borderWidth(px(0))]),
         ...Styles.font(`sm),
       ])
@@ -43,10 +41,7 @@ module Menu = {
   let make = (~onClose, ~onLogin, ~slug) => {
     let menuRef = ClickOutside.use(_ => onClose());
     let url = ReasonReactRouter.useUrl();
-    let isActive = route => {
-      let activeRoute = url.path |> Route.fromUrl;
-      route == activeRoute;
-    };
+    let isActive = Route.isActive(url);
 
     <div className={Classes.menu()} ref={menuRef->ReactDOMRe.Ref.domRef}>
       <Menu.MenuItem
@@ -58,7 +53,7 @@ module Menu = {
         <ReactFeather.LoginIcon className={Classes.menuIcon()} />
         {React.string("Login / Sign up")}
       </Menu.MenuItem>
-      {NavMenu.getMenuItems(slug)
+      {NavMenu.getNavLinks(slug)
        ->Belt.Array.mapWithIndex((ind, {route, mobileText}) =>
            <Menu.MenuItem
              key={ind |> string_of_int}

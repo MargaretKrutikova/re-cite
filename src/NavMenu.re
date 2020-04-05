@@ -6,9 +6,9 @@ type menuItem = {
 
 type t = array(menuItem);
 
-let getMenuItems = (slug): array(menuItem) => [|
+let getNavLinks = (slug): array(menuItem) => [|
   {
-    desktopText: "All",
+    desktopText: "All citations",
     mobileText: "All citations",
     route: Route.Collection(slug, Citations),
   },

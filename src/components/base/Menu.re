@@ -125,7 +125,7 @@ let make =
     <div
       className={Css.merge([Clases.menu, className])}
       ref={ReactDOMRe.Ref.domRef(menuRef)}>
-      {renderTrigger(toggleOpen)}
+      {renderTrigger(toggleOpen, state.isOpen)}
       {state.isOpen
          ? <div className=Clases.optionsContainer>
              <div className=triangleStyles />
