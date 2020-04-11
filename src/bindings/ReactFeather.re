@@ -239,7 +239,7 @@ module MenuIcon = {
 };
 
 module UpvoteIcon = {
-  [@bs.module "react-feather/dist/icons/thumbs-up.js"] [@react.component]
+  [@bs.module "react-feather/dist/icons/heart.js"] [@react.component]
   external make:
     (
       ~color: string=?,

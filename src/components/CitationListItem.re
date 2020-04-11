@@ -32,18 +32,53 @@ module Classes = {
       color(`Primary |> Styles.useColor),
       flexShrink(0.0),
     ]);
+
+  let upvoteContainer = style([marginLeft(`lg |> Styles.space)]);
+
+  let upvoteCount =
+    style([marginLeft(`xxs |> Styles.space), fontSize(px(18))]);
+
+  let upvoteButton = () => style([color(`BodyText |> Styles.useColor)]);
+  let upvoteIcon = style([unsafe("strokeWidth", "1px")]);
+
+  let upvoteIconActive = () =>
+    style([unsafe("fill", Styles.useColor(`Primary) |> Colors.toString)]);
 };
 
 [@react.component]
 let make = (~text, ~author, ~date, ~slug, ~id, ~onEdit) => {
   let iconStyle = Classes.menuIcon();
+  let upvoteBtnStyle = Classes.upvoteButton();
+
   let citationUrl = Route.toUrl(Collection(slug, CitationById(id)));
+
+  let (state, setState) = React.useState(_ => false);
+  let toggleActive = _ => setState(s => !s);
+  let upvoteActiveIconStyle = Classes.upvoteIconActive();
 
   <Card>
     <div className=Classes.citationText> {str(text)} </div>
-    <Flex justify=`spaceBetween align=`end_>
+    <Flex justify=`spaceBetween align=`center>
       <span className={Classes.secondaryText()}> {str(author)} </span>
-      <span className={Classes.secondaryText()}> {str(date)} </span>
+      <Flex align=`center>
+        <div className={Classes.secondaryText()}> {str(date)} </div>
+        <Flex align=`center className=Classes.upvoteContainer>
+          <Button
+            className=upvoteBtnStyle
+            size=`Medium
+            color=`Primary
+            icon=true
+            onClick={_ => toggleActive()}>
+            <ReactFeather.UpvoteIcon
+              className={Css.merge([
+                Classes.upvoteIcon,
+                state ? upvoteActiveIconStyle : "",
+              ])}
+            />
+          </Button>
+          <div className=Classes.upvoteCount> {React.string("45")} </div>
+        </Flex>
+      </Flex>
     </Flex>
     <div className=Classes.menu>
       <Menu
