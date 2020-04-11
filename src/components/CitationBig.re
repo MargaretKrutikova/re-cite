@@ -35,12 +35,23 @@ module Classes = {
 
 [@react.component]
 let make = (~citation: Types.citation, ~className="") => {
+  let (state, setState) = React.useState(_ => false);
+  let toggleActive = _ => setState(s => !s);
+
   <div className={Css.merge([Classes.bigQuote(), className])}>
     <Heading level=`h2 className=Classes.citationText>
       {React.string(citation.text)}
     </Heading>
-    <div className={Classes.citation()}>
-      {React.string(citation.author.name)}
-    </div>
+    <Flex justify=`spaceBetween align=`center>
+      <div className={Classes.citation()}>
+        {React.string(citation.author.name)}
+      </div>
+      <UpvoteButton
+        size=`Large
+        upvoteCount=45
+        isActive=state
+        onClick=toggleActive
+      />
+    </Flex>
   </div>;
 };
