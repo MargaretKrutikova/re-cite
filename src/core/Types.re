@@ -8,6 +8,8 @@ type citation = {
   text: string,
   added: option(string),
   author,
+  numberOfUpvotes: int,
+  hasUserUpvoted: bool,
 };
 
 type collection = {
