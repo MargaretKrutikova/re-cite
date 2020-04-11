@@ -132,12 +132,15 @@ let make = (~header) => {
                   variant=`Outlined color=`Primary onClick=toggleLoginSidebar>
                   {React.string("Log in")}
                 </Button>
-              : React.null}
+              : <MobileNavMenu
+                  user
+                  onLogin=toggleLoginSidebar
+                  onLogout=handleLogout
+                />}
          </>
        | Collection({onAdd, canAdd, slug}) =>
          <>
            <DesktopNavMenu slug user onLogout=handleLogout />
-           <MobileNavMenu slug onLogin=toggleLoginSidebar />
            {!User.isLoggedIn(user)
               ? <Button
                   className={Css.merge([
