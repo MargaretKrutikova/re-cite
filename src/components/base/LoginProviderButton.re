@@ -7,13 +7,11 @@ let getProviderClass = (provider: ReactNetlifyIdentity.provider) =>
   };
 
 [@react.component]
-let make = (~provider, ~className="") => {
-  let identity = ReactNetlifyIdentity.useIdentityContextSimple();
-  let handleClick = _ => identity.loginProvider(provider);
-
+let make = (~provider, ~onLogin, ~className="") => {
   let btnClassName =
     Css.merge(["providerButton", getProviderClass(provider), className]);
-  <Button className=btnClassName onClick=handleClick fullWidth=true>
+  <Button
+    className=btnClassName onClick={_ => onLogin(provider)} fullWidth=true>
     {React.string(
        "Continue with " ++ ReactNetlifyIdentity.providerToString(provider),
      )}
