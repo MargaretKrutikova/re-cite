@@ -8,7 +8,7 @@ ReactDOMRe.renderToElementWithId(
   <ReasonApollo.Provider client>
     <ReasonApolloHooks.ApolloProvider client>
       <ReactNetlifyIdentity.IdentityContextProvider
-        url="https://recite.netlify.com/.netlify/identity">
+        url="https://recite.netlify.com/">
         <Root />
       </ReactNetlifyIdentity.IdentityContextProvider>
     </ReasonApolloHooks.ApolloProvider>

@@ -53,8 +53,12 @@ module MockReactNetlifyIdentity = {
       status: None,
     },
   };
-  let context = React.createContext(mockContextValue);
-  let useContext = () => React.useContext(context);
+  let context: React.Context.t(option(reactNetlifyIdentityApi(Js.t({.})))) =
+    React.createContext(None);
+
+  let useRawContext = () => React.useContext(context);
+  let useContext = () =>
+    React.useContext(context)->Belt.Option.getWithDefault(mockContextValue);
 
   module Provider = {
     let make = React.Context.provider(context);

@@ -18,10 +18,9 @@ let isLoggedIn =
   | _ => false;
 
 let useIdentityContext = () => {
-  let mockContext = Utils.MockReactNetlifyIdentity.useContext();
-  if (!(mockContext |> Obj.magic |> Js.Nullable.isNullable)) {
-    Utils.MockReactNetlifyIdentity.useContext();
-  } else {
-    ReactNetlifyIdentity.useIdentityContextSimple();
+  let mockContext = Utils.MockReactNetlifyIdentity.useRawContext();
+  switch (mockContext) {
+  | None => ReactNetlifyIdentity.useIdentityContextSimple()
+  | Some(_) => Utils.MockReactNetlifyIdentity.useContext()
   };
 };
