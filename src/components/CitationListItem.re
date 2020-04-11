@@ -24,22 +24,10 @@ module Classes = {
       top(`xxs |> Styles.space),
       right(`xs |> Styles.space),
     ]);
-
-  let menuIcon = () =>
-    style([
-      width(px(20)),
-      marginRight(`xs |> Styles.space),
-      color(`Primary |> Styles.useColor),
-      flexShrink(0.0),
-    ]);
 };
 
 [@react.component]
 let make = (~text, ~author, ~date, ~slug, ~id, ~onEdit) => {
-  let iconStyle = Classes.menuIcon();
-
-  let citationUrl = Route.toUrl(Collection(slug, CitationById(id)));
-
   let (state, setState) = React.useState(_ => false);
   let toggleActive = _ => setState(s => !s);
 
@@ -52,46 +40,6 @@ let make = (~text, ~author, ~date, ~slug, ~id, ~onEdit) => {
         <UpvoteButton upvoteCount=45 isActive=state onClick=toggleActive />
       </Flex>
     </Flex>
-    <div className=Classes.menu>
-      <Menu
-        align=`Right
-        renderTrigger={(toggle, _) =>
-          <Button onClick=toggle icon=true variant=`Text color=`Primary>
-            <ReactFeather.ChevronDownIcon />
-          </Button>
-        }
-        renderOptions={toggle =>
-          <React.Fragment>
-            <CopyToClipboard
-              text={citationUrl |> Route.toAbsoluteUrl}
-              onCopy={() => {
-                toggle();
-                ReactToastify.toast("Copied!");
-              }}>
-              <Menu.MenuItem>
-                <ReactFeather.LinkIcon className=iconStyle />
-                {str("Copy link")}
-              </Menu.MenuItem>
-            </CopyToClipboard>
-            <Menu.MenuItem.Link
-              href=citationUrl
-              newTab=true
-              variant=`Text
-              onClick={_ => toggle()}>
-              <ReactFeather.ExternalLinkIcon className=iconStyle />
-              {str("Go to link")}
-            </Menu.MenuItem.Link>
-            <Menu.MenuItem
-              onClick={_ => {
-                toggle();
-                onEdit();
-              }}>
-              <ReactFeather.EditIcon className=iconStyle />
-              {str("Edit citation")}
-            </Menu.MenuItem>
-          </React.Fragment>
-        }
-      />
-    </div>
+    <div className=Classes.menu> <CitationMenu slug id onEdit /> </div>
   </Card>;
 };

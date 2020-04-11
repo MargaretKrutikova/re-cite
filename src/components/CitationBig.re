@@ -14,6 +14,7 @@ module Classes = {
 
   let bigQuote = () =>
     style([
+      position(`relative),
       borderLeft(`xxs |> Styles.space, `solid, `Primary |> Styles.useColor),
       marginTop(`lg |> Styles.space),
       paddingLeft(`lg |> Styles.space),
@@ -25,12 +26,15 @@ module Classes = {
         ],
       ),
     ]);
+
   let citation = () =>
     style([
       color(`SecondaryText |> Styles.useColor),
       media(Breakpoint.down(`md), [fontSize(px(20))]),
       ...Styles.font(`md),
     ]);
+
+  let menu = style([position(`absolute), top(px(0)), right(px(0))]);
 };
 
 [@react.component]
@@ -39,6 +43,13 @@ let make = (~citation: Types.citation, ~className="") => {
   let toggleActive = _ => setState(s => !s);
 
   <div className={Css.merge([Classes.bigQuote(), className])}>
+    <div className=Classes.menu>
+      <CitationMenu
+        slug=""
+        id={citation.id |> string_of_int}
+        onEdit={_ => ignore()}
+      />
+    </div>
     <Heading level=`h2 className=Classes.citationText>
       {React.string(citation.text)}
     </Heading>
