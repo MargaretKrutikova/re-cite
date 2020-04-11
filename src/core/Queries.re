@@ -1,59 +1,83 @@
-open Types;
-open Fragments;
+module DateDecoder = {
+  let parse = Js.Json.decodeString;
+  let serialize = (val_: Js.Json.t) => val_ |> Obj.magic;
+  type t = string;
+};
 
-module GetCitationById = [%graphql
+[%graphql
   {|
-  query ($slug: String!, $id: Int!) {
-    citations(where: {id: {_eq: $id}, collection: {slug: {_eq: $slug}}}) {
-      ...CitationFragment.Citation
+    fragment Citation on citations {
+      id
+      text
+      added @ppxDecoder(module: "DateDecoder")
+      author {
+        id
+        name
+      }
     }
-  }
-|}
-];
 
-module GetCitations = [%graphql
-  {|
-  query($slug: String!) {
+  fragment CitationTest on citations @argumentDefinitions(loggedInUserId: {type: "String!"}) {
+      id
+      text
+      added
+      author {
+        id
+        name
+      }
+      upvotes(where: {userId: {_eq: $loggedInUserId}}) {
+        userId
+      }
+      upvotes_aggregate {
+        aggregate {
+          count
+        }
+      }
+  }
+
+  query GetCitationsTest($slug: String!, $loggedInUserId: String!) {
     collections(where: {slug: {_eq: $slug}}) {
       citations(order_by: {added: desc, id: desc}) {
-        ...CitationFragment.Citation
+        ...CitationTest @arguments(loggedInUserId: $loggedInUserId)
       }
     }
   }
-|}
-];
 
-module GetRandomCitation = [%graphql
-  {|
-  query($slug: String!) {
-    get_random_citation_by_slug(args: {collectionslug: $slug}) {
-      ...CitationFragment.Citation
+  query GetCitationById ($slug: String!, $id: Int!) {
+    citations(where: {id: {_eq: $id}, collection: {slug: {_eq: $slug}}}) {
+      ...Citation
     }
   }
-|}
-];
 
-module GetCollectionBySlug = [%graphql
-  {|
-  query($slug: String!) {
+  query GetCitations($slug: String!) {
+    collections(where: {slug: {_eq: $slug}}) {
+      citations(order_by: {added: desc, id: desc}) {
+        ...Citation
+      }
+    }
+  }
+
+  query GetRandomCitation($slug: String!) {
+    get_random_citation_by_slug(args: {collectionslug: $slug}) {
+      ... Citation
+    }
+  }
+
+  query GetCollectionBySlug($slug: String!) {
     collections(where: {slug: {_eq: $slug}}) {
       id
       slug
-      authors @bsRecord {
+      authors  {
         id
         name
       }
     }
   }
-|}
-];
 
-module GetAllCollectionSlugs = [%graphql
-  {|
-  query {
+  query GetAllCollectionSlugs{
     collections {
       slug
     }
   }
-|}
+|};
+  {inline: true}
 ];

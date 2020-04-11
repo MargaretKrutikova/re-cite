@@ -4,7 +4,8 @@ module PageQuery = ReasonApolloHooks.Query.Make(Queries.GetCitationById);
 
 [@react.component]
 let make = (~slug, ~id) => {
-  let variables = Queries.GetCitationById.make(~slug, ~id, ())##variables;
+  let variables = Queries.GetCitationById.makeVariables(~slug, ~id, ());
+
   let (simple, _) = PageQuery.use(~variables, ());
 
   switch (simple) {

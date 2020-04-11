@@ -34,13 +34,13 @@ module Classes = {
 };
 
 [@react.component]
-let make = (~citation, ~className="") => {
+let make = (~citation: Queries.Citation.t, ~className="") => {
   <div className={Css.merge([Classes.bigQuote(), className])}>
     <Heading level=`h2 className=Classes.citationText>
-      {React.string(citation.text)}
+      {React.string(citation##text)}
     </Heading>
     <div className={Classes.citation()}>
-      {React.string(citation.author.name)}
+      {React.string(citation##author##name)}
     </div>
   </div>;
 };

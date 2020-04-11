@@ -20,7 +20,7 @@ module Classes = {
 };
 
 type status =
-  | UpdatingCitation(citation)
+  | UpdatingCitation(Queries.Citation.t)
   | AddingCitation
   | Idle;
 
@@ -33,7 +33,7 @@ let shouldShowSidebar =
   | _ => false;
 
 type action =
-  | RequestEditCitation(citation)
+  | RequestEditCitation(Queries.Citation.t)
   | RequestAddCitation
   | SidebarClosed;
 
@@ -53,7 +53,7 @@ module PageQuery = ReasonApolloHooks.Query.Make(GetCollectionBySlug);
 
 [@react.component]
 let make = (~route, ~slug) => {
-  let variables = GetCollectionBySlug.make(~slug, ())##variables;
+  let variables = Queries.GetCollectionBySlug.makeVariables(~slug, ());
 
   let (simple, full) = PageQuery.use(~variables, ());
 
@@ -64,8 +64,8 @@ let make = (~route, ~slug) => {
 
   let header = Header.Collection({slug, canAdd, onAdd});
 
-  let refetchCitationsQuery =
-    ReasonApolloHooks.Utils.toQueryObj(GetCitations.make(~slug, ()));
+  // let refetchCitationsQuery =
+  //   ReasonApolloHooks.Utils.toQueryObj(GetCitations.make(~slug, ()));
 
   <div className={Classes.root()}>
     <Header header />
@@ -91,22 +91,22 @@ let make = (~route, ~slug) => {
            <Sidebar
              show={shouldShowSidebar(state.status)}
              onClose={_ => dispatch(SidebarClosed)}>
-             {switch (state.status) {
-              | Idle => React.null
-              | AddingCitation =>
-                <AddCitation
-                  collection
-                  onSaved={() => dispatch(SidebarClosed)}
-                  refetchQueries={_ => [|refetchCitationsQuery|]}
-                />
-              | UpdatingCitation(citation) =>
-                <UpdateCitation
-                  citation
-                  collection
-                  onSaved={() => dispatch(SidebarClosed)}
-                />
-              }}
-           </Sidebar>
+             //  {switch (state.status) {
+             //   | Idle => React.null
+             //   | AddingCitation =>
+             //     <AddCitation
+             //       collection
+             //       onSaved={() => dispatch(SidebarClosed)}
+             //       refetchQueries={_ => [||]}
+             //     />
+             //   | UpdatingCitation(citation) =>
+             //     <UpdateCitation
+             //       citation
+             //       collection
+             //       onSaved={() => dispatch(SidebarClosed)}
+             //     />
+             //   }}
+              React.null </Sidebar>
          | _ => React.null // Should never happen :)
          }
        | NoData

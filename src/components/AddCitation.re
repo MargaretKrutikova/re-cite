@@ -7,7 +7,12 @@ let getNewCitation = (): CitationForm.state => {
 };
 
 [@react.component]
-let make = (~collection, ~onSaved, ~refetchQueries) => {
+let make =
+    (
+      ~collection: Queries.GetCollectionBySlug.t_collections,
+      ~onSaved,
+      ~refetchQueries,
+    ) => {
   let (mutation, _simple, full) = Mutation.use(~refetchQueries, ());
 
   let save = (formState: CitationForm.state) => {
@@ -32,12 +37,12 @@ let make = (~collection, ~onSaved, ~refetchQueries) => {
        )
     |> ignore;
   };
-
-  let authors = collection##authors;
-  <CitationForm
-    authors
-    citation={getNewCitation()}
-    onSave=save
-    isSaving={full.loading}
-  />;
+  ();
+  // let authors = collection##authors;
+  // <CitationForm
+  //   authors
+  //   citation={getNewCitation()}
+  //   onSave=save
+  //   isSaving={full.loading}
+  // />;
 };

@@ -8,7 +8,7 @@ module PageQuery = ReasonApolloHooks.Query.Make(Queries.GetRandomCitation);
 
 [@react.component]
 let make = (~slug) => {
-  let variables = Queries.GetRandomCitation.make(~slug, ())##variables;
+  let variables = Queries.GetRandomCitation.makeVariables(~slug, ());
   let (simple, full) = PageQuery.use(~variables, ());
 
   switch (simple) {

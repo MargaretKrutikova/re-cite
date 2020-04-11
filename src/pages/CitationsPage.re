@@ -1,12 +1,18 @@
 open Types;
-open Queries;
 
-module PageQuery = ReasonApolloHooks.Query.Make(GetCitations);
+module PageQuery = ReasonApolloHooks.Query.Make(Queries.GetCitations);
+
+module PageQuery2 = ReasonApolloHooks.Query.Make(Queries.GetCitationsTest);
 
 [@react.component]
 let make = (~slug, ~onEdit) => {
-  let variables = GetCitations.make(~slug, ())##variables;
+  let variables = Queries.GetCitations.makeVariables(~slug, ());
   let (simple, _) = PageQuery.use(~variables, ());
+
+  let variables2 =
+    Queries.GetCitationsTest.makeVariables(~slug, ~loggedInUserId="ASD", ());
+
+  let (simple2, _) = PageQuery2.use(~variables=variables2, ());
 
   switch (simple) {
   | NoData => React.null
@@ -29,11 +35,11 @@ let make = (~slug, ~onEdit) => {
         array->Belt.Array.map(citation =>
           <CitationListItem
             slug
-            key={citation.id |> string_of_int}
-            text={citation.text}
-            author={citation.author.name}
-            date={citation.added->Belt.Option.getWithDefault("")}
-            id={citation.id |> string_of_int}
+            key={citation##id |> string_of_int}
+            text={citation##text}
+            author={citation##author##name}
+            date={citation##added |> Obj.magic}
+            id={citation##id |> string_of_int}
             onEdit={() => onEdit(citation)}
           />
         )

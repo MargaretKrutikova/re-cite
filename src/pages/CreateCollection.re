@@ -1,5 +1,4 @@
 open DesignSystem;
-open Queries;
 
 module Classes = {
   open Css;
@@ -16,7 +15,8 @@ module Classes = {
   let btn = style([alignSelf(`flexEnd)]);
 };
 
-module GetAlllugsQuery = ReasonApolloHooks.Query.Make(GetAllCollectionSlugs);
+module GetAlllugsQuery =
+  ReasonApolloHooks.Query.Make(Queries.GetAllCollectionSlugs);
 
 module CreateCollectionMutation =
   ReasonApolloHooks.Mutation.Make(Mutations.CreateCollection);
@@ -24,22 +24,18 @@ module CreateCollectionMutation =
 [@react.component]
 let make = () => {
   let (collectionsResult, _) = GetAlllugsQuery.use();
-  let (mutation, mutationResult, _) =
-    CreateCollectionMutation.use(
-      ~refetchQueries=
-        _ => {
-          let query = GetAllCollectionSlugs.make();
-          [|ReasonApolloHooks.Utils.toQueryObj(query)|];
-        },
-      (),
-    );
+  let (mutation, mutationResult, _) = CreateCollectionMutation.use();
 
   let (collectionName, setCollectionName) = React.useState(() => "");
 
   let create = () => {
     let slug = collectionName |> Slug.make;
     let variables =
-      Mutations.CreateCollection.make(~name=collectionName, ~slug, ())##variables;
+      Mutations.CreateCollection.makeVariables(
+        ~name=collectionName,
+        ~slug,
+        (),
+      );
 
     mutation(~variables, ())
     |> Js.Promise.(

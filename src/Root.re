@@ -27,6 +27,8 @@ let make = () => {
     });
   };
 
+  let identity = User.useIdentityContext();
+
   <ThemeContext.Provider value=(theme, toggleTheme)>
     <Page />
     <ToastContainer />
