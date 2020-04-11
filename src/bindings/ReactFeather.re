@@ -237,3 +237,18 @@ module MenuIcon = {
     React.element =
     "default";
 };
+
+module UpvoteIcon = {
+  [@bs.module "react-feather/dist/icons/thumbs-up.js"] [@react.component]
+  external make:
+    (
+      ~color: string=?,
+      ~disabled: bool=?,
+      ~onClick: 'c=?,
+      ~size: string=?,
+      ~className: string=?,
+      unit
+    ) =>
+    React.element =
+    "default";
+};
