@@ -1,9 +1,9 @@
-const path = require("path");
-const HtmlWebpackPlugin = require("html-webpack-plugin");
-const FaviconWebpackPlugin = require("favicons-webpack-plugin");
-const outputDir = path.join(__dirname, "build/");
+const path = require("path")
+const HtmlWebpackPlugin = require("html-webpack-plugin")
+const FaviconWebpackPlugin = require("favicons-webpack-plugin")
+const outputDir = path.join(__dirname, "build/")
 
-const isProd = process.env.NODE_ENV === "production";
+const isProd = process.env.NODE_ENV === "production"
 
 module.exports = {
   entry: "./src/Index.bs.js",
@@ -11,34 +11,35 @@ module.exports = {
   output: {
     path: outputDir,
     publicPath: "/",
-    filename: "Index.js"
+    filename: "Index.js",
   },
   plugins: [
     new HtmlWebpackPlugin({
       template: "src/index.html",
-      favicon: "src/favicon.ico",
-      inject: true
+      favicon: "src/assets/favicon.ico",
+      inject: true,
     }),
     new FaviconWebpackPlugin({
+      logo: "./src/assets/logo.png",
       favicons: {
         icons: {
-          favicons: false
-        }
-      }
-    })
+          favicons: false,
+        },
+      },
+    }),
   ],
   devServer: {
     compress: true,
     contentBase: outputDir,
     port: process.env.PORT || 8000,
-    historyApiFallback: true
+    historyApiFallback: true,
   },
   module: {
     rules: [
       {
         test: /\.css$/,
-        use: ["style-loader", "css-loader"]
-      }
-    ]
-  }
-};
+        use: ["style-loader", "css-loader"],
+      },
+    ],
+  },
+}

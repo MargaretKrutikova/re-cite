@@ -32,3 +32,8 @@ let toUrl =
 let toAbsoluteUrl = url => location ++ url;
 
 let push = route => route |> toUrl |> ReasonReactRouter.push;
+
+let isActive = (url: ReasonReactRouter.url, route) => {
+  let activeRoute = url.path |> fromUrl;
+  route == activeRoute;
+};

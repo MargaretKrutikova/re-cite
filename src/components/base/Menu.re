@@ -125,7 +125,7 @@ let make =
     <div
       className={Css.merge([Clases.menu, className])}
       ref={ReactDOMRe.Ref.domRef(menuRef)}>
-      {renderTrigger(toggleOpen)}
+      {renderTrigger(toggleOpen, state.isOpen)}
       {state.isOpen
          ? <div className=Clases.optionsContainer>
              <div className=triangleStyles />
@@ -139,9 +139,12 @@ let make =
 module MenuItem = {
   open Css;
 
-  let itemStyle = isSelected =>
+  let itemStyle = (isSelected, dense) =>
     style([
-      padding2(~h=`md |> Styles.space, ~v=`xs |> Styles.space),
+      padding2(
+        ~h=`md |> Styles.space,
+        ~v=(dense ? `xs : `sm) |> Styles.space,
+      ),
       cursor(`pointer),
       backgroundColor(
         isSelected ? `rgba((0, 0, 0, 0.4)) : `BodyBg1 |> Styles.useColor,
@@ -162,8 +165,11 @@ module MenuItem = {
     ]);
 
   [@react.component]
-  let make = (~onClick=?, ~className="", ~selected=false, ~children) => {
-    <div ?onClick className={Css.merge([itemStyle(selected), className])}>
+  let make =
+      (~onClick=?, ~className="", ~dense=true, ~selected=false, ~children) => {
+    <div
+      ?onClick
+      className={Css.merge([itemStyle(selected, dense), className])}>
       children
     </div>;
   };
@@ -180,6 +186,7 @@ module MenuItem = {
           ~newTab=false,
           ~selected=false,
           ~children,
+          ~dense=true,
         ) => {
       <Link
         ?onClick
@@ -187,7 +194,7 @@ module MenuItem = {
         color
         variant
         newTab
-        className={Css.merge([itemStyle(selected), className])}>
+        className={Css.merge([itemStyle(selected, dense), className])}>
         children
       </Link>;
     };

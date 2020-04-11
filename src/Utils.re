@@ -1,3 +1,5 @@
+external promiseErrorToJsObj: Js.Promise.error => Js.t('a) = "%identity";
+
 // input with type date accepts yyyy-MM-dd
 let prependZero = str => str |> Js.String.length < 2 ? "0" ++ str : str;
 
@@ -19,4 +21,46 @@ module Display = {
 
   let hideDesktop =
     Css.(style([media(Breakpoint.up(`sm), [display(none)])]));
+};
+
+module MockReactNetlifyIdentity = {
+  open ReactNetlifyIdentity;
+  let mockContextValue: reactNetlifyIdentityApi(Js.t({.})) = {
+    user: None,
+    isConfirmedUser: false,
+    isLoggedIn: false,
+    signupUser: (~email as _, ~password as _, ~data as _) =>
+      Js.Promise.resolve(None),
+    loginUser: (~email as _, ~password as _, ~remember as _=false, _) =>
+      Js.Promise.resolve(None),
+    logoutUser: _ => Js.Promise.resolve(None),
+    requestPasswordRecovery: (~email as _) => Js.Promise.resolve(),
+    recoverAccount: (~remember as _=false, _) => Js.Promise.resolve(None),
+    updateUser: _ => Js.Promise.resolve(None),
+    getFreshJWT: _ => Js.Promise.resolve(""),
+    url: "",
+    loginProvider: _ => ignore(),
+    acceptInviteExternalUrl: (~token as _) => "",
+    settings: {
+      autoconfirm: false,
+      disableSignup: false,
+      providers: [||],
+    },
+    param: {
+      token: None,
+      type_: Unknown,
+      error: None,
+      status: None,
+    },
+  };
+  let context = React.createContext(mockContextValue);
+  let useContext = () => React.useContext(context);
+
+  module Provider = {
+    let make = React.Context.provider(context);
+    let makeProps = (~value, ~children, ()) => {
+      "value": value,
+      "children": children,
+    };
+  };
 };

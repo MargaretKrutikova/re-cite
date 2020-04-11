@@ -48,7 +48,7 @@ let make = (~text, ~author, ~date, ~slug, ~id, ~onEdit) => {
     <div className=Classes.menu>
       <Menu
         align=`Right
-        renderTrigger={toggle =>
+        renderTrigger={(toggle, _) =>
           <Button onClick=toggle icon=true variant=`Text color=`Primary>
             <ReactFeather.ChevronDownIcon />
           </Button>

@@ -73,6 +73,21 @@ module LogoutIcon = {
     "default";
 };
 
+module LoginIcon = {
+  [@bs.module "react-feather/dist/icons/log-in.js"] [@react.component]
+  external make:
+    (
+      ~color: string=?,
+      ~onClick: 'c=?,
+      ~size: string=?,
+      ~fill: string=?,
+      ~className: string=?,
+      unit
+    ) =>
+    React.element =
+    "default";
+};
+
 module LoaderIcon = {
   [@bs.module "react-feather/dist/icons/loader.js"] [@react.component]
   external make:
