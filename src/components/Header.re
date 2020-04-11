@@ -141,6 +141,12 @@ let make = (~header) => {
        | Collection({onAdd, canAdd, slug}) =>
          <>
            <DesktopNavMenu slug user onLogout=handleLogout />
+           <MobileNavMenu
+             slug
+             user
+             onLogin=toggleLoginSidebar
+             onLogout=handleLogout
+           />
            {!User.isLoggedIn(user)
               ? <Button
                   className={Css.merge([

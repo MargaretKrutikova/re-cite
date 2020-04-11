@@ -110,20 +110,16 @@ let make = (~slug=?, ~user: User.t, ~onLogout, ~onLogin) => {
   let (menuIsOpen, setMenuIsOpen) = React.useState(_ => false);
   let toggle = _ => setMenuIsOpen(open_ => !open_);
 
-  let hasMenuItems = user |> User.isLoggedIn || Belt.Option.isSome(slug);
-
-  hasMenuItems
-    ? <>
-        <Button
-          icon=true
-          variant=`Text
-          color=`Default
-          onClick=toggle
-          className=Utils.Display.hideDesktop>
-          {menuIsOpen ? <ReactFeather.CloseIcon /> : <ReactFeather.MenuIcon />}
-        </Button>
-        {menuIsOpen
-           ? <Menu ?slug onClose=toggle onLogin onLogout user /> : React.null}
-      </>
-    : React.null;
+  <>
+    <Button
+      icon=true
+      variant=`Text
+      color=`Default
+      onClick=toggle
+      className=Utils.Display.hideDesktop>
+      {menuIsOpen ? <ReactFeather.CloseIcon /> : <ReactFeather.MenuIcon />}
+    </Button>
+    {menuIsOpen
+       ? <Menu ?slug onClose=toggle onLogin onLogout user /> : React.null}
+  </>;
 };
