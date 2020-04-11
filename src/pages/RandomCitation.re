@@ -22,7 +22,7 @@ let make = (~slug) => {
     | [||] => <Text> {str("No citation found!")} </Text>
     | [|citation|] =>
       <>
-        <CitationBig citation />
+        <CitationBig citation={Queries.toCitation(citation)} />
         <Button
           size=`Large
           className=Classes.refreshButton

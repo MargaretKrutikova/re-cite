@@ -16,7 +16,8 @@ let make = (~slug, ~id) => {
   | Data(data) =>
     switch (data##citations) {
     | [||] => <Text> {str("No citation found!")} </Text>
-    | [|citation|] => <CitationBig citation />
+    | [|citationObj|] =>
+      <CitationBig citation={Queries.toCitation(citationObj)} />
     | _ => str("Multiple citations exist under the same id")
     }
   };

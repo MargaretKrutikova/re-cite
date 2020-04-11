@@ -34,7 +34,7 @@ module Classes = {
 };
 
 [@react.component]
-let make = (~citation, ~className="") => {
+let make = (~citation: Types.citation, ~className="") => {
   <div className={Css.merge([Classes.bigQuote(), className])}>
     <Heading level=`h2 className=Classes.citationText>
       {React.string(citation.text)}
