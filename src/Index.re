@@ -7,13 +7,10 @@ let client = GraphqlClient.makeApolloClient();
 ReactDOMRe.renderToElementWithId(
   <ReasonApollo.Provider client>
     <ReasonApolloHooks.ApolloProvider client>
-      <Utils.MockReactNetlifyIdentity.Provider
-        value={
-          ...Utils.MockReactNetlifyIdentity.mockContextValue,
-          url: "https://recite.netlify.com/.netlify/identity",
-        }>
+      <ReactNetlifyIdentity.IdentityContextProvider
+        url="https://recite.netlify.com/.netlify/identity">
         <Root />
-      </Utils.MockReactNetlifyIdentity.Provider>
+      </ReactNetlifyIdentity.IdentityContextProvider>
     </ReasonApolloHooks.ApolloProvider>
   </ReasonApollo.Provider>,
   "root",

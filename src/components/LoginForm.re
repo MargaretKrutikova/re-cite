@@ -27,11 +27,7 @@ let make = () => {
        )}
     </Text>
     <div id="providers">
-      {[|
-         NetlifyProvider.GitHub,
-         NetlifyProvider.Google,
-         NetlifyProvider.GitLab,
-       |]
+      {identity.settings.providers
        ->Belt.Array.map(provider =>
            <LoginProviderButton
              key={ReactNetlifyIdentity.providerToString(provider)}
