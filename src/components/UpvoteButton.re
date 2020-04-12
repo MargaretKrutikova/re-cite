@@ -96,7 +96,7 @@ let make =
       />
     </Button>
     <div className={Classes.upvoteCount(size)}>
-      {React.string(upvoteCount |> string_of_int)}
+      {(upvoteCount == 0 ? "" : upvoteCount |> string_of_int) |> React.string}
     </div>
   </Flex>;
 };

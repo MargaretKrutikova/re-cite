@@ -11,7 +11,13 @@ module Classes = {
       position(`relative),
       media(
         Breakpoint.up(`sm),
-        [padding2(~v=`lg |> Styles.space, ~h=`lg |> Styles.space)],
+        [
+          padding3(
+            ~top=`lg |> Styles.space,
+            ~bottom=px(18),
+            ~h=`lg |> Styles.space,
+          ),
+        ],
       ),
       boxShadow(
         Shadow.box(~x=px(0), ~y=px(2), ~blur=px(5), Styles.useBoxShadow()),
