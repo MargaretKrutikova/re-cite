@@ -1,3 +1,5 @@
+open Fragments;
+
 module AddCitation = [%graphql
   {|
   mutation ($text: String!, $collectionId: uuid!, $authorName: String!, $date: date!) {
@@ -79,4 +81,36 @@ module CreateCollection = [%graphql
     }
   }
   |}
+];
+
+module UpvoteCitation = [%graphql
+  {|
+  mutation UpvoteCitation($citationId: Int!, $userId: String!) {
+    insert_citation_upvotes(objects: {citationId: $citationId, userId: $userId},
+    on_conflict: {
+      constraint: citation_upvotes_userId_citationId_key,
+      update_columns: userId
+    }) {
+      returning {
+        citation {
+          ...CitationFragment.Citation
+        }
+      }
+    }
+  }
+|}
+];
+
+module RemoveUpvoteCitation = [%graphql
+  {|
+  mutation RemoveUpvoteCitation($citationId: Int!, $userId: String!) {
+    delete_citation_upvotes(where: {_and: {citationId: {_eq: $citationId}, userId: {_eq: $userId}}}) {
+      returning {
+        citation {
+          ...CitationFragment.Citation
+        }
+      }
+    }
+  }
+|}
 ];

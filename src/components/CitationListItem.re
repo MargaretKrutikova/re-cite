@@ -27,19 +27,19 @@ module Classes = {
 };
 
 [@react.component]
-let make = (~text, ~author, ~date, ~slug, ~id, ~onEdit) => {
-  let (state, setState) = React.useState(_ => false);
-  let toggleActive = _ => setState(s => !s);
-
+let make =
+    (~text, ~author, ~date, ~slug, ~upvoteCount, ~upvoteUserIds, ~id, ~onEdit) => {
   <Card>
     <div className=Classes.citationText> {str(text)} </div>
     <Flex justify=`spaceBetween align=`center>
       <span className={Classes.secondaryText()}> {str(author)} </span>
       <Flex align=`center>
         <div className={Classes.secondaryText()}> {str(date)} </div>
-        <UpvoteButton upvoteCount=45 isActive=state onClick=toggleActive />
+        <UpvoteButton upvoteCount upvoteUserIds citationId=id />
       </Flex>
     </Flex>
-    <div className=Classes.menu> <CitationMenu slug id onEdit /> </div>
+    <div className=Classes.menu>
+      <CitationMenu slug id={id |> string_of_int} onEdit />
+    </div>
   </Card>;
 };

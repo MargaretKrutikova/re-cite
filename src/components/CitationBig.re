@@ -39,9 +39,6 @@ module Classes = {
 
 [@react.component]
 let make = (~citation: Types.citation, ~className="") => {
-  let (state, setState) = React.useState(_ => false);
-  let toggleActive = _ => setState(s => !s);
-
   <div className={Css.merge([Classes.bigQuote(), className])}>
     <div className=Classes.menu>
       <CitationMenu
@@ -59,9 +56,9 @@ let make = (~citation: Types.citation, ~className="") => {
       </div>
       <UpvoteButton
         size=`Large
-        upvoteCount=45
-        isActive=state
-        onClick=toggleActive
+        upvoteCount={citation.numberOfUpvotes}
+        upvoteUserIds={citation.upvoteUserIds}
+        citationId={citation.id}
       />
     </Flex>
   </div>;
