@@ -27,6 +27,6 @@ module Classes = {
 };
 
 [@react.component]
-let make = (~children) => {
-  <div className={Classes.card()}> children </div>;
+let make = (~children, ~className="") => {
+  <div className={Css.merge([Classes.card(), className])}> children </div>;
 };

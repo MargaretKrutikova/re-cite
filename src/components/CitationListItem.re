@@ -24,12 +24,13 @@ module Classes = {
       top(`xxs |> Styles.space),
       right(`xs |> Styles.space),
     ]);
+  let card = style([important(paddingRight(px(8)))]);
 };
 
 [@react.component]
 let make =
     (~text, ~author, ~date, ~slug, ~upvoteCount, ~upvoteUserIds, ~id, ~onEdit) => {
-  <Card>
+  <Card className=Classes.card>
     <div className=Classes.citationText> {str(text)} </div>
     <Flex justify=`spaceBetween align=`center>
       <span className={Classes.secondaryText()}> {str(author)} </span>

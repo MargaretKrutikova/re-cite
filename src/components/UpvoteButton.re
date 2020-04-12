@@ -13,7 +13,11 @@ module Classes = {
       | `Medium => Styles.font(`sm)
       | `Large => Styles.font(`base)
       };
-    style(fs);
+    style([
+      marginLeft(`xxs |> Styles.space),
+      marginRight(`xs |> Styles.space),
+      ...fs,
+    ]);
   };
   let upvoteButton = () => style([color(`BodyText |> Styles.useColor)]);
   let upvoteIcon = size => {
@@ -48,7 +52,13 @@ let isUpvotedByLoggedInUser = (user, upvoteUserIds) => {
 
 [@react.component]
 let make =
-    (~upvoteCount, ~citationId: int, ~upvoteUserIds, ~size: size=`Medium) => {
+    (
+      ~upvoteCount,
+      ~citationId: int,
+      ~upvoteUserIds,
+      ~size: size=`Medium,
+      ~className="",
+    ) => {
   let upvoteActiveIconStyle = Classes.upvoteIconActive();
 
   let identity = User.useIdentityContext();
@@ -81,7 +91,8 @@ let make =
     };
   };
 
-  <Flex align=`center className=Classes.upvoteContainer>
+  <Flex
+    align=`center className={Css.merge([Classes.upvoteContainer, className])}>
     <Button
       className={Classes.upvoteButton()}
       size
@@ -95,8 +106,10 @@ let make =
         ])}
       />
     </Button>
-    <div className={Classes.upvoteCount(size)}>
-      {(upvoteCount == 0 ? "" : upvoteCount |> string_of_int) |> React.string}
-    </div>
+    {upvoteCount > 0
+       ? <div className={Classes.upvoteCount(size)}>
+           {upvoteCount |> string_of_int |> React.string}
+         </div>
+       : React.null}
   </Flex>;
 };
