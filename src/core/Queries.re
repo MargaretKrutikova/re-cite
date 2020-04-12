@@ -3,13 +3,9 @@ open Fragments;
 
 module GetCitationById = [%graphql
   {|
-  query ($slug: String!, $id: Int!, $loggedInUserId: String) {
+  query ($slug: String!, $id: Int!) {
     citations(where: {id: {_eq: $id}, collection: {slug: {_eq: $slug}}}) {
-      ...CitationFragment.Citation @bsField(name: "base")
-
-      upvotes(where: {userId: {_eq: $loggedInUserId}}) {
-        userId
-      }
+      ...CitationFragment.Citation
     }
   }
 |}
@@ -17,14 +13,10 @@ module GetCitationById = [%graphql
 
 module GetCitations = [%graphql
   {|
-  query($slug: String!, $loggedInUserId: String) {
+  query($slug: String!) {
     collections(where: {slug: {_eq: $slug}}) {
       citations(order_by: {added: desc, id: desc}) {
-         ...CitationFragment.Citation @bsField(name: "base")
-
-        upvotes(where: {userId: {_eq: $loggedInUserId}}) {
-          userId
-        }
+         ...CitationFragment.Citation
       }
     }
   }
@@ -33,13 +25,9 @@ module GetCitations = [%graphql
 
 module GetRandomCitation = [%graphql
   {|
-  query($slug: String!, $loggedInUserId: String) {
+  query($slug: String!) {
     get_random_citation_by_slug(args: {collectionslug: $slug}) {
-       ...CitationFragment.Citation @bsField(name: "base")
-
-        upvotes(where: {userId: {_eq: $loggedInUserId}}) {
-          userId
-        }
+       ...CitationFragment.Citation
     }
   }
 |}
@@ -71,23 +59,22 @@ module GetAllCollectionSlugs = [%graphql
 ];
 
 let toCitation = (data): Types.citation => {
-  let base = data##base;
   let numberOfUpvotes =
-    base##upvotes_aggregate##aggregate
+    data##upvotes_aggregate##aggregate
     ->Belt.Option.flatMap(d => d##count)
     ->Belt.Option.getWithDefault(0);
 
-  let hasUserUpvoted = data##upvotes->Belt.Array.length > 0;
+  let upvoteUserIds = data##upvotes->Belt.Array.map(upvote => upvote##userId);
 
   {
-    id: base##id,
-    text: base##text,
-    added: base##added,
+    id: data##id,
+    text: data##text,
+    added: data##added,
     author: {
-      id: base##author##id,
-      name: base##author##name,
+      id: data##author##id,
+      name: data##author##name,
     },
     numberOfUpvotes,
-    hasUserUpvoted,
+    upvoteUserIds,
   };
 };

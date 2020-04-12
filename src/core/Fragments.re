@@ -13,6 +13,9 @@ module CitationFragment = [%graphql
           count
         }
       }
+      upvotes {
+        userId
+      }
     }
 |}
 ];

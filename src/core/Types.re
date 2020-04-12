@@ -9,7 +9,7 @@ type citation = {
   added: option(string),
   author,
   numberOfUpvotes: int,
-  hasUserUpvoted: bool,
+  upvoteUserIds: array(string),
 };
 
 type collection = {
