@@ -1,6 +1,7 @@
 [%bs.raw {|require("./assets/reset.css")|}];
 [%bs.raw {|require("./assets/login-provider.css")|}];
 [%bs.raw {|require("react-toastify/dist/ReactToastify.css")|}];
+[%bs.raw {|require("./assets/overrides.css")|}];
 
 let client = GraphqlClient.makeApolloClient();
 

@@ -26,17 +26,21 @@ let make = (~slug, ~onEdit) => {
           {React.string("There are no citations in your collection.")}
         </Text>
       | array =>
-        array->Belt.Array.map(citation =>
-          <CitationListItem
-            slug
-            key={citation.id |> string_of_int}
-            text={citation.text}
-            author={citation.author.name}
-            date={citation.added->Belt.Option.getWithDefault("")}
-            id={citation.id |> string_of_int}
-            onEdit={() => onEdit(citation)}
-          />
-        )
+        array
+        ->Belt.Array.map(citationObj => Queries.toCitation(citationObj))
+        ->Belt.Array.map(citation =>
+            <CitationListItem
+              slug
+              key={citation.id |> string_of_int}
+              text={citation.text}
+              author={citation.author.name}
+              date={citation.added->Belt.Option.getWithDefault("")}
+              id={citation.id}
+              upvoteUserIds={citation.upvoteUserIds}
+              upvoteCount={citation.numberOfUpvotes}
+              onEdit={() => onEdit(citation)}
+            />
+          )
         |> React.array
       }
     | _ => React.string("Multiple collections exist under the same name")

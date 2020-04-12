@@ -1,4 +1,7 @@
-type loggedInUser = {email: string};
+type loggedInUser = {
+  email: string,
+  id: string,
+};
 
 type t =
   | Anonymous
@@ -7,7 +10,8 @@ type t =
 let make =
     ({user, isLoggedIn}: ReactNetlifyIdentity.reactNetlifyIdentityApi('a)) => {
   switch (user, isLoggedIn) {
-  | (Some(loggedInUser), true) => LoggedInUser({email: loggedInUser.email})
+  | (Some(loggedInUser), true) =>
+    LoggedInUser({email: loggedInUser.email, id: loggedInUser.id})
   | _ => Anonymous
   };
 };

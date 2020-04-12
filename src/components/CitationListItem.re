@@ -24,67 +24,23 @@ module Classes = {
       top(`xxs |> Styles.space),
       right(`xs |> Styles.space),
     ]);
-
-  let menuIcon = () =>
-    style([
-      width(px(20)),
-      marginRight(`xs |> Styles.space),
-      color(`Primary |> Styles.useColor),
-      flexShrink(0.0),
-    ]);
+  let card = style([important(paddingRight(px(8)))]);
 };
 
 [@react.component]
-let make = (~text, ~author, ~date, ~slug, ~id, ~onEdit) => {
-  let iconStyle = Classes.menuIcon();
-  let citationUrl = Route.toUrl(Collection(slug, CitationById(id)));
-
-  <Card>
+let make =
+    (~text, ~author, ~date, ~slug, ~upvoteCount, ~upvoteUserIds, ~id, ~onEdit) => {
+  <Card className=Classes.card>
     <div className=Classes.citationText> {str(text)} </div>
-    <Flex justify=`spaceBetween align=`end_>
+    <Flex justify=`spaceBetween align=`center>
       <span className={Classes.secondaryText()}> {str(author)} </span>
-      <span className={Classes.secondaryText()}> {str(date)} </span>
+      <Flex align=`center>
+        <div className={Classes.secondaryText()}> {str(date)} </div>
+        <UpvoteButton upvoteCount upvoteUserIds citationId=id />
+      </Flex>
     </Flex>
     <div className=Classes.menu>
-      <Menu
-        align=`Right
-        renderTrigger={(toggle, _) =>
-          <Button onClick=toggle icon=true variant=`Text color=`Primary>
-            <ReactFeather.ChevronDownIcon />
-          </Button>
-        }
-        renderOptions={toggle =>
-          <React.Fragment>
-            <CopyToClipboard
-              text={citationUrl |> Route.toAbsoluteUrl}
-              onCopy={() => {
-                toggle();
-                ReactToastify.toast("Copied!");
-              }}>
-              <Menu.MenuItem>
-                <ReactFeather.LinkIcon className=iconStyle />
-                {str("Copy link")}
-              </Menu.MenuItem>
-            </CopyToClipboard>
-            <Menu.MenuItem.Link
-              href=citationUrl
-              newTab=true
-              variant=`Text
-              onClick={_ => toggle()}>
-              <ReactFeather.ExternalLinkIcon className=iconStyle />
-              {str("Go to link")}
-            </Menu.MenuItem.Link>
-            <Menu.MenuItem
-              onClick={_ => {
-                toggle();
-                onEdit();
-              }}>
-              <ReactFeather.EditIcon className=iconStyle />
-              {str("Edit citation")}
-            </Menu.MenuItem>
-          </React.Fragment>
-        }
-      />
+      <CitationMenu slug id={id |> string_of_int} onEdit />
     </div>
   </Card>;
 };

@@ -2821,6 +2821,1649 @@
         "kind": "OBJECT",
         "possibleTypes": null,
         "interfaces": [],
+        "name": "citation_upvotes",
+        "enumValues": null,
+        "description": "columns and relationships of \"citation_upvotes\"",
+        "fields": [
+          {
+            "args": [],
+            "isDeprecated": false,
+            "deprecationReason": null,
+            "name": "citation",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "citations",
+                "ofType": null
+              }
+            },
+            "description": "An object relationship"
+          },
+          {
+            "args": [],
+            "isDeprecated": false,
+            "deprecationReason": null,
+            "name": "citationId",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Int",
+                "ofType": null
+              }
+            },
+            "description": null
+          },
+          {
+            "args": [],
+            "isDeprecated": false,
+            "deprecationReason": null,
+            "name": "id",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Int",
+                "ofType": null
+              }
+            },
+            "description": null
+          },
+          {
+            "args": [],
+            "isDeprecated": false,
+            "deprecationReason": null,
+            "name": "userId",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            },
+            "description": null
+          }
+        ]
+      },
+      {
+        "inputFields": null,
+        "kind": "OBJECT",
+        "possibleTypes": null,
+        "interfaces": [],
+        "name": "citation_upvotes_aggregate",
+        "enumValues": null,
+        "description": "aggregated selection of \"citation_upvotes\"",
+        "fields": [
+          {
+            "args": [],
+            "isDeprecated": false,
+            "deprecationReason": null,
+            "name": "aggregate",
+            "type": {
+              "kind": "OBJECT",
+              "name": "citation_upvotes_aggregate_fields",
+              "ofType": null
+            },
+            "description": null
+          },
+          {
+            "args": [],
+            "isDeprecated": false,
+            "deprecationReason": null,
+            "name": "nodes",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "citation_upvotes",
+                    "ofType": null
+                  }
+                }
+              }
+            },
+            "description": null
+          }
+        ]
+      },
+      {
+        "inputFields": null,
+        "kind": "OBJECT",
+        "possibleTypes": null,
+        "interfaces": [],
+        "name": "citation_upvotes_aggregate_fields",
+        "enumValues": null,
+        "description": "aggregate fields of \"citation_upvotes\"",
+        "fields": [
+          {
+            "args": [],
+            "isDeprecated": false,
+            "deprecationReason": null,
+            "name": "avg",
+            "type": {
+              "kind": "OBJECT",
+              "name": "citation_upvotes_avg_fields",
+              "ofType": null
+            },
+            "description": null
+          },
+          {
+            "args": [
+              {
+                "name": "columns",
+                "defaultValue": null,
+                "type": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "ENUM",
+                      "name": "citation_upvotes_select_column",
+                      "ofType": null
+                    }
+                  }
+                },
+                "description": null
+              },
+              {
+                "name": "distinct",
+                "defaultValue": null,
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Boolean",
+                  "ofType": null
+                },
+                "description": null
+              }
+            ],
+            "isDeprecated": false,
+            "deprecationReason": null,
+            "name": "count",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Int",
+              "ofType": null
+            },
+            "description": null
+          },
+          {
+            "args": [],
+            "isDeprecated": false,
+            "deprecationReason": null,
+            "name": "max",
+            "type": {
+              "kind": "OBJECT",
+              "name": "citation_upvotes_max_fields",
+              "ofType": null
+            },
+            "description": null
+          },
+          {
+            "args": [],
+            "isDeprecated": false,
+            "deprecationReason": null,
+            "name": "min",
+            "type": {
+              "kind": "OBJECT",
+              "name": "citation_upvotes_min_fields",
+              "ofType": null
+            },
+            "description": null
+          },
+          {
+            "args": [],
+            "isDeprecated": false,
+            "deprecationReason": null,
+            "name": "stddev",
+            "type": {
+              "kind": "OBJECT",
+              "name": "citation_upvotes_stddev_fields",
+              "ofType": null
+            },
+            "description": null
+          },
+          {
+            "args": [],
+            "isDeprecated": false,
+            "deprecationReason": null,
+            "name": "stddev_pop",
+            "type": {
+              "kind": "OBJECT",
+              "name": "citation_upvotes_stddev_pop_fields",
+              "ofType": null
+            },
+            "description": null
+          },
+          {
+            "args": [],
+            "isDeprecated": false,
+            "deprecationReason": null,
+            "name": "stddev_samp",
+            "type": {
+              "kind": "OBJECT",
+              "name": "citation_upvotes_stddev_samp_fields",
+              "ofType": null
+            },
+            "description": null
+          },
+          {
+            "args": [],
+            "isDeprecated": false,
+            "deprecationReason": null,
+            "name": "sum",
+            "type": {
+              "kind": "OBJECT",
+              "name": "citation_upvotes_sum_fields",
+              "ofType": null
+            },
+            "description": null
+          },
+          {
+            "args": [],
+            "isDeprecated": false,
+            "deprecationReason": null,
+            "name": "var_pop",
+            "type": {
+              "kind": "OBJECT",
+              "name": "citation_upvotes_var_pop_fields",
+              "ofType": null
+            },
+            "description": null
+          },
+          {
+            "args": [],
+            "isDeprecated": false,
+            "deprecationReason": null,
+            "name": "var_samp",
+            "type": {
+              "kind": "OBJECT",
+              "name": "citation_upvotes_var_samp_fields",
+              "ofType": null
+            },
+            "description": null
+          },
+          {
+            "args": [],
+            "isDeprecated": false,
+            "deprecationReason": null,
+            "name": "variance",
+            "type": {
+              "kind": "OBJECT",
+              "name": "citation_upvotes_variance_fields",
+              "ofType": null
+            },
+            "description": null
+          }
+        ]
+      },
+      {
+        "inputFields": [
+          {
+            "name": "avg",
+            "defaultValue": null,
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "citation_upvotes_avg_order_by",
+              "ofType": null
+            },
+            "description": null
+          },
+          {
+            "name": "count",
+            "defaultValue": null,
+            "type": {
+              "kind": "ENUM",
+              "name": "order_by",
+              "ofType": null
+            },
+            "description": null
+          },
+          {
+            "name": "max",
+            "defaultValue": null,
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "citation_upvotes_max_order_by",
+              "ofType": null
+            },
+            "description": null
+          },
+          {
+            "name": "min",
+            "defaultValue": null,
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "citation_upvotes_min_order_by",
+              "ofType": null
+            },
+            "description": null
+          },
+          {
+            "name": "stddev",
+            "defaultValue": null,
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "citation_upvotes_stddev_order_by",
+              "ofType": null
+            },
+            "description": null
+          },
+          {
+            "name": "stddev_pop",
+            "defaultValue": null,
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "citation_upvotes_stddev_pop_order_by",
+              "ofType": null
+            },
+            "description": null
+          },
+          {
+            "name": "stddev_samp",
+            "defaultValue": null,
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "citation_upvotes_stddev_samp_order_by",
+              "ofType": null
+            },
+            "description": null
+          },
+          {
+            "name": "sum",
+            "defaultValue": null,
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "citation_upvotes_sum_order_by",
+              "ofType": null
+            },
+            "description": null
+          },
+          {
+            "name": "var_pop",
+            "defaultValue": null,
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "citation_upvotes_var_pop_order_by",
+              "ofType": null
+            },
+            "description": null
+          },
+          {
+            "name": "var_samp",
+            "defaultValue": null,
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "citation_upvotes_var_samp_order_by",
+              "ofType": null
+            },
+            "description": null
+          },
+          {
+            "name": "variance",
+            "defaultValue": null,
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "citation_upvotes_variance_order_by",
+              "ofType": null
+            },
+            "description": null
+          }
+        ],
+        "kind": "INPUT_OBJECT",
+        "possibleTypes": null,
+        "interfaces": null,
+        "name": "citation_upvotes_aggregate_order_by",
+        "enumValues": null,
+        "description": "order by aggregate values of table \"citation_upvotes\"",
+        "fields": null
+      },
+      {
+        "inputFields": [
+          {
+            "name": "data",
+            "defaultValue": null,
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "INPUT_OBJECT",
+                    "name": "citation_upvotes_insert_input",
+                    "ofType": null
+                  }
+                }
+              }
+            },
+            "description": null
+          },
+          {
+            "name": "on_conflict",
+            "defaultValue": null,
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "citation_upvotes_on_conflict",
+              "ofType": null
+            },
+            "description": null
+          }
+        ],
+        "kind": "INPUT_OBJECT",
+        "possibleTypes": null,
+        "interfaces": null,
+        "name": "citation_upvotes_arr_rel_insert_input",
+        "enumValues": null,
+        "description": "input type for inserting array relation for remote table \"citation_upvotes\"",
+        "fields": null
+      },
+      {
+        "inputFields": null,
+        "kind": "OBJECT",
+        "possibleTypes": null,
+        "interfaces": [],
+        "name": "citation_upvotes_avg_fields",
+        "enumValues": null,
+        "description": "aggregate avg on columns",
+        "fields": [
+          {
+            "args": [],
+            "isDeprecated": false,
+            "deprecationReason": null,
+            "name": "citationId",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Float",
+              "ofType": null
+            },
+            "description": null
+          },
+          {
+            "args": [],
+            "isDeprecated": false,
+            "deprecationReason": null,
+            "name": "id",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Float",
+              "ofType": null
+            },
+            "description": null
+          }
+        ]
+      },
+      {
+        "inputFields": [
+          {
+            "name": "citationId",
+            "defaultValue": null,
+            "type": {
+              "kind": "ENUM",
+              "name": "order_by",
+              "ofType": null
+            },
+            "description": null
+          },
+          {
+            "name": "id",
+            "defaultValue": null,
+            "type": {
+              "kind": "ENUM",
+              "name": "order_by",
+              "ofType": null
+            },
+            "description": null
+          }
+        ],
+        "kind": "INPUT_OBJECT",
+        "possibleTypes": null,
+        "interfaces": null,
+        "name": "citation_upvotes_avg_order_by",
+        "enumValues": null,
+        "description": "order by avg() on columns of table \"citation_upvotes\"",
+        "fields": null
+      },
+      {
+        "inputFields": [
+          {
+            "name": "_and",
+            "defaultValue": null,
+            "type": {
+              "kind": "LIST",
+              "name": null,
+              "ofType": {
+                "kind": "INPUT_OBJECT",
+                "name": "citation_upvotes_bool_exp",
+                "ofType": null
+              }
+            },
+            "description": null
+          },
+          {
+            "name": "_not",
+            "defaultValue": null,
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "citation_upvotes_bool_exp",
+              "ofType": null
+            },
+            "description": null
+          },
+          {
+            "name": "_or",
+            "defaultValue": null,
+            "type": {
+              "kind": "LIST",
+              "name": null,
+              "ofType": {
+                "kind": "INPUT_OBJECT",
+                "name": "citation_upvotes_bool_exp",
+                "ofType": null
+              }
+            },
+            "description": null
+          },
+          {
+            "name": "citation",
+            "defaultValue": null,
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "citations_bool_exp",
+              "ofType": null
+            },
+            "description": null
+          },
+          {
+            "name": "citationId",
+            "defaultValue": null,
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "Int_comparison_exp",
+              "ofType": null
+            },
+            "description": null
+          },
+          {
+            "name": "id",
+            "defaultValue": null,
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "Int_comparison_exp",
+              "ofType": null
+            },
+            "description": null
+          },
+          {
+            "name": "userId",
+            "defaultValue": null,
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "String_comparison_exp",
+              "ofType": null
+            },
+            "description": null
+          }
+        ],
+        "kind": "INPUT_OBJECT",
+        "possibleTypes": null,
+        "interfaces": null,
+        "name": "citation_upvotes_bool_exp",
+        "enumValues": null,
+        "description": "Boolean expression to filter rows from the table \"citation_upvotes\". All fields are combined with a logical 'AND'.",
+        "fields": null
+      },
+      {
+        "inputFields": null,
+        "kind": "ENUM",
+        "possibleTypes": null,
+        "interfaces": null,
+        "name": "citation_upvotes_constraint",
+        "enumValues": [
+          {
+            "isDeprecated": false,
+            "deprecationReason": null,
+            "name": "citation_upvotes_pkey",
+            "description": "unique or primary key constraint"
+          }
+        ],
+        "description": "unique or primary key constraints on table \"citation_upvotes\"",
+        "fields": null
+      },
+      {
+        "inputFields": [
+          {
+            "name": "citationId",
+            "defaultValue": null,
+            "type": {
+              "kind": "SCALAR",
+              "name": "Int",
+              "ofType": null
+            },
+            "description": null
+          },
+          {
+            "name": "id",
+            "defaultValue": null,
+            "type": {
+              "kind": "SCALAR",
+              "name": "Int",
+              "ofType": null
+            },
+            "description": null
+          }
+        ],
+        "kind": "INPUT_OBJECT",
+        "possibleTypes": null,
+        "interfaces": null,
+        "name": "citation_upvotes_inc_input",
+        "enumValues": null,
+        "description": "input type for incrementing integer columne in table \"citation_upvotes\"",
+        "fields": null
+      },
+      {
+        "inputFields": [
+          {
+            "name": "citation",
+            "defaultValue": null,
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "citations_obj_rel_insert_input",
+              "ofType": null
+            },
+            "description": null
+          },
+          {
+            "name": "citationId",
+            "defaultValue": null,
+            "type": {
+              "kind": "SCALAR",
+              "name": "Int",
+              "ofType": null
+            },
+            "description": null
+          },
+          {
+            "name": "id",
+            "defaultValue": null,
+            "type": {
+              "kind": "SCALAR",
+              "name": "Int",
+              "ofType": null
+            },
+            "description": null
+          },
+          {
+            "name": "userId",
+            "defaultValue": null,
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "description": null
+          }
+        ],
+        "kind": "INPUT_OBJECT",
+        "possibleTypes": null,
+        "interfaces": null,
+        "name": "citation_upvotes_insert_input",
+        "enumValues": null,
+        "description": "input type for inserting data into table \"citation_upvotes\"",
+        "fields": null
+      },
+      {
+        "inputFields": null,
+        "kind": "OBJECT",
+        "possibleTypes": null,
+        "interfaces": [],
+        "name": "citation_upvotes_max_fields",
+        "enumValues": null,
+        "description": "aggregate max on columns",
+        "fields": [
+          {
+            "args": [],
+            "isDeprecated": false,
+            "deprecationReason": null,
+            "name": "citationId",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Int",
+              "ofType": null
+            },
+            "description": null
+          },
+          {
+            "args": [],
+            "isDeprecated": false,
+            "deprecationReason": null,
+            "name": "id",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Int",
+              "ofType": null
+            },
+            "description": null
+          },
+          {
+            "args": [],
+            "isDeprecated": false,
+            "deprecationReason": null,
+            "name": "userId",
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "description": null
+          }
+        ]
+      },
+      {
+        "inputFields": [
+          {
+            "name": "citationId",
+            "defaultValue": null,
+            "type": {
+              "kind": "ENUM",
+              "name": "order_by",
+              "ofType": null
+            },
+            "description": null
+          },
+          {
+            "name": "id",
+            "defaultValue": null,
+            "type": {
+              "kind": "ENUM",
+              "name": "order_by",
+              "ofType": null
+            },
+            "description": null
+          },
+          {
+            "name": "userId",
+            "defaultValue": null,
+            "type": {
+              "kind": "ENUM",
+              "name": "order_by",
+              "ofType": null
+            },
+            "description": null
+          }
+        ],
+        "kind": "INPUT_OBJECT",
+        "possibleTypes": null,
+        "interfaces": null,
+        "name": "citation_upvotes_max_order_by",
+        "enumValues": null,
+        "description": "order by max() on columns of table \"citation_upvotes\"",
+        "fields": null
+      },
+      {
+        "inputFields": null,
+        "kind": "OBJECT",
+        "possibleTypes": null,
+        "interfaces": [],
+        "name": "citation_upvotes_min_fields",
+        "enumValues": null,
+        "description": "aggregate min on columns",
+        "fields": [
+          {
+            "args": [],
+            "isDeprecated": false,
+            "deprecationReason": null,
+            "name": "citationId",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Int",
+              "ofType": null
+            },
+            "description": null
+          },
+          {
+            "args": [],
+            "isDeprecated": false,
+            "deprecationReason": null,
+            "name": "id",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Int",
+              "ofType": null
+            },
+            "description": null
+          },
+          {
+            "args": [],
+            "isDeprecated": false,
+            "deprecationReason": null,
+            "name": "userId",
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "description": null
+          }
+        ]
+      },
+      {
+        "inputFields": [
+          {
+            "name": "citationId",
+            "defaultValue": null,
+            "type": {
+              "kind": "ENUM",
+              "name": "order_by",
+              "ofType": null
+            },
+            "description": null
+          },
+          {
+            "name": "id",
+            "defaultValue": null,
+            "type": {
+              "kind": "ENUM",
+              "name": "order_by",
+              "ofType": null
+            },
+            "description": null
+          },
+          {
+            "name": "userId",
+            "defaultValue": null,
+            "type": {
+              "kind": "ENUM",
+              "name": "order_by",
+              "ofType": null
+            },
+            "description": null
+          }
+        ],
+        "kind": "INPUT_OBJECT",
+        "possibleTypes": null,
+        "interfaces": null,
+        "name": "citation_upvotes_min_order_by",
+        "enumValues": null,
+        "description": "order by min() on columns of table \"citation_upvotes\"",
+        "fields": null
+      },
+      {
+        "inputFields": null,
+        "kind": "OBJECT",
+        "possibleTypes": null,
+        "interfaces": [],
+        "name": "citation_upvotes_mutation_response",
+        "enumValues": null,
+        "description": "response of any mutation on the table \"citation_upvotes\"",
+        "fields": [
+          {
+            "args": [],
+            "isDeprecated": false,
+            "deprecationReason": null,
+            "name": "affected_rows",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Int",
+                "ofType": null
+              }
+            },
+            "description": "number of affected rows by the mutation"
+          },
+          {
+            "args": [],
+            "isDeprecated": false,
+            "deprecationReason": null,
+            "name": "returning",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "citation_upvotes",
+                    "ofType": null
+                  }
+                }
+              }
+            },
+            "description": "data of the affected rows by the mutation"
+          }
+        ]
+      },
+      {
+        "inputFields": [
+          {
+            "name": "data",
+            "defaultValue": null,
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "INPUT_OBJECT",
+                "name": "citation_upvotes_insert_input",
+                "ofType": null
+              }
+            },
+            "description": null
+          },
+          {
+            "name": "on_conflict",
+            "defaultValue": null,
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "citation_upvotes_on_conflict",
+              "ofType": null
+            },
+            "description": null
+          }
+        ],
+        "kind": "INPUT_OBJECT",
+        "possibleTypes": null,
+        "interfaces": null,
+        "name": "citation_upvotes_obj_rel_insert_input",
+        "enumValues": null,
+        "description": "input type for inserting object relation for remote table \"citation_upvotes\"",
+        "fields": null
+      },
+      {
+        "inputFields": [
+          {
+            "name": "constraint",
+            "defaultValue": null,
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "ENUM",
+                "name": "citation_upvotes_constraint",
+                "ofType": null
+              }
+            },
+            "description": null
+          },
+          {
+            "name": "update_columns",
+            "defaultValue": null,
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "ENUM",
+                    "name": "citation_upvotes_update_column",
+                    "ofType": null
+                  }
+                }
+              }
+            },
+            "description": null
+          },
+          {
+            "name": "where",
+            "defaultValue": null,
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "citation_upvotes_bool_exp",
+              "ofType": null
+            },
+            "description": null
+          }
+        ],
+        "kind": "INPUT_OBJECT",
+        "possibleTypes": null,
+        "interfaces": null,
+        "name": "citation_upvotes_on_conflict",
+        "enumValues": null,
+        "description": "on conflict condition type for table \"citation_upvotes\"",
+        "fields": null
+      },
+      {
+        "inputFields": [
+          {
+            "name": "citation",
+            "defaultValue": null,
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "citations_order_by",
+              "ofType": null
+            },
+            "description": null
+          },
+          {
+            "name": "citationId",
+            "defaultValue": null,
+            "type": {
+              "kind": "ENUM",
+              "name": "order_by",
+              "ofType": null
+            },
+            "description": null
+          },
+          {
+            "name": "id",
+            "defaultValue": null,
+            "type": {
+              "kind": "ENUM",
+              "name": "order_by",
+              "ofType": null
+            },
+            "description": null
+          },
+          {
+            "name": "userId",
+            "defaultValue": null,
+            "type": {
+              "kind": "ENUM",
+              "name": "order_by",
+              "ofType": null
+            },
+            "description": null
+          }
+        ],
+        "kind": "INPUT_OBJECT",
+        "possibleTypes": null,
+        "interfaces": null,
+        "name": "citation_upvotes_order_by",
+        "enumValues": null,
+        "description": "ordering options when selecting data from \"citation_upvotes\"",
+        "fields": null
+      },
+      {
+        "inputFields": null,
+        "kind": "ENUM",
+        "possibleTypes": null,
+        "interfaces": null,
+        "name": "citation_upvotes_select_column",
+        "enumValues": [
+          {
+            "isDeprecated": false,
+            "deprecationReason": null,
+            "name": "citationId",
+            "description": "column name"
+          },
+          {
+            "isDeprecated": false,
+            "deprecationReason": null,
+            "name": "id",
+            "description": "column name"
+          },
+          {
+            "isDeprecated": false,
+            "deprecationReason": null,
+            "name": "userId",
+            "description": "column name"
+          }
+        ],
+        "description": "select columns of table \"citation_upvotes\"",
+        "fields": null
+      },
+      {
+        "inputFields": [
+          {
+            "name": "citationId",
+            "defaultValue": null,
+            "type": {
+              "kind": "SCALAR",
+              "name": "Int",
+              "ofType": null
+            },
+            "description": null
+          },
+          {
+            "name": "id",
+            "defaultValue": null,
+            "type": {
+              "kind": "SCALAR",
+              "name": "Int",
+              "ofType": null
+            },
+            "description": null
+          },
+          {
+            "name": "userId",
+            "defaultValue": null,
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "description": null
+          }
+        ],
+        "kind": "INPUT_OBJECT",
+        "possibleTypes": null,
+        "interfaces": null,
+        "name": "citation_upvotes_set_input",
+        "enumValues": null,
+        "description": "input type for updating data in table \"citation_upvotes\"",
+        "fields": null
+      },
+      {
+        "inputFields": null,
+        "kind": "OBJECT",
+        "possibleTypes": null,
+        "interfaces": [],
+        "name": "citation_upvotes_stddev_fields",
+        "enumValues": null,
+        "description": "aggregate stddev on columns",
+        "fields": [
+          {
+            "args": [],
+            "isDeprecated": false,
+            "deprecationReason": null,
+            "name": "citationId",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Float",
+              "ofType": null
+            },
+            "description": null
+          },
+          {
+            "args": [],
+            "isDeprecated": false,
+            "deprecationReason": null,
+            "name": "id",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Float",
+              "ofType": null
+            },
+            "description": null
+          }
+        ]
+      },
+      {
+        "inputFields": [
+          {
+            "name": "citationId",
+            "defaultValue": null,
+            "type": {
+              "kind": "ENUM",
+              "name": "order_by",
+              "ofType": null
+            },
+            "description": null
+          },
+          {
+            "name": "id",
+            "defaultValue": null,
+            "type": {
+              "kind": "ENUM",
+              "name": "order_by",
+              "ofType": null
+            },
+            "description": null
+          }
+        ],
+        "kind": "INPUT_OBJECT",
+        "possibleTypes": null,
+        "interfaces": null,
+        "name": "citation_upvotes_stddev_order_by",
+        "enumValues": null,
+        "description": "order by stddev() on columns of table \"citation_upvotes\"",
+        "fields": null
+      },
+      {
+        "inputFields": null,
+        "kind": "OBJECT",
+        "possibleTypes": null,
+        "interfaces": [],
+        "name": "citation_upvotes_stddev_pop_fields",
+        "enumValues": null,
+        "description": "aggregate stddev_pop on columns",
+        "fields": [
+          {
+            "args": [],
+            "isDeprecated": false,
+            "deprecationReason": null,
+            "name": "citationId",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Float",
+              "ofType": null
+            },
+            "description": null
+          },
+          {
+            "args": [],
+            "isDeprecated": false,
+            "deprecationReason": null,
+            "name": "id",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Float",
+              "ofType": null
+            },
+            "description": null
+          }
+        ]
+      },
+      {
+        "inputFields": [
+          {
+            "name": "citationId",
+            "defaultValue": null,
+            "type": {
+              "kind": "ENUM",
+              "name": "order_by",
+              "ofType": null
+            },
+            "description": null
+          },
+          {
+            "name": "id",
+            "defaultValue": null,
+            "type": {
+              "kind": "ENUM",
+              "name": "order_by",
+              "ofType": null
+            },
+            "description": null
+          }
+        ],
+        "kind": "INPUT_OBJECT",
+        "possibleTypes": null,
+        "interfaces": null,
+        "name": "citation_upvotes_stddev_pop_order_by",
+        "enumValues": null,
+        "description": "order by stddev_pop() on columns of table \"citation_upvotes\"",
+        "fields": null
+      },
+      {
+        "inputFields": null,
+        "kind": "OBJECT",
+        "possibleTypes": null,
+        "interfaces": [],
+        "name": "citation_upvotes_stddev_samp_fields",
+        "enumValues": null,
+        "description": "aggregate stddev_samp on columns",
+        "fields": [
+          {
+            "args": [],
+            "isDeprecated": false,
+            "deprecationReason": null,
+            "name": "citationId",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Float",
+              "ofType": null
+            },
+            "description": null
+          },
+          {
+            "args": [],
+            "isDeprecated": false,
+            "deprecationReason": null,
+            "name": "id",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Float",
+              "ofType": null
+            },
+            "description": null
+          }
+        ]
+      },
+      {
+        "inputFields": [
+          {
+            "name": "citationId",
+            "defaultValue": null,
+            "type": {
+              "kind": "ENUM",
+              "name": "order_by",
+              "ofType": null
+            },
+            "description": null
+          },
+          {
+            "name": "id",
+            "defaultValue": null,
+            "type": {
+              "kind": "ENUM",
+              "name": "order_by",
+              "ofType": null
+            },
+            "description": null
+          }
+        ],
+        "kind": "INPUT_OBJECT",
+        "possibleTypes": null,
+        "interfaces": null,
+        "name": "citation_upvotes_stddev_samp_order_by",
+        "enumValues": null,
+        "description": "order by stddev_samp() on columns of table \"citation_upvotes\"",
+        "fields": null
+      },
+      {
+        "inputFields": null,
+        "kind": "OBJECT",
+        "possibleTypes": null,
+        "interfaces": [],
+        "name": "citation_upvotes_sum_fields",
+        "enumValues": null,
+        "description": "aggregate sum on columns",
+        "fields": [
+          {
+            "args": [],
+            "isDeprecated": false,
+            "deprecationReason": null,
+            "name": "citationId",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Int",
+              "ofType": null
+            },
+            "description": null
+          },
+          {
+            "args": [],
+            "isDeprecated": false,
+            "deprecationReason": null,
+            "name": "id",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Int",
+              "ofType": null
+            },
+            "description": null
+          }
+        ]
+      },
+      {
+        "inputFields": [
+          {
+            "name": "citationId",
+            "defaultValue": null,
+            "type": {
+              "kind": "ENUM",
+              "name": "order_by",
+              "ofType": null
+            },
+            "description": null
+          },
+          {
+            "name": "id",
+            "defaultValue": null,
+            "type": {
+              "kind": "ENUM",
+              "name": "order_by",
+              "ofType": null
+            },
+            "description": null
+          }
+        ],
+        "kind": "INPUT_OBJECT",
+        "possibleTypes": null,
+        "interfaces": null,
+        "name": "citation_upvotes_sum_order_by",
+        "enumValues": null,
+        "description": "order by sum() on columns of table \"citation_upvotes\"",
+        "fields": null
+      },
+      {
+        "inputFields": null,
+        "kind": "ENUM",
+        "possibleTypes": null,
+        "interfaces": null,
+        "name": "citation_upvotes_update_column",
+        "enumValues": [
+          {
+            "isDeprecated": false,
+            "deprecationReason": null,
+            "name": "citationId",
+            "description": "column name"
+          },
+          {
+            "isDeprecated": false,
+            "deprecationReason": null,
+            "name": "id",
+            "description": "column name"
+          },
+          {
+            "isDeprecated": false,
+            "deprecationReason": null,
+            "name": "userId",
+            "description": "column name"
+          }
+        ],
+        "description": "update columns of table \"citation_upvotes\"",
+        "fields": null
+      },
+      {
+        "inputFields": null,
+        "kind": "OBJECT",
+        "possibleTypes": null,
+        "interfaces": [],
+        "name": "citation_upvotes_var_pop_fields",
+        "enumValues": null,
+        "description": "aggregate var_pop on columns",
+        "fields": [
+          {
+            "args": [],
+            "isDeprecated": false,
+            "deprecationReason": null,
+            "name": "citationId",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Float",
+              "ofType": null
+            },
+            "description": null
+          },
+          {
+            "args": [],
+            "isDeprecated": false,
+            "deprecationReason": null,
+            "name": "id",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Float",
+              "ofType": null
+            },
+            "description": null
+          }
+        ]
+      },
+      {
+        "inputFields": [
+          {
+            "name": "citationId",
+            "defaultValue": null,
+            "type": {
+              "kind": "ENUM",
+              "name": "order_by",
+              "ofType": null
+            },
+            "description": null
+          },
+          {
+            "name": "id",
+            "defaultValue": null,
+            "type": {
+              "kind": "ENUM",
+              "name": "order_by",
+              "ofType": null
+            },
+            "description": null
+          }
+        ],
+        "kind": "INPUT_OBJECT",
+        "possibleTypes": null,
+        "interfaces": null,
+        "name": "citation_upvotes_var_pop_order_by",
+        "enumValues": null,
+        "description": "order by var_pop() on columns of table \"citation_upvotes\"",
+        "fields": null
+      },
+      {
+        "inputFields": null,
+        "kind": "OBJECT",
+        "possibleTypes": null,
+        "interfaces": [],
+        "name": "citation_upvotes_var_samp_fields",
+        "enumValues": null,
+        "description": "aggregate var_samp on columns",
+        "fields": [
+          {
+            "args": [],
+            "isDeprecated": false,
+            "deprecationReason": null,
+            "name": "citationId",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Float",
+              "ofType": null
+            },
+            "description": null
+          },
+          {
+            "args": [],
+            "isDeprecated": false,
+            "deprecationReason": null,
+            "name": "id",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Float",
+              "ofType": null
+            },
+            "description": null
+          }
+        ]
+      },
+      {
+        "inputFields": [
+          {
+            "name": "citationId",
+            "defaultValue": null,
+            "type": {
+              "kind": "ENUM",
+              "name": "order_by",
+              "ofType": null
+            },
+            "description": null
+          },
+          {
+            "name": "id",
+            "defaultValue": null,
+            "type": {
+              "kind": "ENUM",
+              "name": "order_by",
+              "ofType": null
+            },
+            "description": null
+          }
+        ],
+        "kind": "INPUT_OBJECT",
+        "possibleTypes": null,
+        "interfaces": null,
+        "name": "citation_upvotes_var_samp_order_by",
+        "enumValues": null,
+        "description": "order by var_samp() on columns of table \"citation_upvotes\"",
+        "fields": null
+      },
+      {
+        "inputFields": null,
+        "kind": "OBJECT",
+        "possibleTypes": null,
+        "interfaces": [],
+        "name": "citation_upvotes_variance_fields",
+        "enumValues": null,
+        "description": "aggregate variance on columns",
+        "fields": [
+          {
+            "args": [],
+            "isDeprecated": false,
+            "deprecationReason": null,
+            "name": "citationId",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Float",
+              "ofType": null
+            },
+            "description": null
+          },
+          {
+            "args": [],
+            "isDeprecated": false,
+            "deprecationReason": null,
+            "name": "id",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Float",
+              "ofType": null
+            },
+            "description": null
+          }
+        ]
+      },
+      {
+        "inputFields": [
+          {
+            "name": "citationId",
+            "defaultValue": null,
+            "type": {
+              "kind": "ENUM",
+              "name": "order_by",
+              "ofType": null
+            },
+            "description": null
+          },
+          {
+            "name": "id",
+            "defaultValue": null,
+            "type": {
+              "kind": "ENUM",
+              "name": "order_by",
+              "ofType": null
+            },
+            "description": null
+          }
+        ],
+        "kind": "INPUT_OBJECT",
+        "possibleTypes": null,
+        "interfaces": null,
+        "name": "citation_upvotes_variance_order_by",
+        "enumValues": null,
+        "description": "order by variance() on columns of table \"citation_upvotes\"",
+        "fields": null
+      },
+      {
+        "inputFields": null,
+        "kind": "OBJECT",
+        "possibleTypes": null,
+        "interfaces": [],
         "name": "citations",
         "enumValues": null,
         "description": "columns and relationships of \"citations\"",
@@ -2936,6 +4579,180 @@
               }
             },
             "description": null
+          },
+          {
+            "args": [
+              {
+                "name": "distinct_on",
+                "defaultValue": null,
+                "type": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "ENUM",
+                      "name": "citation_upvotes_select_column",
+                      "ofType": null
+                    }
+                  }
+                },
+                "description": "distinct select on columns"
+              },
+              {
+                "name": "limit",
+                "defaultValue": null,
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                },
+                "description": "limit the number of rows returned"
+              },
+              {
+                "name": "offset",
+                "defaultValue": null,
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                },
+                "description": "skip the first n rows. Use only with order_by"
+              },
+              {
+                "name": "order_by",
+                "defaultValue": null,
+                "type": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "INPUT_OBJECT",
+                      "name": "citation_upvotes_order_by",
+                      "ofType": null
+                    }
+                  }
+                },
+                "description": "sort the rows by one or more columns"
+              },
+              {
+                "name": "where",
+                "defaultValue": null,
+                "type": {
+                  "kind": "INPUT_OBJECT",
+                  "name": "citation_upvotes_bool_exp",
+                  "ofType": null
+                },
+                "description": "filter the rows returned"
+              }
+            ],
+            "isDeprecated": false,
+            "deprecationReason": null,
+            "name": "upvotes",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "citation_upvotes",
+                    "ofType": null
+                  }
+                }
+              }
+            },
+            "description": "An array relationship"
+          },
+          {
+            "args": [
+              {
+                "name": "distinct_on",
+                "defaultValue": null,
+                "type": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "ENUM",
+                      "name": "citation_upvotes_select_column",
+                      "ofType": null
+                    }
+                  }
+                },
+                "description": "distinct select on columns"
+              },
+              {
+                "name": "limit",
+                "defaultValue": null,
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                },
+                "description": "limit the number of rows returned"
+              },
+              {
+                "name": "offset",
+                "defaultValue": null,
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                },
+                "description": "skip the first n rows. Use only with order_by"
+              },
+              {
+                "name": "order_by",
+                "defaultValue": null,
+                "type": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "INPUT_OBJECT",
+                      "name": "citation_upvotes_order_by",
+                      "ofType": null
+                    }
+                  }
+                },
+                "description": "sort the rows by one or more columns"
+              },
+              {
+                "name": "where",
+                "defaultValue": null,
+                "type": {
+                  "kind": "INPUT_OBJECT",
+                  "name": "citation_upvotes_bool_exp",
+                  "ofType": null
+                },
+                "description": "filter the rows returned"
+              }
+            ],
+            "isDeprecated": false,
+            "deprecationReason": null,
+            "name": "upvotes_aggregate",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "citation_upvotes_aggregate",
+                "ofType": null
+              }
+            },
+            "description": "An aggregated array relationship"
           }
         ]
       },
@@ -3497,6 +5314,16 @@
               "ofType": null
             },
             "description": null
+          },
+          {
+            "name": "upvotes",
+            "defaultValue": null,
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "citation_upvotes_bool_exp",
+              "ofType": null
+            },
+            "description": null
           }
         ],
         "kind": "INPUT_OBJECT",
@@ -3623,6 +5450,16 @@
             "type": {
               "kind": "SCALAR",
               "name": "String",
+              "ofType": null
+            },
+            "description": null
+          },
+          {
+            "name": "upvotes",
+            "defaultValue": null,
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "citation_upvotes_arr_rel_insert_input",
               "ofType": null
             },
             "description": null
@@ -4067,6 +5904,16 @@
             "type": {
               "kind": "ENUM",
               "name": "order_by",
+              "ofType": null
+            },
+            "description": null
+          },
+          {
+            "name": "upvotes_aggregate",
+            "defaultValue": null,
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "citation_upvotes_aggregate_order_by",
               "ofType": null
             },
             "description": null
@@ -6061,6 +7908,58 @@
               "ofType": null
             },
             "description": null
+          },
+          {
+            "name": "lastcitationid",
+            "defaultValue": null,
+            "type": {
+              "kind": "SCALAR",
+              "name": "Int",
+              "ofType": null
+            },
+            "description": null
+          }
+        ],
+        "kind": "INPUT_OBJECT",
+        "possibleTypes": null,
+        "interfaces": null,
+        "name": "get_citations_after_id_args",
+        "enumValues": null,
+        "description": null,
+        "fields": null
+      },
+      {
+        "inputFields": [
+          {
+            "name": "collectionid",
+            "defaultValue": null,
+            "type": {
+              "kind": "SCALAR",
+              "name": "uuid",
+              "ofType": null
+            },
+            "description": null
+          }
+        ],
+        "kind": "INPUT_OBJECT",
+        "possibleTypes": null,
+        "interfaces": null,
+        "name": "get_latest_citation_args",
+        "enumValues": null,
+        "description": null,
+        "fields": null
+      },
+      {
+        "inputFields": [
+          {
+            "name": "collectionid",
+            "defaultValue": null,
+            "type": {
+              "kind": "SCALAR",
+              "name": "uuid",
+              "ofType": null
+            },
+            "description": null
           }
         ],
         "kind": "INPUT_OBJECT",
@@ -6138,6 +8037,33 @@
                   "name": null,
                   "ofType": {
                     "kind": "INPUT_OBJECT",
+                    "name": "citation_upvotes_bool_exp",
+                    "ofType": null
+                  }
+                },
+                "description": "filter the rows which have to be deleted"
+              }
+            ],
+            "isDeprecated": false,
+            "deprecationReason": null,
+            "name": "delete_citation_upvotes",
+            "type": {
+              "kind": "OBJECT",
+              "name": "citation_upvotes_mutation_response",
+              "ofType": null
+            },
+            "description": "delete data from the table: \"citation_upvotes\""
+          },
+          {
+            "args": [
+              {
+                "name": "where",
+                "defaultValue": null,
+                "type": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "INPUT_OBJECT",
                     "name": "citations_bool_exp",
                     "ofType": null
                   }
@@ -6185,6 +8111,33 @@
           {
             "args": [
               {
+                "name": "where",
+                "defaultValue": null,
+                "type": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "INPUT_OBJECT",
+                    "name": "users_bool_exp",
+                    "ofType": null
+                  }
+                },
+                "description": "filter the rows which have to be deleted"
+              }
+            ],
+            "isDeprecated": false,
+            "deprecationReason": null,
+            "name": "delete_users",
+            "type": {
+              "kind": "OBJECT",
+              "name": "users_mutation_response",
+              "ofType": null
+            },
+            "description": "delete data from the table: \"users\""
+          },
+          {
+            "args": [
+              {
                 "name": "objects",
                 "defaultValue": null,
                 "type": {
@@ -6226,6 +8179,51 @@
               "ofType": null
             },
             "description": "insert data into the table: \"authors\""
+          },
+          {
+            "args": [
+              {
+                "name": "objects",
+                "defaultValue": null,
+                "type": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "LIST",
+                    "name": null,
+                    "ofType": {
+                      "kind": "NON_NULL",
+                      "name": null,
+                      "ofType": {
+                        "kind": "INPUT_OBJECT",
+                        "name": "citation_upvotes_insert_input",
+                        "ofType": null
+                      }
+                    }
+                  }
+                },
+                "description": "the rows to be inserted"
+              },
+              {
+                "name": "on_conflict",
+                "defaultValue": null,
+                "type": {
+                  "kind": "INPUT_OBJECT",
+                  "name": "citation_upvotes_on_conflict",
+                  "ofType": null
+                },
+                "description": "on conflict condition"
+              }
+            ],
+            "isDeprecated": false,
+            "deprecationReason": null,
+            "name": "insert_citation_upvotes",
+            "type": {
+              "kind": "OBJECT",
+              "name": "citation_upvotes_mutation_response",
+              "ofType": null
+            },
+            "description": "insert data into the table: \"citation_upvotes\""
           },
           {
             "args": [
@@ -6320,6 +8318,51 @@
           {
             "args": [
               {
+                "name": "objects",
+                "defaultValue": null,
+                "type": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "LIST",
+                    "name": null,
+                    "ofType": {
+                      "kind": "NON_NULL",
+                      "name": null,
+                      "ofType": {
+                        "kind": "INPUT_OBJECT",
+                        "name": "users_insert_input",
+                        "ofType": null
+                      }
+                    }
+                  }
+                },
+                "description": "the rows to be inserted"
+              },
+              {
+                "name": "on_conflict",
+                "defaultValue": null,
+                "type": {
+                  "kind": "INPUT_OBJECT",
+                  "name": "users_on_conflict",
+                  "ofType": null
+                },
+                "description": "on conflict condition"
+              }
+            ],
+            "isDeprecated": false,
+            "deprecationReason": null,
+            "name": "insert_users",
+            "type": {
+              "kind": "OBJECT",
+              "name": "users_mutation_response",
+              "ofType": null
+            },
+            "description": "insert data into the table: \"users\""
+          },
+          {
+            "args": [
+              {
                 "name": "_inc",
                 "defaultValue": null,
                 "type": {
@@ -6363,6 +8406,53 @@
               "ofType": null
             },
             "description": "update data of the table: \"authors\""
+          },
+          {
+            "args": [
+              {
+                "name": "_inc",
+                "defaultValue": null,
+                "type": {
+                  "kind": "INPUT_OBJECT",
+                  "name": "citation_upvotes_inc_input",
+                  "ofType": null
+                },
+                "description": "increments the integer columns with given value of the filtered values"
+              },
+              {
+                "name": "_set",
+                "defaultValue": null,
+                "type": {
+                  "kind": "INPUT_OBJECT",
+                  "name": "citation_upvotes_set_input",
+                  "ofType": null
+                },
+                "description": "sets the columns of the filtered rows to the given values"
+              },
+              {
+                "name": "where",
+                "defaultValue": null,
+                "type": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "INPUT_OBJECT",
+                    "name": "citation_upvotes_bool_exp",
+                    "ofType": null
+                  }
+                },
+                "description": "filter the rows which have to be updated"
+              }
+            ],
+            "isDeprecated": false,
+            "deprecationReason": null,
+            "name": "update_citation_upvotes",
+            "type": {
+              "kind": "OBJECT",
+              "name": "citation_upvotes_mutation_response",
+              "ofType": null
+            },
+            "description": "update data of the table: \"citation_upvotes\""
           },
           {
             "args": [
@@ -6447,6 +8537,43 @@
               "ofType": null
             },
             "description": "update data of the table: \"collections\""
+          },
+          {
+            "args": [
+              {
+                "name": "_set",
+                "defaultValue": null,
+                "type": {
+                  "kind": "INPUT_OBJECT",
+                  "name": "users_set_input",
+                  "ofType": null
+                },
+                "description": "sets the columns of the filtered rows to the given values"
+              },
+              {
+                "name": "where",
+                "defaultValue": null,
+                "type": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "INPUT_OBJECT",
+                    "name": "users_bool_exp",
+                    "ofType": null
+                  }
+                },
+                "description": "filter the rows which have to be updated"
+              }
+            ],
+            "isDeprecated": false,
+            "deprecationReason": null,
+            "name": "update_users",
+            "type": {
+              "kind": "OBJECT",
+              "name": "users_mutation_response",
+              "ofType": null
+            },
+            "description": "update data of the table: \"users\""
           }
         ]
       },
@@ -6720,6 +8847,207 @@
                     "name": null,
                     "ofType": {
                       "kind": "ENUM",
+                      "name": "citation_upvotes_select_column",
+                      "ofType": null
+                    }
+                  }
+                },
+                "description": "distinct select on columns"
+              },
+              {
+                "name": "limit",
+                "defaultValue": null,
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                },
+                "description": "limit the number of rows returned"
+              },
+              {
+                "name": "offset",
+                "defaultValue": null,
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                },
+                "description": "skip the first n rows. Use only with order_by"
+              },
+              {
+                "name": "order_by",
+                "defaultValue": null,
+                "type": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "INPUT_OBJECT",
+                      "name": "citation_upvotes_order_by",
+                      "ofType": null
+                    }
+                  }
+                },
+                "description": "sort the rows by one or more columns"
+              },
+              {
+                "name": "where",
+                "defaultValue": null,
+                "type": {
+                  "kind": "INPUT_OBJECT",
+                  "name": "citation_upvotes_bool_exp",
+                  "ofType": null
+                },
+                "description": "filter the rows returned"
+              }
+            ],
+            "isDeprecated": false,
+            "deprecationReason": null,
+            "name": "citation_upvotes",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "citation_upvotes",
+                    "ofType": null
+                  }
+                }
+              }
+            },
+            "description": "fetch data from the table: \"citation_upvotes\""
+          },
+          {
+            "args": [
+              {
+                "name": "distinct_on",
+                "defaultValue": null,
+                "type": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "ENUM",
+                      "name": "citation_upvotes_select_column",
+                      "ofType": null
+                    }
+                  }
+                },
+                "description": "distinct select on columns"
+              },
+              {
+                "name": "limit",
+                "defaultValue": null,
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                },
+                "description": "limit the number of rows returned"
+              },
+              {
+                "name": "offset",
+                "defaultValue": null,
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                },
+                "description": "skip the first n rows. Use only with order_by"
+              },
+              {
+                "name": "order_by",
+                "defaultValue": null,
+                "type": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "INPUT_OBJECT",
+                      "name": "citation_upvotes_order_by",
+                      "ofType": null
+                    }
+                  }
+                },
+                "description": "sort the rows by one or more columns"
+              },
+              {
+                "name": "where",
+                "defaultValue": null,
+                "type": {
+                  "kind": "INPUT_OBJECT",
+                  "name": "citation_upvotes_bool_exp",
+                  "ofType": null
+                },
+                "description": "filter the rows returned"
+              }
+            ],
+            "isDeprecated": false,
+            "deprecationReason": null,
+            "name": "citation_upvotes_aggregate",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "citation_upvotes_aggregate",
+                "ofType": null
+              }
+            },
+            "description": "fetch aggregated fields from the table: \"citation_upvotes\""
+          },
+          {
+            "args": [
+              {
+                "name": "id",
+                "defaultValue": null,
+                "type": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                "description": null
+              }
+            ],
+            "isDeprecated": false,
+            "deprecationReason": null,
+            "name": "citation_upvotes_by_pk",
+            "type": {
+              "kind": "OBJECT",
+              "name": "citation_upvotes",
+              "ofType": null
+            },
+            "description": "fetch data from the table: \"citation_upvotes\" using primary key columns"
+          },
+          {
+            "args": [
+              {
+                "name": "distinct_on",
+                "defaultValue": null,
+                "type": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "ENUM",
                       "name": "citations_select_column",
                       "ofType": null
                     }
@@ -7108,6 +9436,410 @@
               "ofType": null
             },
             "description": "fetch data from the table: \"collections\" using primary key columns"
+          },
+          {
+            "args": [
+              {
+                "name": "args",
+                "defaultValue": null,
+                "type": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "INPUT_OBJECT",
+                    "name": "get_citations_after_id_args",
+                    "ofType": null
+                  }
+                },
+                "description": "input parameters for function \"get_citations_after_id\""
+              },
+              {
+                "name": "distinct_on",
+                "defaultValue": null,
+                "type": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "ENUM",
+                      "name": "citations_select_column",
+                      "ofType": null
+                    }
+                  }
+                },
+                "description": "distinct select on columns"
+              },
+              {
+                "name": "limit",
+                "defaultValue": null,
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                },
+                "description": "limit the number of rows returned"
+              },
+              {
+                "name": "offset",
+                "defaultValue": null,
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                },
+                "description": "skip the first n rows. Use only with order_by"
+              },
+              {
+                "name": "order_by",
+                "defaultValue": null,
+                "type": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "INPUT_OBJECT",
+                      "name": "citations_order_by",
+                      "ofType": null
+                    }
+                  }
+                },
+                "description": "sort the rows by one or more columns"
+              },
+              {
+                "name": "where",
+                "defaultValue": null,
+                "type": {
+                  "kind": "INPUT_OBJECT",
+                  "name": "citations_bool_exp",
+                  "ofType": null
+                },
+                "description": "filter the rows returned"
+              }
+            ],
+            "isDeprecated": false,
+            "deprecationReason": null,
+            "name": "get_citations_after_id",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "citations",
+                    "ofType": null
+                  }
+                }
+              }
+            },
+            "description": "execute function \"get_citations_after_id\" which returns \"citations\""
+          },
+          {
+            "args": [
+              {
+                "name": "args",
+                "defaultValue": null,
+                "type": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "INPUT_OBJECT",
+                    "name": "get_citations_after_id_args",
+                    "ofType": null
+                  }
+                },
+                "description": "input parameters for function \"get_citations_after_id\""
+              },
+              {
+                "name": "distinct_on",
+                "defaultValue": null,
+                "type": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "ENUM",
+                      "name": "citations_select_column",
+                      "ofType": null
+                    }
+                  }
+                },
+                "description": "distinct select on columns"
+              },
+              {
+                "name": "limit",
+                "defaultValue": null,
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                },
+                "description": "limit the number of rows returned"
+              },
+              {
+                "name": "offset",
+                "defaultValue": null,
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                },
+                "description": "skip the first n rows. Use only with order_by"
+              },
+              {
+                "name": "order_by",
+                "defaultValue": null,
+                "type": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "INPUT_OBJECT",
+                      "name": "citations_order_by",
+                      "ofType": null
+                    }
+                  }
+                },
+                "description": "sort the rows by one or more columns"
+              },
+              {
+                "name": "where",
+                "defaultValue": null,
+                "type": {
+                  "kind": "INPUT_OBJECT",
+                  "name": "citations_bool_exp",
+                  "ofType": null
+                },
+                "description": "filter the rows returned"
+              }
+            ],
+            "isDeprecated": false,
+            "deprecationReason": null,
+            "name": "get_citations_after_id_aggregate",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "citations_aggregate",
+                "ofType": null
+              }
+            },
+            "description": "execute function \"get_citations_after_id\" and query aggregates on result of table type \"citations\""
+          },
+          {
+            "args": [
+              {
+                "name": "args",
+                "defaultValue": null,
+                "type": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "INPUT_OBJECT",
+                    "name": "get_latest_citation_args",
+                    "ofType": null
+                  }
+                },
+                "description": "input parameters for function \"get_latest_citation\""
+              },
+              {
+                "name": "distinct_on",
+                "defaultValue": null,
+                "type": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "ENUM",
+                      "name": "citations_select_column",
+                      "ofType": null
+                    }
+                  }
+                },
+                "description": "distinct select on columns"
+              },
+              {
+                "name": "limit",
+                "defaultValue": null,
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                },
+                "description": "limit the number of rows returned"
+              },
+              {
+                "name": "offset",
+                "defaultValue": null,
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                },
+                "description": "skip the first n rows. Use only with order_by"
+              },
+              {
+                "name": "order_by",
+                "defaultValue": null,
+                "type": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "INPUT_OBJECT",
+                      "name": "citations_order_by",
+                      "ofType": null
+                    }
+                  }
+                },
+                "description": "sort the rows by one or more columns"
+              },
+              {
+                "name": "where",
+                "defaultValue": null,
+                "type": {
+                  "kind": "INPUT_OBJECT",
+                  "name": "citations_bool_exp",
+                  "ofType": null
+                },
+                "description": "filter the rows returned"
+              }
+            ],
+            "isDeprecated": false,
+            "deprecationReason": null,
+            "name": "get_latest_citation",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "citations",
+                    "ofType": null
+                  }
+                }
+              }
+            },
+            "description": "execute function \"get_latest_citation\" which returns \"citations\""
+          },
+          {
+            "args": [
+              {
+                "name": "args",
+                "defaultValue": null,
+                "type": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "INPUT_OBJECT",
+                    "name": "get_latest_citation_args",
+                    "ofType": null
+                  }
+                },
+                "description": "input parameters for function \"get_latest_citation\""
+              },
+              {
+                "name": "distinct_on",
+                "defaultValue": null,
+                "type": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "ENUM",
+                      "name": "citations_select_column",
+                      "ofType": null
+                    }
+                  }
+                },
+                "description": "distinct select on columns"
+              },
+              {
+                "name": "limit",
+                "defaultValue": null,
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                },
+                "description": "limit the number of rows returned"
+              },
+              {
+                "name": "offset",
+                "defaultValue": null,
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                },
+                "description": "skip the first n rows. Use only with order_by"
+              },
+              {
+                "name": "order_by",
+                "defaultValue": null,
+                "type": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "INPUT_OBJECT",
+                      "name": "citations_order_by",
+                      "ofType": null
+                    }
+                  }
+                },
+                "description": "sort the rows by one or more columns"
+              },
+              {
+                "name": "where",
+                "defaultValue": null,
+                "type": {
+                  "kind": "INPUT_OBJECT",
+                  "name": "citations_bool_exp",
+                  "ofType": null
+                },
+                "description": "filter the rows returned"
+              }
+            ],
+            "isDeprecated": false,
+            "deprecationReason": null,
+            "name": "get_latest_citation_aggregate",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "citations_aggregate",
+                "ofType": null
+              }
+            },
+            "description": "execute function \"get_latest_citation\" and query aggregates on result of table type \"citations\""
           },
           {
             "args": [
@@ -7512,6 +10244,207 @@
               }
             },
             "description": "execute function \"get_random_citation_by_slug\" and query aggregates on result of table type \"citations\""
+          },
+          {
+            "args": [
+              {
+                "name": "distinct_on",
+                "defaultValue": null,
+                "type": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "ENUM",
+                      "name": "users_select_column",
+                      "ofType": null
+                    }
+                  }
+                },
+                "description": "distinct select on columns"
+              },
+              {
+                "name": "limit",
+                "defaultValue": null,
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                },
+                "description": "limit the number of rows returned"
+              },
+              {
+                "name": "offset",
+                "defaultValue": null,
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                },
+                "description": "skip the first n rows. Use only with order_by"
+              },
+              {
+                "name": "order_by",
+                "defaultValue": null,
+                "type": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "INPUT_OBJECT",
+                      "name": "users_order_by",
+                      "ofType": null
+                    }
+                  }
+                },
+                "description": "sort the rows by one or more columns"
+              },
+              {
+                "name": "where",
+                "defaultValue": null,
+                "type": {
+                  "kind": "INPUT_OBJECT",
+                  "name": "users_bool_exp",
+                  "ofType": null
+                },
+                "description": "filter the rows returned"
+              }
+            ],
+            "isDeprecated": false,
+            "deprecationReason": null,
+            "name": "users",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "users",
+                    "ofType": null
+                  }
+                }
+              }
+            },
+            "description": "fetch data from the table: \"users\""
+          },
+          {
+            "args": [
+              {
+                "name": "distinct_on",
+                "defaultValue": null,
+                "type": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "ENUM",
+                      "name": "users_select_column",
+                      "ofType": null
+                    }
+                  }
+                },
+                "description": "distinct select on columns"
+              },
+              {
+                "name": "limit",
+                "defaultValue": null,
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                },
+                "description": "limit the number of rows returned"
+              },
+              {
+                "name": "offset",
+                "defaultValue": null,
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                },
+                "description": "skip the first n rows. Use only with order_by"
+              },
+              {
+                "name": "order_by",
+                "defaultValue": null,
+                "type": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "INPUT_OBJECT",
+                      "name": "users_order_by",
+                      "ofType": null
+                    }
+                  }
+                },
+                "description": "sort the rows by one or more columns"
+              },
+              {
+                "name": "where",
+                "defaultValue": null,
+                "type": {
+                  "kind": "INPUT_OBJECT",
+                  "name": "users_bool_exp",
+                  "ofType": null
+                },
+                "description": "filter the rows returned"
+              }
+            ],
+            "isDeprecated": false,
+            "deprecationReason": null,
+            "name": "users_aggregate",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "users_aggregate",
+                "ofType": null
+              }
+            },
+            "description": "fetch aggregated fields from the table: \"users\""
+          },
+          {
+            "args": [
+              {
+                "name": "id",
+                "defaultValue": null,
+                "type": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "uuid",
+                    "ofType": null
+                  }
+                },
+                "description": null
+              }
+            ],
+            "isDeprecated": false,
+            "deprecationReason": null,
+            "name": "users_by_pk",
+            "type": {
+              "kind": "OBJECT",
+              "name": "users",
+              "ofType": null
+            },
+            "description": "fetch data from the table: \"users\" using primary key columns"
           }
         ]
       },
@@ -7738,6 +10671,207 @@
                     "name": null,
                     "ofType": {
                       "kind": "ENUM",
+                      "name": "citation_upvotes_select_column",
+                      "ofType": null
+                    }
+                  }
+                },
+                "description": "distinct select on columns"
+              },
+              {
+                "name": "limit",
+                "defaultValue": null,
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                },
+                "description": "limit the number of rows returned"
+              },
+              {
+                "name": "offset",
+                "defaultValue": null,
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                },
+                "description": "skip the first n rows. Use only with order_by"
+              },
+              {
+                "name": "order_by",
+                "defaultValue": null,
+                "type": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "INPUT_OBJECT",
+                      "name": "citation_upvotes_order_by",
+                      "ofType": null
+                    }
+                  }
+                },
+                "description": "sort the rows by one or more columns"
+              },
+              {
+                "name": "where",
+                "defaultValue": null,
+                "type": {
+                  "kind": "INPUT_OBJECT",
+                  "name": "citation_upvotes_bool_exp",
+                  "ofType": null
+                },
+                "description": "filter the rows returned"
+              }
+            ],
+            "isDeprecated": false,
+            "deprecationReason": null,
+            "name": "citation_upvotes",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "citation_upvotes",
+                    "ofType": null
+                  }
+                }
+              }
+            },
+            "description": "fetch data from the table: \"citation_upvotes\""
+          },
+          {
+            "args": [
+              {
+                "name": "distinct_on",
+                "defaultValue": null,
+                "type": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "ENUM",
+                      "name": "citation_upvotes_select_column",
+                      "ofType": null
+                    }
+                  }
+                },
+                "description": "distinct select on columns"
+              },
+              {
+                "name": "limit",
+                "defaultValue": null,
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                },
+                "description": "limit the number of rows returned"
+              },
+              {
+                "name": "offset",
+                "defaultValue": null,
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                },
+                "description": "skip the first n rows. Use only with order_by"
+              },
+              {
+                "name": "order_by",
+                "defaultValue": null,
+                "type": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "INPUT_OBJECT",
+                      "name": "citation_upvotes_order_by",
+                      "ofType": null
+                    }
+                  }
+                },
+                "description": "sort the rows by one or more columns"
+              },
+              {
+                "name": "where",
+                "defaultValue": null,
+                "type": {
+                  "kind": "INPUT_OBJECT",
+                  "name": "citation_upvotes_bool_exp",
+                  "ofType": null
+                },
+                "description": "filter the rows returned"
+              }
+            ],
+            "isDeprecated": false,
+            "deprecationReason": null,
+            "name": "citation_upvotes_aggregate",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "citation_upvotes_aggregate",
+                "ofType": null
+              }
+            },
+            "description": "fetch aggregated fields from the table: \"citation_upvotes\""
+          },
+          {
+            "args": [
+              {
+                "name": "id",
+                "defaultValue": null,
+                "type": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                "description": null
+              }
+            ],
+            "isDeprecated": false,
+            "deprecationReason": null,
+            "name": "citation_upvotes_by_pk",
+            "type": {
+              "kind": "OBJECT",
+              "name": "citation_upvotes",
+              "ofType": null
+            },
+            "description": "fetch data from the table: \"citation_upvotes\" using primary key columns"
+          },
+          {
+            "args": [
+              {
+                "name": "distinct_on",
+                "defaultValue": null,
+                "type": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "ENUM",
                       "name": "citations_select_column",
                       "ofType": null
                     }
@@ -8126,6 +11260,410 @@
               "ofType": null
             },
             "description": "fetch data from the table: \"collections\" using primary key columns"
+          },
+          {
+            "args": [
+              {
+                "name": "args",
+                "defaultValue": null,
+                "type": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "INPUT_OBJECT",
+                    "name": "get_citations_after_id_args",
+                    "ofType": null
+                  }
+                },
+                "description": "input parameters for function \"get_citations_after_id\""
+              },
+              {
+                "name": "distinct_on",
+                "defaultValue": null,
+                "type": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "ENUM",
+                      "name": "citations_select_column",
+                      "ofType": null
+                    }
+                  }
+                },
+                "description": "distinct select on columns"
+              },
+              {
+                "name": "limit",
+                "defaultValue": null,
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                },
+                "description": "limit the number of rows returned"
+              },
+              {
+                "name": "offset",
+                "defaultValue": null,
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                },
+                "description": "skip the first n rows. Use only with order_by"
+              },
+              {
+                "name": "order_by",
+                "defaultValue": null,
+                "type": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "INPUT_OBJECT",
+                      "name": "citations_order_by",
+                      "ofType": null
+                    }
+                  }
+                },
+                "description": "sort the rows by one or more columns"
+              },
+              {
+                "name": "where",
+                "defaultValue": null,
+                "type": {
+                  "kind": "INPUT_OBJECT",
+                  "name": "citations_bool_exp",
+                  "ofType": null
+                },
+                "description": "filter the rows returned"
+              }
+            ],
+            "isDeprecated": false,
+            "deprecationReason": null,
+            "name": "get_citations_after_id",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "citations",
+                    "ofType": null
+                  }
+                }
+              }
+            },
+            "description": "execute function \"get_citations_after_id\" which returns \"citations\""
+          },
+          {
+            "args": [
+              {
+                "name": "args",
+                "defaultValue": null,
+                "type": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "INPUT_OBJECT",
+                    "name": "get_citations_after_id_args",
+                    "ofType": null
+                  }
+                },
+                "description": "input parameters for function \"get_citations_after_id\""
+              },
+              {
+                "name": "distinct_on",
+                "defaultValue": null,
+                "type": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "ENUM",
+                      "name": "citations_select_column",
+                      "ofType": null
+                    }
+                  }
+                },
+                "description": "distinct select on columns"
+              },
+              {
+                "name": "limit",
+                "defaultValue": null,
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                },
+                "description": "limit the number of rows returned"
+              },
+              {
+                "name": "offset",
+                "defaultValue": null,
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                },
+                "description": "skip the first n rows. Use only with order_by"
+              },
+              {
+                "name": "order_by",
+                "defaultValue": null,
+                "type": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "INPUT_OBJECT",
+                      "name": "citations_order_by",
+                      "ofType": null
+                    }
+                  }
+                },
+                "description": "sort the rows by one or more columns"
+              },
+              {
+                "name": "where",
+                "defaultValue": null,
+                "type": {
+                  "kind": "INPUT_OBJECT",
+                  "name": "citations_bool_exp",
+                  "ofType": null
+                },
+                "description": "filter the rows returned"
+              }
+            ],
+            "isDeprecated": false,
+            "deprecationReason": null,
+            "name": "get_citations_after_id_aggregate",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "citations_aggregate",
+                "ofType": null
+              }
+            },
+            "description": "execute function \"get_citations_after_id\" and query aggregates on result of table type \"citations\""
+          },
+          {
+            "args": [
+              {
+                "name": "args",
+                "defaultValue": null,
+                "type": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "INPUT_OBJECT",
+                    "name": "get_latest_citation_args",
+                    "ofType": null
+                  }
+                },
+                "description": "input parameters for function \"get_latest_citation\""
+              },
+              {
+                "name": "distinct_on",
+                "defaultValue": null,
+                "type": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "ENUM",
+                      "name": "citations_select_column",
+                      "ofType": null
+                    }
+                  }
+                },
+                "description": "distinct select on columns"
+              },
+              {
+                "name": "limit",
+                "defaultValue": null,
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                },
+                "description": "limit the number of rows returned"
+              },
+              {
+                "name": "offset",
+                "defaultValue": null,
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                },
+                "description": "skip the first n rows. Use only with order_by"
+              },
+              {
+                "name": "order_by",
+                "defaultValue": null,
+                "type": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "INPUT_OBJECT",
+                      "name": "citations_order_by",
+                      "ofType": null
+                    }
+                  }
+                },
+                "description": "sort the rows by one or more columns"
+              },
+              {
+                "name": "where",
+                "defaultValue": null,
+                "type": {
+                  "kind": "INPUT_OBJECT",
+                  "name": "citations_bool_exp",
+                  "ofType": null
+                },
+                "description": "filter the rows returned"
+              }
+            ],
+            "isDeprecated": false,
+            "deprecationReason": null,
+            "name": "get_latest_citation",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "citations",
+                    "ofType": null
+                  }
+                }
+              }
+            },
+            "description": "execute function \"get_latest_citation\" which returns \"citations\""
+          },
+          {
+            "args": [
+              {
+                "name": "args",
+                "defaultValue": null,
+                "type": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "INPUT_OBJECT",
+                    "name": "get_latest_citation_args",
+                    "ofType": null
+                  }
+                },
+                "description": "input parameters for function \"get_latest_citation\""
+              },
+              {
+                "name": "distinct_on",
+                "defaultValue": null,
+                "type": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "ENUM",
+                      "name": "citations_select_column",
+                      "ofType": null
+                    }
+                  }
+                },
+                "description": "distinct select on columns"
+              },
+              {
+                "name": "limit",
+                "defaultValue": null,
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                },
+                "description": "limit the number of rows returned"
+              },
+              {
+                "name": "offset",
+                "defaultValue": null,
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                },
+                "description": "skip the first n rows. Use only with order_by"
+              },
+              {
+                "name": "order_by",
+                "defaultValue": null,
+                "type": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "INPUT_OBJECT",
+                      "name": "citations_order_by",
+                      "ofType": null
+                    }
+                  }
+                },
+                "description": "sort the rows by one or more columns"
+              },
+              {
+                "name": "where",
+                "defaultValue": null,
+                "type": {
+                  "kind": "INPUT_OBJECT",
+                  "name": "citations_bool_exp",
+                  "ofType": null
+                },
+                "description": "filter the rows returned"
+              }
+            ],
+            "isDeprecated": false,
+            "deprecationReason": null,
+            "name": "get_latest_citation_aggregate",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "citations_aggregate",
+                "ofType": null
+              }
+            },
+            "description": "execute function \"get_latest_citation\" and query aggregates on result of table type \"citations\""
           },
           {
             "args": [
@@ -8530,8 +12068,921 @@
               }
             },
             "description": "execute function \"get_random_citation_by_slug\" and query aggregates on result of table type \"citations\""
+          },
+          {
+            "args": [
+              {
+                "name": "distinct_on",
+                "defaultValue": null,
+                "type": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "ENUM",
+                      "name": "users_select_column",
+                      "ofType": null
+                    }
+                  }
+                },
+                "description": "distinct select on columns"
+              },
+              {
+                "name": "limit",
+                "defaultValue": null,
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                },
+                "description": "limit the number of rows returned"
+              },
+              {
+                "name": "offset",
+                "defaultValue": null,
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                },
+                "description": "skip the first n rows. Use only with order_by"
+              },
+              {
+                "name": "order_by",
+                "defaultValue": null,
+                "type": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "INPUT_OBJECT",
+                      "name": "users_order_by",
+                      "ofType": null
+                    }
+                  }
+                },
+                "description": "sort the rows by one or more columns"
+              },
+              {
+                "name": "where",
+                "defaultValue": null,
+                "type": {
+                  "kind": "INPUT_OBJECT",
+                  "name": "users_bool_exp",
+                  "ofType": null
+                },
+                "description": "filter the rows returned"
+              }
+            ],
+            "isDeprecated": false,
+            "deprecationReason": null,
+            "name": "users",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "users",
+                    "ofType": null
+                  }
+                }
+              }
+            },
+            "description": "fetch data from the table: \"users\""
+          },
+          {
+            "args": [
+              {
+                "name": "distinct_on",
+                "defaultValue": null,
+                "type": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "ENUM",
+                      "name": "users_select_column",
+                      "ofType": null
+                    }
+                  }
+                },
+                "description": "distinct select on columns"
+              },
+              {
+                "name": "limit",
+                "defaultValue": null,
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                },
+                "description": "limit the number of rows returned"
+              },
+              {
+                "name": "offset",
+                "defaultValue": null,
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                },
+                "description": "skip the first n rows. Use only with order_by"
+              },
+              {
+                "name": "order_by",
+                "defaultValue": null,
+                "type": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "INPUT_OBJECT",
+                      "name": "users_order_by",
+                      "ofType": null
+                    }
+                  }
+                },
+                "description": "sort the rows by one or more columns"
+              },
+              {
+                "name": "where",
+                "defaultValue": null,
+                "type": {
+                  "kind": "INPUT_OBJECT",
+                  "name": "users_bool_exp",
+                  "ofType": null
+                },
+                "description": "filter the rows returned"
+              }
+            ],
+            "isDeprecated": false,
+            "deprecationReason": null,
+            "name": "users_aggregate",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "users_aggregate",
+                "ofType": null
+              }
+            },
+            "description": "fetch aggregated fields from the table: \"users\""
+          },
+          {
+            "args": [
+              {
+                "name": "id",
+                "defaultValue": null,
+                "type": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "uuid",
+                    "ofType": null
+                  }
+                },
+                "description": null
+              }
+            ],
+            "isDeprecated": false,
+            "deprecationReason": null,
+            "name": "users_by_pk",
+            "type": {
+              "kind": "OBJECT",
+              "name": "users",
+              "ofType": null
+            },
+            "description": "fetch data from the table: \"users\" using primary key columns"
           }
         ]
+      },
+      {
+        "inputFields": null,
+        "kind": "OBJECT",
+        "possibleTypes": null,
+        "interfaces": [],
+        "name": "users",
+        "enumValues": null,
+        "description": "columns and relationships of \"users\"",
+        "fields": [
+          {
+            "args": [],
+            "isDeprecated": false,
+            "deprecationReason": null,
+            "name": "externalUserId",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            },
+            "description": null
+          },
+          {
+            "args": [],
+            "isDeprecated": false,
+            "deprecationReason": null,
+            "name": "id",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "uuid",
+                "ofType": null
+              }
+            },
+            "description": null
+          }
+        ]
+      },
+      {
+        "inputFields": null,
+        "kind": "OBJECT",
+        "possibleTypes": null,
+        "interfaces": [],
+        "name": "users_aggregate",
+        "enumValues": null,
+        "description": "aggregated selection of \"users\"",
+        "fields": [
+          {
+            "args": [],
+            "isDeprecated": false,
+            "deprecationReason": null,
+            "name": "aggregate",
+            "type": {
+              "kind": "OBJECT",
+              "name": "users_aggregate_fields",
+              "ofType": null
+            },
+            "description": null
+          },
+          {
+            "args": [],
+            "isDeprecated": false,
+            "deprecationReason": null,
+            "name": "nodes",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "users",
+                    "ofType": null
+                  }
+                }
+              }
+            },
+            "description": null
+          }
+        ]
+      },
+      {
+        "inputFields": null,
+        "kind": "OBJECT",
+        "possibleTypes": null,
+        "interfaces": [],
+        "name": "users_aggregate_fields",
+        "enumValues": null,
+        "description": "aggregate fields of \"users\"",
+        "fields": [
+          {
+            "args": [
+              {
+                "name": "columns",
+                "defaultValue": null,
+                "type": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "ENUM",
+                      "name": "users_select_column",
+                      "ofType": null
+                    }
+                  }
+                },
+                "description": null
+              },
+              {
+                "name": "distinct",
+                "defaultValue": null,
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Boolean",
+                  "ofType": null
+                },
+                "description": null
+              }
+            ],
+            "isDeprecated": false,
+            "deprecationReason": null,
+            "name": "count",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Int",
+              "ofType": null
+            },
+            "description": null
+          },
+          {
+            "args": [],
+            "isDeprecated": false,
+            "deprecationReason": null,
+            "name": "max",
+            "type": {
+              "kind": "OBJECT",
+              "name": "users_max_fields",
+              "ofType": null
+            },
+            "description": null
+          },
+          {
+            "args": [],
+            "isDeprecated": false,
+            "deprecationReason": null,
+            "name": "min",
+            "type": {
+              "kind": "OBJECT",
+              "name": "users_min_fields",
+              "ofType": null
+            },
+            "description": null
+          }
+        ]
+      },
+      {
+        "inputFields": [
+          {
+            "name": "count",
+            "defaultValue": null,
+            "type": {
+              "kind": "ENUM",
+              "name": "order_by",
+              "ofType": null
+            },
+            "description": null
+          },
+          {
+            "name": "max",
+            "defaultValue": null,
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "users_max_order_by",
+              "ofType": null
+            },
+            "description": null
+          },
+          {
+            "name": "min",
+            "defaultValue": null,
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "users_min_order_by",
+              "ofType": null
+            },
+            "description": null
+          }
+        ],
+        "kind": "INPUT_OBJECT",
+        "possibleTypes": null,
+        "interfaces": null,
+        "name": "users_aggregate_order_by",
+        "enumValues": null,
+        "description": "order by aggregate values of table \"users\"",
+        "fields": null
+      },
+      {
+        "inputFields": [
+          {
+            "name": "data",
+            "defaultValue": null,
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "INPUT_OBJECT",
+                    "name": "users_insert_input",
+                    "ofType": null
+                  }
+                }
+              }
+            },
+            "description": null
+          },
+          {
+            "name": "on_conflict",
+            "defaultValue": null,
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "users_on_conflict",
+              "ofType": null
+            },
+            "description": null
+          }
+        ],
+        "kind": "INPUT_OBJECT",
+        "possibleTypes": null,
+        "interfaces": null,
+        "name": "users_arr_rel_insert_input",
+        "enumValues": null,
+        "description": "input type for inserting array relation for remote table \"users\"",
+        "fields": null
+      },
+      {
+        "inputFields": [
+          {
+            "name": "_and",
+            "defaultValue": null,
+            "type": {
+              "kind": "LIST",
+              "name": null,
+              "ofType": {
+                "kind": "INPUT_OBJECT",
+                "name": "users_bool_exp",
+                "ofType": null
+              }
+            },
+            "description": null
+          },
+          {
+            "name": "_not",
+            "defaultValue": null,
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "users_bool_exp",
+              "ofType": null
+            },
+            "description": null
+          },
+          {
+            "name": "_or",
+            "defaultValue": null,
+            "type": {
+              "kind": "LIST",
+              "name": null,
+              "ofType": {
+                "kind": "INPUT_OBJECT",
+                "name": "users_bool_exp",
+                "ofType": null
+              }
+            },
+            "description": null
+          },
+          {
+            "name": "externalUserId",
+            "defaultValue": null,
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "String_comparison_exp",
+              "ofType": null
+            },
+            "description": null
+          },
+          {
+            "name": "id",
+            "defaultValue": null,
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "uuid_comparison_exp",
+              "ofType": null
+            },
+            "description": null
+          }
+        ],
+        "kind": "INPUT_OBJECT",
+        "possibleTypes": null,
+        "interfaces": null,
+        "name": "users_bool_exp",
+        "enumValues": null,
+        "description": "Boolean expression to filter rows from the table \"users\". All fields are combined with a logical 'AND'.",
+        "fields": null
+      },
+      {
+        "inputFields": null,
+        "kind": "ENUM",
+        "possibleTypes": null,
+        "interfaces": null,
+        "name": "users_constraint",
+        "enumValues": [
+          {
+            "isDeprecated": false,
+            "deprecationReason": null,
+            "name": "users_externalUserId_key",
+            "description": "unique or primary key constraint"
+          },
+          {
+            "isDeprecated": false,
+            "deprecationReason": null,
+            "name": "users_pkey",
+            "description": "unique or primary key constraint"
+          }
+        ],
+        "description": "unique or primary key constraints on table \"users\"",
+        "fields": null
+      },
+      {
+        "inputFields": [
+          {
+            "name": "externalUserId",
+            "defaultValue": null,
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "description": null
+          },
+          {
+            "name": "id",
+            "defaultValue": null,
+            "type": {
+              "kind": "SCALAR",
+              "name": "uuid",
+              "ofType": null
+            },
+            "description": null
+          }
+        ],
+        "kind": "INPUT_OBJECT",
+        "possibleTypes": null,
+        "interfaces": null,
+        "name": "users_insert_input",
+        "enumValues": null,
+        "description": "input type for inserting data into table \"users\"",
+        "fields": null
+      },
+      {
+        "inputFields": null,
+        "kind": "OBJECT",
+        "possibleTypes": null,
+        "interfaces": [],
+        "name": "users_max_fields",
+        "enumValues": null,
+        "description": "aggregate max on columns",
+        "fields": [
+          {
+            "args": [],
+            "isDeprecated": false,
+            "deprecationReason": null,
+            "name": "externalUserId",
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "description": null
+          }
+        ]
+      },
+      {
+        "inputFields": [
+          {
+            "name": "externalUserId",
+            "defaultValue": null,
+            "type": {
+              "kind": "ENUM",
+              "name": "order_by",
+              "ofType": null
+            },
+            "description": null
+          }
+        ],
+        "kind": "INPUT_OBJECT",
+        "possibleTypes": null,
+        "interfaces": null,
+        "name": "users_max_order_by",
+        "enumValues": null,
+        "description": "order by max() on columns of table \"users\"",
+        "fields": null
+      },
+      {
+        "inputFields": null,
+        "kind": "OBJECT",
+        "possibleTypes": null,
+        "interfaces": [],
+        "name": "users_min_fields",
+        "enumValues": null,
+        "description": "aggregate min on columns",
+        "fields": [
+          {
+            "args": [],
+            "isDeprecated": false,
+            "deprecationReason": null,
+            "name": "externalUserId",
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "description": null
+          }
+        ]
+      },
+      {
+        "inputFields": [
+          {
+            "name": "externalUserId",
+            "defaultValue": null,
+            "type": {
+              "kind": "ENUM",
+              "name": "order_by",
+              "ofType": null
+            },
+            "description": null
+          }
+        ],
+        "kind": "INPUT_OBJECT",
+        "possibleTypes": null,
+        "interfaces": null,
+        "name": "users_min_order_by",
+        "enumValues": null,
+        "description": "order by min() on columns of table \"users\"",
+        "fields": null
+      },
+      {
+        "inputFields": null,
+        "kind": "OBJECT",
+        "possibleTypes": null,
+        "interfaces": [],
+        "name": "users_mutation_response",
+        "enumValues": null,
+        "description": "response of any mutation on the table \"users\"",
+        "fields": [
+          {
+            "args": [],
+            "isDeprecated": false,
+            "deprecationReason": null,
+            "name": "affected_rows",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Int",
+                "ofType": null
+              }
+            },
+            "description": "number of affected rows by the mutation"
+          },
+          {
+            "args": [],
+            "isDeprecated": false,
+            "deprecationReason": null,
+            "name": "returning",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "users",
+                    "ofType": null
+                  }
+                }
+              }
+            },
+            "description": "data of the affected rows by the mutation"
+          }
+        ]
+      },
+      {
+        "inputFields": [
+          {
+            "name": "data",
+            "defaultValue": null,
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "INPUT_OBJECT",
+                "name": "users_insert_input",
+                "ofType": null
+              }
+            },
+            "description": null
+          },
+          {
+            "name": "on_conflict",
+            "defaultValue": null,
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "users_on_conflict",
+              "ofType": null
+            },
+            "description": null
+          }
+        ],
+        "kind": "INPUT_OBJECT",
+        "possibleTypes": null,
+        "interfaces": null,
+        "name": "users_obj_rel_insert_input",
+        "enumValues": null,
+        "description": "input type for inserting object relation for remote table \"users\"",
+        "fields": null
+      },
+      {
+        "inputFields": [
+          {
+            "name": "constraint",
+            "defaultValue": null,
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "ENUM",
+                "name": "users_constraint",
+                "ofType": null
+              }
+            },
+            "description": null
+          },
+          {
+            "name": "update_columns",
+            "defaultValue": null,
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "ENUM",
+                    "name": "users_update_column",
+                    "ofType": null
+                  }
+                }
+              }
+            },
+            "description": null
+          },
+          {
+            "name": "where",
+            "defaultValue": null,
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "users_bool_exp",
+              "ofType": null
+            },
+            "description": null
+          }
+        ],
+        "kind": "INPUT_OBJECT",
+        "possibleTypes": null,
+        "interfaces": null,
+        "name": "users_on_conflict",
+        "enumValues": null,
+        "description": "on conflict condition type for table \"users\"",
+        "fields": null
+      },
+      {
+        "inputFields": [
+          {
+            "name": "externalUserId",
+            "defaultValue": null,
+            "type": {
+              "kind": "ENUM",
+              "name": "order_by",
+              "ofType": null
+            },
+            "description": null
+          },
+          {
+            "name": "id",
+            "defaultValue": null,
+            "type": {
+              "kind": "ENUM",
+              "name": "order_by",
+              "ofType": null
+            },
+            "description": null
+          }
+        ],
+        "kind": "INPUT_OBJECT",
+        "possibleTypes": null,
+        "interfaces": null,
+        "name": "users_order_by",
+        "enumValues": null,
+        "description": "ordering options when selecting data from \"users\"",
+        "fields": null
+      },
+      {
+        "inputFields": null,
+        "kind": "ENUM",
+        "possibleTypes": null,
+        "interfaces": null,
+        "name": "users_select_column",
+        "enumValues": [
+          {
+            "isDeprecated": false,
+            "deprecationReason": null,
+            "name": "externalUserId",
+            "description": "column name"
+          },
+          {
+            "isDeprecated": false,
+            "deprecationReason": null,
+            "name": "id",
+            "description": "column name"
+          }
+        ],
+        "description": "select columns of table \"users\"",
+        "fields": null
+      },
+      {
+        "inputFields": [
+          {
+            "name": "externalUserId",
+            "defaultValue": null,
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "description": null
+          },
+          {
+            "name": "id",
+            "defaultValue": null,
+            "type": {
+              "kind": "SCALAR",
+              "name": "uuid",
+              "ofType": null
+            },
+            "description": null
+          }
+        ],
+        "kind": "INPUT_OBJECT",
+        "possibleTypes": null,
+        "interfaces": null,
+        "name": "users_set_input",
+        "enumValues": null,
+        "description": "input type for updating data in table \"users\"",
+        "fields": null
+      },
+      {
+        "inputFields": null,
+        "kind": "ENUM",
+        "possibleTypes": null,
+        "interfaces": null,
+        "name": "users_update_column",
+        "enumValues": [
+          {
+            "isDeprecated": false,
+            "deprecationReason": null,
+            "name": "externalUserId",
+            "description": "column name"
+          },
+          {
+            "isDeprecated": false,
+            "deprecationReason": null,
+            "name": "id",
+            "description": "column name"
+          }
+        ],
+        "description": "update columns of table \"users\"",
+        "fields": null
       },
       {
         "inputFields": null,

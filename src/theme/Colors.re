@@ -41,3 +41,25 @@ module Overlay = {
   let light = `rgba((255, 255, 255, 0.2));
   let dark = `rgba((0, 0, 0, 0.2));
 };
+
+let toString =
+  fun
+  | `rgb(r, g, b) =>
+    "rgba("
+    ++ string_of_int(r)
+    ++ ", "
+    ++ string_of_int(g)
+    ++ ","
+    ++ string_of_int(b)
+    ++ ")"
+
+  | `rgba(r, g, b, a) =>
+    "rgba("
+    ++ string_of_int(r)
+    ++ ", "
+    ++ string_of_int(g)
+    ++ ","
+    ++ string_of_int(b)
+    ++ ","
+    ++ Js.Float.toString(a)
+    ++ ")";

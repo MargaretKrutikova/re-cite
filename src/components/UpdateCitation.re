@@ -3,7 +3,8 @@ open Types;
 module CitationMutation =
   ReasonApolloHooks.Mutation.Make(Mutations.UpdateCitation);
 
-let getCitationToUpdate = ({text, added, author}): CitationForm.state => {
+let getCitationToUpdate =
+    ({text, added, author}: Types.citation): CitationForm.state => {
   text,
   date: added->Belt.Option.getWithDefault(""),
   authorName: author.name,
