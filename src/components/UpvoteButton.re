@@ -87,7 +87,7 @@ let make =
   let handleUpvoteClick = () => {
     switch (user) {
     | User.LoggedInUser(user) => handleUpdate(user.id)
-    | _ => ignore()
+    | _ => ReactToastify.toast("Log in to upvote")
     };
   };
 

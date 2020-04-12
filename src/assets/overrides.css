@@ -1,0 +1,10 @@
+@media only screen and (max-width: 480px) {
+  .Toastify__toast-container--bottom-left,
+  .Toastify__toast-container--bottom-center,
+  .Toastify__toast-container--bottom-right {
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100% !important;
+  }
+}
