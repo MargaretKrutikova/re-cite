@@ -17,7 +17,7 @@ module Classes = {
   let btn = style([alignSelf(`flexEnd)]);
 };
 
-module GetAlllugsQuery = ReasonApolloHooks.Query.Make(GetAllCollectionSlugs);
+module GetAllSlugsQuery = ReasonApolloHooks.Query.Make(GetAllCollectionSlugs);
 
 module CreateCollectionMutation =
   ReasonApolloHooks.Mutation.Make(Mutations.CreateCollection);
@@ -39,13 +39,13 @@ let reducer = (state, action) => {
 };
 
 let initState = () => {
-  collectionName: "test", //Utils.generateRandomCollectionName(),
+  collectionName: Utils.generateRandomCollectionName(),
   canEdit: false,
 };
 
 [@react.component]
 let make = () => {
-  let (collectionsResult, _) = GetAlllugsQuery.use();
+  let (collectionsResult, _) = GetAllSlugsQuery.use();
   let (mutation, mutationResult, _) =
     CreateCollectionMutation.use(
       ~refetchQueries=

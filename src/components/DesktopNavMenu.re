@@ -60,7 +60,7 @@ module MenuItem = {
 };
 
 [@react.component]
-let make = (~slug=?, ~user: User.t, ~onLogout) => {
+let make = (~slug=?, ~user: User.t, ~onLogout, ~onSettingsClick) => {
   let hasMenuItems = user |> User.isLoggedIn || Belt.Option.isSome(slug);
 
   let menuItemClass = Classes.menuItem();
@@ -90,6 +90,14 @@ let make = (~slug=?, ~user: User.t, ~onLogout) => {
                  )
                ->Belt.Option.getWithDefault([||])
                ->React.array}
+              <Menu.MenuItem
+                onClick={_ => {
+                  onSettingsClick();
+                  toggle();
+                }}>
+                <ReactFeather.SettingsIcon className=menuIconClass />
+                {React.string("Settings")}
+              </Menu.MenuItem>
               {switch (user) {
                | User.LoggedInUser({email}) =>
                  <>
