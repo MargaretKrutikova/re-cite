@@ -4,13 +4,14 @@ open Queries;
 module Classes = {
   open Css;
   let root = style([textAlign(center)]);
-  let textField = style([marginBottom(`sm |> Styles.space)]);
-  let block =
-    style([
-      height(`custom(12) |> Styles.space),
-      marginBottom(`xl |> Styles.space),
-      position(relative),
-    ]);
+  let textField =
+    style([marginBottom(px(0)), marginLeft(`md |> Styles.space)]);
+
+  let textFieldContainer = style([marginBottom(`md |> Styles.space)]);
+  let warningText =
+    style([media(Breakpoint.up(`sm), [width(pct(80.0))])]);
+
+  let errorMessage = style([height(`custom(10) |> Styles.space)]);
 
   let warning = style([position(absolute)]);
   let btn = style([alignSelf(`flexEnd)]);
@@ -20,6 +21,27 @@ module GetAlllugsQuery = ReasonApolloHooks.Query.Make(GetAllCollectionSlugs);
 
 module CreateCollectionMutation =
   ReasonApolloHooks.Mutation.Make(Mutations.CreateCollection);
+
+type state = {
+  canEdit: bool,
+  collectionName: string,
+};
+
+type action =
+  | CollectionNameSet(string)
+  | RequestNameEdit;
+
+let reducer = (state, action) => {
+  switch (action) {
+  | CollectionNameSet(collectionName) => {...state, collectionName}
+  | RequestNameEdit => {...state, canEdit: true}
+  };
+};
+
+let initState = () => {
+  collectionName: "test", //Utils.generateRandomCollectionName(),
+  canEdit: false,
+};
 
 [@react.component]
 let make = () => {
@@ -34,9 +56,7 @@ let make = () => {
       (),
     );
 
-  let (collectionName, setCollectionName) = React.useState(() => "");
-
-  let create = () => {
+  let create = collectionName => {
     let slug = collectionName |> Slug.make;
     let variables =
       Mutations.CreateCollection.make(~name=collectionName, ~slug, ())##variables;
@@ -55,53 +75,88 @@ let make = () => {
     |> ignore;
   };
 
-  let nameIsValid = collectionName |> Slug.make != "";
+  let (state, dispatch) = React.useReducer(reducer, initState());
+
+  let nameIsValid = state.collectionName |> Slug.make != "";
   let nameIsAvailable =
     switch (nameIsValid, collectionsResult) {
-    | (false, _) => true
     | (true, Data(data)) =>
-      let slug = collectionName |> Slug.make;
+      let slug = state.collectionName |> Slug.make;
       !data##collections->Belt.Array.some(c => c##slug == slug);
-    | _ => false
+    | _ => true
     };
 
   let updateName = e => {
     let name = e |> Utils.getInputValue;
-    setCollectionName(_ => name);
+    dispatch(CollectionNameSet(name));
+  };
+
+  let regenerateName = () => {
+    let generatedName = Utils.generateRandomCollectionName();
+    dispatch(CollectionNameSet(generatedName));
   };
 
   <Flex direction=`column className=Classes.root>
-    <Heading level=`h2>
-      {React.string("Give your collection a nice name")}
-    </Heading>
-    <Text gutter=`xxl>
+    <Heading level=`h2> {React.string("Generate collection name")} </Heading>
+    <Text gutter=`sm>
       {React.string(
-         "Let's say you want to save jokes you hear at work,
-      then the company's name would be a perfect fit for such a collection.",
+         "You will get a unique link for you collection from its name,
+          that only you will know.
+          The link will be public, so you can share it with others.",
        )}
     </Text>
-    <TextField
-      value=collectionName
-      onChange=updateName
-      placeholder="Collection name"
-      error={!nameIsAvailable}
-      className=Classes.textField
-    />
-    <div className=Classes.block>
-      {nameIsValid && !nameIsAvailable
-         ? <Text size=`Small variant=`Secondary>
-             {React.string(
-                "Sorry, but the name you entered is occupied.
-                Make sure to include something that can uniquely identify your collection.",
-              )}
-           </Text>
-         : React.null}
-    </div>
+    <Text gutter=`xxl>
+      {React.string("Use this random name generator to find a good name!")}
+    </Text>
+    <Flex direction=`column>
+      <Flex align=`center className=Classes.textFieldContainer>
+        <Button color=`Primary icon=true onClick={_ => regenerateName()}>
+          <ReactFeather.RefreshIcon />
+        </Button>
+        <TextField
+          value={state.collectionName}
+          onChange=updateName
+          placeholder="Collection name"
+          error={!nameIsAvailable}
+          className=Classes.textField
+          readOnly={!state.canEdit}
+          highlight={state.canEdit}
+        />
+      </Flex>
+      <div className=Classes.errorMessage>
+        {nameIsValid && !nameIsAvailable
+           ? <Text size=`Small variant=`Error gutter={`custom(0)}>
+               {React.string("The name you entered is already occupied.")}
+             </Text>
+           : React.null}
+      </div>
+    </Flex>
+    <Flex align=`center justify=`center>
+      <Text
+        className=Classes.warningText
+        gutter=`xl
+        size=`Small
+        variant=`Secondary>
+        <span> {React.string("Alternatively, ")} </span>
+        <span
+          className={Link.Classes.root(`Link, `Primary, ~isActive=false)}
+          onClick={_ => dispatch(RequestNameEdit)}>
+          {React.string("edit")}
+        </span>
+        <span>
+          {React.string(
+             " the name yourself. Don't include any personal details, since the link is public and can be accessed.",
+           )}
+        </span>
+      </Text>
+    </Flex>
     <Hr gutter=`xl />
     <Button
+      variant=`Contained
+      color=`Primary
       className=Classes.btn
       disabled={!nameIsValid || !nameIsAvailable || mutationResult == Loading}
-      onClick={_ => create()}
+      onClick={_ => create(state.collectionName)}
       gutter=`xxl>
       {React.string("Create collection")}
     </Button>
