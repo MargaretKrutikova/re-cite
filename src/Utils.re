@@ -20,7 +20,7 @@ let generateRandomCollectionName = () => {
   let haikunator = Haikunator.createHaikunator();
   haikunator##haikunate({
     tokenHex: true,
-    tokenLength: 6,
+    tokenLength: 4,
     tokenChars: "0123456789abcdefghigklmnopqrst",
   });
 };

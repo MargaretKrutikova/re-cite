@@ -27,6 +27,10 @@ module Red = {
   let main = `rgb((244, 67, 54));
 };
 
+module Yellow = {
+  let main = `rgb((255, 152, 15));
+};
+
 module Gray = {
   let main = `rgb((200, 200, 200));
 

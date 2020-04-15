@@ -83,6 +83,20 @@ module CreateCollection = [%graphql
   |}
 ];
 
+module UpdateCollection = [%graphql
+  {|
+  mutation ($id: String!, $name: String!, $slug: String!) {
+    update_collections(where: {id: {_eq: $id}}, _set: {name: $name, slug: $slug}) {
+      returning {
+        id
+        name
+        slug
+      }
+    }
+  }
+  |}
+];
+
 module UpvoteCitation = [%graphql
   {|
   mutation UpvoteCitation($citationId: Int!, $userId: String!) {
