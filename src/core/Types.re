@@ -6,7 +6,7 @@ type author = {
 type citation = {
   id: int,
   text: string,
-  added: option(string),
+  added: ApiDate.t,
   author,
   numberOfUpvotes: int,
   upvoteUserIds: array(string),

@@ -16,7 +16,7 @@ let make = (~collection, ~onSaved, ~refetchQueries) => {
         ~collectionId=collection##id,
         ~text=formState.text,
         ~authorName=formState.authorName,
-        ~date=formState.date |> Utils.toApiDate,
+        ~date=formState.date |> ApiDate.fromDate,
         (),
       );
 

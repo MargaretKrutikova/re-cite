@@ -21,17 +21,6 @@ let isDateValid = date => date |> Js.Date.toDateString !== "Invalid Date";
 let isDateStringValid = dateStr =>
   dateStr |> Js.Date.fromString |> isDateValid;
 
-let toApiDate = date => date |> Js.Date.toISOString |> Js.Json.string;
-
-let dateFromString = dateStr => {
-  let date = dateStr |> Js.Date.fromString;
-  if (!isDateValid(date)) {
-    None;
-  } else {
-    Some(date);
-  };
-};
-
 let getInputValue = (e): string => ReactEvent.Form.target(e)##value;
 
 let generateRandomCollectionName = () => {

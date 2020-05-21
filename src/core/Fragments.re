@@ -3,7 +3,7 @@ module CitationFragment = [%graphql
   fragment Citation on citations {
       id
       text
-      added @bsDecoder(fn: "Js.Json.decodeString")
+      added
       author  {
         id
         name

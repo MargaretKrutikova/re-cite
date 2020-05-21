@@ -34,7 +34,7 @@ let make = (~slug, ~onEdit) => {
               key={citation.id |> string_of_int}
               text={citation.text}
               author={citation.author.name}
-              date={citation.added->Belt.Option.getWithDefault("")}
+              date={citation.added |> ApiDate.toDisplayString}
               id={citation.id}
               upvoteUserIds={citation.upvoteUserIds}
               upvoteCount={citation.numberOfUpvotes}
