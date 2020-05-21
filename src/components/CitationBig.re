@@ -34,6 +34,9 @@ module Classes = {
       ...Styles.font(`md),
     ]);
 
+  let date = () =>
+    style([color(`SecondaryText |> Styles.useColor), ...Styles.font(`sm)]);
+
   let menu = style([position(`absolute), top(px(0)), right(px(0))]);
 };
 
@@ -54,12 +57,15 @@ let make = (~citation: Types.citation, ~slug, ~onEdit, ~className="") => {
       <div className={Classes.citation()}>
         {React.string(citation.author.name)}
       </div>
-      <UpvoteButton
-        size=`Large
-        upvoteCount={citation.numberOfUpvotes}
-        upvoteUserIds={citation.upvoteUserIds}
-        citationId={citation.id}
-      />
+      <div className={Classes.date()}>
+        {React.string(citation.added |> ApiDate.toDisplayString)}
+      </div>
     </Flex>
+    <UpvoteButton
+      size=`Large
+      upvoteCount={citation.numberOfUpvotes}
+      upvoteUserIds={citation.upvoteUserIds}
+      citationId={citation.id}
+    />
   </div>;
 };

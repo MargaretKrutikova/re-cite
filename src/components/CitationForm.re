@@ -30,7 +30,7 @@ let reducer = (state, action) => {
   | UpdateText(text) => {...state, text}
   | UpdateAuthor(authorName) => {...state, authorName}
   | UpdateDate(dateStr) =>
-    if (dateStr |> Utils.isDateStringValid) {
+    if (dateStr |> DateUtils.isDateStringValid) {
       {...state, date: Js.Date.fromString(dateStr)};
     } else {
       state;
@@ -44,7 +44,7 @@ let isValid = state => state.text != "" && state.authorName != "";
 let make = (~citation, ~authors, ~onSave, ~isSaving) => {
   let (state, dispatch) = React.useReducer(reducer, citation);
 
-  let displayDate = state.date |> Utils.toInputDateTimeFormat;
+  let displayDate = state.date |> DateUtils.toInputDateTimeFormat;
 
   <form
     className=Classes.root onSubmit={e => ReactEvent.Form.preventDefault(e)}>
