@@ -2,7 +2,7 @@ open Fragments;
 
 module AddCitation = [%graphql
   {|
-  mutation ($text: String!, $collectionId: uuid!, $authorName: String!, $date: date!) {
+  mutation ($text: String!, $collectionId: uuid!, $authorName: String!, $date: timestamptz!) {
     insert_citations(objects: {
       text: $text,
       collectionId: $collectionId,
@@ -34,7 +34,7 @@ module AddCitation = [%graphql
 
 module UpdateCitation = [%graphql
   {|
-mutation ($id: Int!, $text: String!, $collectionId: uuid!, $authorName: String!, $date: date!) {
+mutation ($id: Int!, $text: String!, $collectionId: uuid!, $authorName: String!, $date: timestamptz!) {
   insert_citations(objects: {
     id: $id,
     text: $text,

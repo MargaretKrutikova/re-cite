@@ -3,7 +3,7 @@ module Mutation = ReasonApolloHooks.Mutation.Make(Mutations.AddCitation);
 let getNewCitation = (): CitationForm.state => {
   text: "",
   authorName: "",
-  date: Js.Date.make() |> Utils.toInputDateFormat,
+  date: Js.Date.make(),
 };
 
 [@react.component]
@@ -16,7 +16,7 @@ let make = (~collection, ~onSaved, ~refetchQueries) => {
         ~collectionId=collection##id,
         ~text=formState.text,
         ~authorName=formState.authorName,
-        ~date=formState.date |> Js.Json.string,
+        ~date=formState.date |> ApiDate.fromDate,
         (),
       );
 
@@ -24,7 +24,9 @@ let make = (~collection, ~onSaved, ~refetchQueries) => {
     |> Js.Promise.(
          then_(result => {
            switch (result) {
-           | ReasonApolloHooks.Mutation.Data(_) => onSaved()
+           | ReasonApolloHooks.Mutation.Data(_) =>
+             ReactToastify.toast("Citation added!");
+             onSaved();
            | _ => ignore()
            };
            resolve();

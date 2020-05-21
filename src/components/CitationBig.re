@@ -34,17 +34,23 @@ module Classes = {
       ...Styles.font(`md),
     ]);
 
+  let date = () =>
+    style([
+      color(`SecondaryText |> Styles.useColor),
+      ...Styles.font(`base),
+    ]);
+
   let menu = style([position(`absolute), top(px(0)), right(px(0))]);
 };
 
 [@react.component]
-let make = (~citation: Types.citation, ~className="") => {
+let make = (~citation: Types.citation, ~slug, ~onEdit, ~className="") => {
   <div className={Css.merge([Classes.bigQuote(), className])}>
     <div className=Classes.menu>
       <CitationMenu
-        slug=""
+        slug
         id={citation.id |> string_of_int}
-        onEdit={_ => ignore()}
+        onEdit={() => onEdit(citation)}
       />
     </div>
     <Heading level=`h2 className=Classes.citationText>
@@ -54,12 +60,17 @@ let make = (~citation: Types.citation, ~className="") => {
       <div className={Classes.citation()}>
         {React.string(citation.author.name)}
       </div>
-      <UpvoteButton
-        size=`Large
-        upvoteCount={citation.numberOfUpvotes}
-        upvoteUserIds={citation.upvoteUserIds}
-        citationId={citation.id}
-      />
+      <Flex align=`center>
+        <div className={Classes.date()}>
+          {React.string(citation.added |> ApiDate.toDisplayString)}
+        </div>
+        <UpvoteButton
+          size=`Large
+          upvoteCount={citation.numberOfUpvotes}
+          upvoteUserIds={citation.upvoteUserIds}
+          citationId={citation.id}
+        />
+      </Flex>
     </Flex>
   </div>;
 };

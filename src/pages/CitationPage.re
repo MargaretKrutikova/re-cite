@@ -3,7 +3,7 @@ let str = React.string;
 module PageQuery = ReasonApolloHooks.Query.Make(Queries.GetCitationById);
 
 [@react.component]
-let make = (~slug, ~id) => {
+let make = (~slug, ~id, ~onEdit) => {
   let variables = Queries.GetCitationById.make(~slug, ~id, ())##variables;
   let (simple, _) = PageQuery.use(~variables, ());
 
@@ -17,7 +17,7 @@ let make = (~slug, ~id) => {
     switch (data##citations) {
     | [||] => <Text> {str("No citation found!")} </Text>
     | [|citationObj|] =>
-      <CitationBig citation={Queries.toCitation(citationObj)} />
+      <CitationBig citation={Queries.toCitation(citationObj)} slug onEdit />
     | _ => str("Multiple citations exist under the same id")
     }
   };

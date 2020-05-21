@@ -7,7 +7,7 @@ module Classes = {
 module PageQuery = ReasonApolloHooks.Query.Make(Queries.GetRandomCitation);
 
 [@react.component]
-let make = (~slug) => {
+let make = (~slug, ~onEdit) => {
   let variables = Queries.GetRandomCitation.make(~slug, ())##variables;
   let (simple, full) = PageQuery.use(~variables, ());
 
@@ -22,7 +22,7 @@ let make = (~slug) => {
     | [||] => <Text> {str("No citation found!")} </Text>
     | [|citation|] =>
       <>
-        <CitationBig citation={Queries.toCitation(citation)} />
+        <CitationBig slug onEdit citation={Queries.toCitation(citation)} />
         <Button
           size=`Large
           className=Classes.refreshButton
