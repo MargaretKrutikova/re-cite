@@ -49,7 +49,7 @@ let reducer = (_, action) => {
   };
 };
 
-let initialState = {status: AddingCitation};
+let initialState = {status: Idle};
 
 module PageQuery = ReasonApolloHooks.Query.Make(GetCollectionBySlug);
 
