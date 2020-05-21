@@ -30,8 +30,12 @@ module Classes = {
 };
 
 [@react.component]
-let make = (~level=`h1, ~className as cn="", ~children, ()) => {
-  let className = Css.merge([Classes.root(level), cn]);
+let make = (~level=`h1, ~className as cn="", ~gutter=?, ~children, ()) => {
+  let gutterCn =
+    gutter->Belt.Option.mapWithDefault("", g =>
+      style([Css.marginBottom(g |> Styles.space)])
+    );
+  let className = Css.merge([Classes.root(level), gutterCn, cn]);
 
   switch (level) {
   | `h1 => <h1 className> children </h1>

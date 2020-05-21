@@ -93,21 +93,26 @@ let make = () => {
     || state.error->Belt.Option.isSome;
 
   <Flex direction=`column className=Classes.root>
-    <Heading level=`h2> {React.string("Generate collection name")} </Heading>
-    <Text gutter=`sm>
+    <Heading level=`h2 gutter=`xl>
+      {React.string("Generate collection name")}
+    </Heading>
+    <Text gutter=`lg>
       {React.string(
-         "You will get a unique link for you collection from its name,
+         "Create a unique link for you collection from its name,
           that only you will know.
           The link will be public, so you can share it with others.",
        )}
     </Text>
     <Text gutter=`xxl>
-      {React.string("Use this random name generator to find a good name!")}
+      {React.string(
+         "Use this random name generator to find a good name!
+         Alternatively, edit the field and set the name you prefer.",
+       )}
     </Text>
     <CollectionName
       slugs
       name={state.name}
-      readOnly={!state.canEdit}
+      readOnly=false
       error={state.error}
       onChange={output => dispatch(CollectionNameChange(output))}
     />
@@ -117,15 +122,9 @@ let make = () => {
         gutter=`xl
         size=`Small
         variant=`Secondary>
-        {React.string("Alternatively, ")}
-        <span
-          className={Link.Classes.root(`Link, `Primary, ~isActive=false)}
-          onClick={_ => dispatch(RequestNameEdit)}>
-          {React.string("edit")}
-        </span>
         {React.string(
-           " the name yourself. Don't include any personal details,
-           since the link is public and can be accessed.",
+           "Please keep in mind that the link is public and your collection can be accessed
+          just by its name. Don't include any personal details in the name.",
          )}
       </Text>
     </Flex>
