@@ -7,3 +7,8 @@ and collectionHeaderData = {
   canAdd: bool,
   onAdd: unit => unit,
 };
+
+let isCollection =
+  fun
+  | Collection(_) => true
+  | _ => false;

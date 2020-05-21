@@ -86,8 +86,9 @@ let buildCollectionMenuItems =
     |]);
 
 [@react.component]
-let make = (~slug=?, ~user: User.t, ~onLogout, ~headerType: HeaderModel.t) => {
-  let hasMenuItems = user |> User.isLoggedIn || Belt.Option.isSome(slug);
+let make = (~user: User.t, ~onLogout, ~headerType: HeaderModel.t) => {
+  let hasMenuItems =
+    user |> User.isLoggedIn || HeaderModel.isCollection(headerType);
 
   let menuItemClass = Classes.menuItem();
   let menuIconClass = Classes.menuIcon();
