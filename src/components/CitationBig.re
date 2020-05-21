@@ -38,13 +38,13 @@ module Classes = {
 };
 
 [@react.component]
-let make = (~citation: Types.citation, ~className="") => {
+let make = (~citation: Types.citation, ~slug, ~onEdit, ~className="") => {
   <div className={Css.merge([Classes.bigQuote(), className])}>
     <div className=Classes.menu>
       <CitationMenu
-        slug=""
+        slug
         id={citation.id |> string_of_int}
-        onEdit={_ => ignore()}
+        onEdit={() => onEdit(citation)}
       />
     </div>
     <Heading level=`h2 className=Classes.citationText>

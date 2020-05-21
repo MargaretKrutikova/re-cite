@@ -6,7 +6,7 @@ module CitationMutation =
 let getCitationToUpdate =
     ({text, added, author}: Types.citation): CitationForm.state => {
   text,
-  date: added->Belt.Option.getWithDefault(""),
+  date: added->ApiDate.toDate->Belt.Option.getWithDefault(Js.Date.make()),
   authorName: author.name,
 };
 
@@ -21,7 +21,7 @@ let make = (~citation: Types.citation, ~collection, ~onSaved) => {
         ~collectionId=collection##id,
         ~text=formState.text,
         ~authorName=formState.authorName,
-        ~date=formState.date |> Js.Json.string,
+        ~date=formState.date |> ApiDate.fromDate,
         (),
       );
 

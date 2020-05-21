@@ -49,7 +49,7 @@ let reducer = (_, action) => {
   };
 };
 
-let initialState = {status: Idle};
+let initialState = {status: AddingCitation};
 
 module PageQuery = ReasonApolloHooks.Query.Make(GetCollectionBySlug);
 
@@ -62,9 +62,11 @@ let make = (~route, ~slug) => {
   let (state, dispatch) = React.useReducer(reducer, initialState);
 
   let canAdd = full.data->Belt.Option.isSome;
+
   let onAdd = _ => dispatch(RequestAddCitation);
   let onEditSettings = _ => dispatch(RequestEditSettings);
   let onSidebarClosed = () => dispatch(SidebarClosed);
+  let onEdit = citation => dispatch(RequestEditCitation(citation));
 
   let refetchCitationsQuery =
     ReasonApolloHooks.Utils.toQueryObj(GetCitations.make(~slug, ()));
@@ -75,18 +77,14 @@ let make = (~route, ~slug) => {
     />
     <main className={Css.merge([Container.Styles.root, Classes.main])}>
       {switch (route) {
-       | Route.Citations =>
-         <CitationsPage
-           slug
-           onEdit={citation => dispatch(RequestEditCitation(citation))}
-         />
+       | Route.Citations => <CitationsPage slug onEdit />
        | Route.CitationById(stringId) =>
          switch (int_of_string(stringId)) {
          | exception _ =>
            <Text> {React.string("The citation is not found")} </Text>
-         | id => <CitationPage slug id />
+         | id => <CitationPage slug id onEdit />
          }
-       | Route.RandomCitation => <RandomCitation slug />
+       | Route.RandomCitation => <RandomCitation slug onEdit />
        }}
       {switch (simple) {
        | Data(data) =>
