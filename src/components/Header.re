@@ -88,8 +88,8 @@ module CollectionHeader = {
     let identity = User.useIdentityContext();
     let user = User.make(identity);
     <>
-      <DesktopNavMenu user onLogout type_={Collection(data)} />
-      <MobileNavMenu slug={data.slug} user onLogin onLogout />
+      <DesktopNavMenu user onLogout headerType={Collection(data)} />
+      <MobileNavMenu user onLogin onLogout headerType={Collection(data)} />
       {!User.isLoggedIn(user)
          ? <Button
              className={Css.merge([
@@ -120,12 +120,12 @@ module DefaultHeader = {
     let identity = User.useIdentityContext();
     let user = User.make(identity);
     <>
-      <DesktopNavMenu user onLogout type_=Default />
+      <DesktopNavMenu user onLogout headerType=Default />
       {!User.isLoggedIn(user)
          ? <Button variant=`Outlined color=`Primary onClick={_ => onLogin()}>
              {React.string("Log in")}
            </Button>
-         : <MobileNavMenu user onLogin onLogout />}
+         : <MobileNavMenu user onLogin onLogout headerType=Default />}
     </>;
   };
 };

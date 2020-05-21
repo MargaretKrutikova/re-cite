@@ -40,7 +40,7 @@ module Classes = {
     Css.(merge([menuIcon(), style([color(`Primary |> Styles.useColor)])]));
 };
 
-module MenuItem = {
+module LinkMenuItem = {
   [@react.component]
   let make = (~route, ~toggle, ~children) => {
     let url = ReasonReactRouter.useUrl();
@@ -59,8 +59,34 @@ module MenuItem = {
   };
 };
 
+let buildCollectionMenuItems =
+    (
+      ~menuItemClass,
+      ~menuIconClass,
+      ~toggle,
+      ~data: HeaderModel.collectionHeaderData,
+    ) =>
+  NavMenu.getNavLinks(data.slug)
+  ->Belt.Array.mapWithIndex((index, {route, desktopText}) =>
+      <LinkMenuItem toggle route key={index |> string_of_int}>
+        {React.string(desktopText)}
+      </LinkMenuItem>
+    )
+  ->Belt.Array.concat([|
+      <Menu.MenuItem
+        className=menuItemClass
+        key="Settings"
+        onClick={_ => {
+          data.onEditSettings();
+          toggle();
+        }}>
+        <ReactFeather.SettingsIcon className=menuIconClass />
+        {React.string("Settings")}
+      </Menu.MenuItem>,
+    |]);
+
 [@react.component]
-let make = (~slug=?, ~user: User.t, ~onLogout, ~type_: HeaderModel.t) => {
+let make = (~slug=?, ~user: User.t, ~onLogout, ~headerType: HeaderModel.t) => {
   let hasMenuItems = user |> User.isLoggedIn || Belt.Option.isSome(slug);
 
   let menuItemClass = Classes.menuItem();
@@ -79,29 +105,19 @@ let make = (~slug=?, ~user: User.t, ~onLogout, ~type_: HeaderModel.t) => {
           }
           renderOptions={toggle => {
             <>
-              {slug
-               ->Belt.Option.map(slug =>
-                   NavMenu.getNavLinks(slug)
-                   ->Belt.Array.mapWithIndex((index, {route, desktopText}) =>
-                       <MenuItem toggle route key={index |> string_of_int}>
-                         {React.string(desktopText)}
-                       </MenuItem>
-                     )
-                 )
-               ->Belt.Option.getWithDefault([||])
-               ->React.array}
-              {switch (type_) {
-               | HeaderModel.Default => React.null
-               | Collection({onEditSettings}) =>
-                 <Menu.MenuItem
-                   onClick={_ => {
-                     onEditSettings();
-                     toggle();
-                   }}>
-                   <ReactFeather.SettingsIcon className=menuIconClass />
-                   {React.string("Settings")}
-                 </Menu.MenuItem>
-               }}
+              {(
+                 switch (headerType) {
+                 | Collection(data) =>
+                   buildCollectionMenuItems(
+                     ~menuItemClass,
+                     ~menuIconClass,
+                     ~toggle,
+                     ~data,
+                   )
+                 | Default => [||]
+                 }
+               )
+               |> React.array}
               {switch (user) {
                | User.LoggedInUser({email}) =>
                  <>
