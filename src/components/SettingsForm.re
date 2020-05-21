@@ -42,12 +42,13 @@ module GetAllSlugsQuery =
 module UpdateCollectionMutation =
   ReasonApolloHooks.Mutation.Make(Mutations.UpdateCollection);
 
-let createCollection = (~save: UpdateCollectionMutation.mutation, ~name, ~id) => {
+let updateCollectionName =
+    (~updateMutation: UpdateCollectionMutation.mutation, ~name, ~collectionId) => {
   let slug = name |> Slug.make;
   let variables =
-    Mutations.UpdateCollection.make(~name, ~slug, ~id, ())##variables;
+    Mutations.UpdateCollection.make(~name, ~slug, ~id=collectionId, ())##variables;
 
-  save(~variables, ())
+  updateMutation(~variables, ())
   |> Js.Promise.(
        then_(result => {
          switch (result) {
@@ -62,11 +63,11 @@ let createCollection = (~save: UpdateCollectionMutation.mutation, ~name, ~id) =>
 };
 
 [@react.component]
-let make = (~collectionId, ~collectionName) => {
+let make = (~collectionId) => {
   let (state, dispatch) = React.useReducer(reducer, initState());
 
   let (collectionsResult, _) = GetAllSlugsQuery.use();
-  let (mutation, mutationResult, _) = UpdateCollectionMutation.use();
+  let (updateMutation, mutationResult, _) = UpdateCollectionMutation.use();
 
   let handleSubmit = () => {
     switch (collectionsResult, mutationResult) {
@@ -77,7 +78,7 @@ let make = (~collectionId, ~collectionName) => {
       switch (error) {
       | Some(_) => dispatch(CollectionNameChange({name: state.name, error}))
       | None =>
-        createCollection(~save=mutation, ~name=state.name, ~id=collectionId)
+        updateCollectionName(~updateMutation, ~name=state.name, ~collectionId)
       };
     | _ => ignore()
     };

@@ -24,7 +24,7 @@ let make = () => {
   | Collection(slug, route) => <Collection slug route />
   | other =>
     <>
-      <Header header=Header.Default />
+      <Header type_=HeaderModel.Default />
       <main className=Container.Styles.root>
         <div className=Classes.root>
           {switch (other) {

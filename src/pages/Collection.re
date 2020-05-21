@@ -22,19 +22,20 @@ module Classes = {
 type status =
   | UpdatingCitation(citation)
   | AddingCitation
+  | EditingSettings
   | Idle;
 
 type state = {status};
 
 let shouldShowSidebar =
   fun
-  | UpdatingCitation(_)
-  | AddingCitation => true
-  | _ => false;
+  | Idle => false
+  | _ => true;
 
 type action =
   | RequestEditCitation(citation)
   | RequestAddCitation
+  | RequestEditSettings
   | SidebarClosed;
 
 let reducer = (_, action) => {
@@ -43,11 +44,12 @@ let reducer = (_, action) => {
       status: UpdatingCitation(citationUnderEdit),
     }
   | RequestAddCitation => {status: AddingCitation}
+  | RequestEditSettings => {status: EditingSettings}
   | SidebarClosed => {status: Idle}
   };
 };
 
-let initialState = {status: Idle};
+let initialState = {status: EditingSettings};
 
 module PageQuery = ReasonApolloHooks.Query.Make(GetCollectionBySlug);
 
@@ -61,14 +63,15 @@ let make = (~route, ~slug) => {
 
   let canAdd = full.data->Belt.Option.isSome;
   let onAdd = _ => dispatch(RequestAddCitation);
-
-  let header = Header.Collection({slug, canAdd, onAdd});
+  let onEditSettings = _ => dispatch(RequestEditSettings);
 
   let refetchCitationsQuery =
     ReasonApolloHooks.Utils.toQueryObj(GetCitations.make(~slug, ()));
 
   <div className={Classes.root()}>
-    <Header header />
+    <Header
+      type_={HeaderModel.Collection({slug, canAdd, onAdd, onEditSettings})}
+    />
     <main className={Css.merge([Container.Styles.root, Classes.main])}>
       {switch (route) {
        | Route.Citations =>
@@ -104,6 +107,14 @@ let make = (~route, ~slug) => {
                   citation
                   collection
                   onSaved={() => dispatch(SidebarClosed)}
+                />
+              | EditingSettings =>
+                <SettingsForm
+                  collectionId={
+                    collection##id
+                    ->Js.Json.decodeString
+                    ->Belt.Option.getWithDefault("")
+                  }
                 />
               }}
            </Sidebar>
