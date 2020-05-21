@@ -15,6 +15,7 @@ module Tokens = {
     | `Secondary
     | `Neutral
     | `Placeholder
+    | `Alert
     | `Error
     | `Disabled
     | `Border
@@ -98,6 +99,7 @@ module Theme = {
     | `Border => Gray.light1
     | `Placeholder => Gray.dark1
     | `Error => Red.main
+    | `Alert => Yellow.main
     | `Disabled => Gray.main
     | `BodyBg1 => White.main
     | `BodyBg2 => DarkBlue.light5
@@ -118,6 +120,7 @@ module Theme = {
     | `Border => Gray.dark1
     | `Placeholder => Gray.dark1
     | `Error => Red.main
+    | `Alert => Yellow.main
     | `Disabled => Gray.dark2
     | `BodyBg1 => DarkBlue.dark2
     | `BodyBg2 => DarkBlue.dark2

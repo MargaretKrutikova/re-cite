@@ -41,13 +41,55 @@ module Classes = {
 
 module Menu = {
   [@react.component]
-  let make = (~onClose, ~onLogin, ~slug=?, ~user: User.t, ~onLogout) => {
+  let make =
+      (
+        ~onClose,
+        ~onLogin,
+        ~user: User.t,
+        ~onLogout,
+        ~headerType: HeaderModel.t,
+      ) => {
     let menuRef = ClickOutside.use(_ => onClose());
     let url = ReasonReactRouter.useUrl();
     let isActive = Route.isActive(url);
 
     let iconClass = Classes.menuIcon();
     let menuItemClass = Classes.menuItem();
+
+    let menuItemsFromHeader =
+      switch (headerType) {
+      | Collection({slug, onEditSettings}) =>
+        NavMenu.getNavLinks(slug)
+        ->Belt.Array.mapWithIndex((ind, {route, mobileText}) =>
+            <Menu.MenuItem
+              key={ind |> string_of_int}
+              dense=false
+              className={Classes.linkItem(isActive(route))}
+              onClick={_ => onClose()}>
+              <RouteLink
+                href={Route.toUrl(route)}
+                color=`Secondary
+                className=Classes.link
+                isActive={isActive(route)}>
+                {React.string(mobileText)}
+              </RouteLink>
+            </Menu.MenuItem>
+          )
+        ->Belt.Array.concat([|
+            <Menu.MenuItem
+              className=menuItemClass
+              key="Settings"
+              dense=false
+              onClick={_ => {
+                onEditSettings();
+                onClose();
+              }}>
+              <ReactFeather.SettingsIcon className=iconClass />
+              {React.string("Settings")}
+            </Menu.MenuItem>,
+          |])
+      | Default => [||]
+      };
 
     <div className={Classes.menu()} ref={menuRef->ReactDOMRe.Ref.domRef}>
       {!User.isLoggedIn(user)
@@ -61,27 +103,7 @@ module Menu = {
              {React.string("Login / Sign up")}
            </Menu.MenuItem>
          : React.null}
-      {slug
-       ->Belt.Option.map(slug =>
-           NavMenu.getNavLinks(slug)
-           ->Belt.Array.mapWithIndex((ind, {route, mobileText}) =>
-               <Menu.MenuItem
-                 key={ind |> string_of_int}
-                 dense=false
-                 className={Classes.linkItem(isActive(route))}
-                 onClick={_ => onClose()}>
-                 <RouteLink
-                   href={Route.toUrl(route)}
-                   color=`Secondary
-                   className=Classes.link
-                   isActive={isActive(route)}>
-                   {React.string(mobileText)}
-                 </RouteLink>
-               </Menu.MenuItem>
-             )
-         )
-       ->Belt.Option.getWithDefault([||])
-       ->React.array}
+      menuItemsFromHeader->React.array
       {switch (user) {
        | User.LoggedInUser({email}) =>
          <>
@@ -106,7 +128,7 @@ module Menu = {
 };
 
 [@react.component]
-let make = (~slug=?, ~user: User.t, ~onLogout, ~onLogin) => {
+let make = (~user: User.t, ~onLogout, ~onLogin, ~headerType: HeaderModel.t) => {
   let (menuIsOpen, setMenuIsOpen) = React.useState(_ => false);
   let toggle = _ => setMenuIsOpen(open_ => !open_);
 
@@ -120,6 +142,6 @@ let make = (~slug=?, ~user: User.t, ~onLogout, ~onLogin) => {
       {menuIsOpen ? <ReactFeather.CloseIcon /> : <ReactFeather.MenuIcon />}
     </Button>
     {menuIsOpen
-       ? <Menu ?slug onClose=toggle onLogin onLogout user /> : React.null}
+       ? <Menu headerType onClose=toggle onLogin onLogout user /> : React.null}
   </>;
 };

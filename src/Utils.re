@@ -15,6 +15,15 @@ let toInputDateFormat = date => {
 
 let getInputValue = (e): string => ReactEvent.Form.target(e)##value;
 
+let generateRandomCollectionName = () => {
+  let haikunator = Haikunator.createHaikunator();
+  haikunator##haikunate({
+    tokenHex: true,
+    tokenLength: 4,
+    tokenChars: "0123456789abcdefghigklmnopqrst",
+  });
+};
+
 module Display = {
   let hideMobile =
     Css.(style([media(Breakpoint.down(`sm), [display(none)])]));

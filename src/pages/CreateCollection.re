@@ -1,107 +1,140 @@
-open DesignSystem;
 open Queries;
 
 module Classes = {
   open Css;
   let root = style([textAlign(center)]);
-  let textField = style([marginBottom(`sm |> Styles.space)]);
-  let block =
-    style([
-      height(`custom(12) |> Styles.space),
-      marginBottom(`xl |> Styles.space),
-      position(relative),
-    ]);
 
-  let warning = style([position(absolute)]);
+  let warningText =
+    style([media(Breakpoint.up(`sm), [width(pct(80.0))])]);
   let btn = style([alignSelf(`flexEnd)]);
 };
 
-module GetAlllugsQuery = ReasonApolloHooks.Query.Make(GetAllCollectionSlugs);
+type state = {
+  canEdit: bool,
+  error: option(CollectionName.validationError),
+  name: string,
+};
+
+type action =
+  | CollectionNameChange(CollectionName.output)
+  | RequestNameEdit;
+
+let reducer = (state, action) => {
+  switch (action) {
+  | CollectionNameChange({name, error}) => {...state, name, error}
+  | RequestNameEdit => {...state, canEdit: true}
+  };
+};
+
+let initState = () => {
+  name: Utils.generateRandomCollectionName(),
+  error: None,
+  canEdit: true,
+};
+
+module GetAllSlugsQuery = ReasonApolloHooks.Query.Make(GetAllCollectionSlugs);
 
 module CreateCollectionMutation =
   ReasonApolloHooks.Mutation.Make(Mutations.CreateCollection);
 
+let refetchSlugs =
+  GetAllCollectionSlugs.make() |> ReasonApolloHooks.Utils.toQueryObj;
+
+let createCollection = (save: CreateCollectionMutation.mutation, name) => {
+  let slug = name |> Slug.make;
+  let variables =
+    Mutations.CreateCollection.make(~name, ~slug, ())##variables;
+
+  save(~variables, ())
+  |> Js.Promise.(
+       then_(result => {
+         switch (result) {
+         | ReasonApolloHooks.Mutation.Data(_) =>
+           Route.push(Collection(slug, Citations))
+         | _ => ignore()
+         };
+         resolve();
+       })
+     )
+  |> ignore;
+};
+
 [@react.component]
 let make = () => {
-  let (collectionsResult, _) = GetAlllugsQuery.use();
+  let (state, dispatch) = React.useReducer(reducer, initState());
+
+  let (collectionsResult, _) = GetAllSlugsQuery.use();
   let (mutation, mutationResult, _) =
-    CreateCollectionMutation.use(
-      ~refetchQueries=
-        _ => {
-          let query = GetAllCollectionSlugs.make();
-          [|ReasonApolloHooks.Utils.toQueryObj(query)|];
-        },
-      (),
-    );
+    CreateCollectionMutation.use(~refetchQueries=_ => [|refetchSlugs|], ());
 
-  let (collectionName, setCollectionName) = React.useState(() => "");
-
-  let create = () => {
-    let slug = collectionName |> Slug.make;
-    let variables =
-      Mutations.CreateCollection.make(~name=collectionName, ~slug, ())##variables;
-
-    mutation(~variables, ())
-    |> Js.Promise.(
-         then_(result => {
-           switch (result) {
-           | ReasonApolloHooks.Mutation.Data(_) =>
-             Route.push(Collection(slug, Citations))
-           | _ => ignore()
-           };
-           resolve();
-         })
-       )
-    |> ignore;
-  };
-
-  let nameIsValid = collectionName |> Slug.make != "";
-  let nameIsAvailable =
-    switch (nameIsValid, collectionsResult) {
-    | (false, _) => true
-    | (true, Data(data)) =>
-      let slug = collectionName |> Slug.make;
-      !data##collections->Belt.Array.some(c => c##slug == slug);
-    | _ => false
+  let slugs =
+    switch (collectionsResult) {
+    | Data(data) => data##collections
+    | _ => [||]
     };
 
-  let updateName = e => {
-    let name = e |> Utils.getInputValue;
-    setCollectionName(_ => name);
+  let handleSubmit = () => {
+    switch (collectionsResult, mutationResult) {
+    | (_, ReasonApolloHooks.Mutation.Loading) => ignore()
+    | (ReasonApolloHooks.Query.Data(data), _) =>
+      let error =
+        CollectionName.toValidationError(data##collections, state.name);
+      switch (error) {
+      | Some(_) => dispatch(CollectionNameChange({name: state.name, error}))
+      | None => createCollection(mutation, state.name)
+      };
+    | _ => ignore()
+    };
   };
 
+  let disableSave =
+    mutationResult == Loading
+    || collectionsResult == Loading
+    || state.error->Belt.Option.isSome;
+
   <Flex direction=`column className=Classes.root>
-    <Heading level=`h2>
-      {React.string("Give your collection a nice name")}
+    <Heading level=`h2 gutter=`xl>
+      {React.string("Generate collection name")}
     </Heading>
-    <Text gutter=`xxl>
+    <Text gutter=`lg>
       {React.string(
-         "Let's say you want to save jokes you hear at work,
-      then the company's name would be a perfect fit for such a collection.",
+         "Create a unique link for you collection from its name,
+          that only you will know.
+          The link will be public, so you can share it with others.",
        )}
     </Text>
-    <TextField
-      value=collectionName
-      onChange=updateName
-      placeholder="Collection name"
-      error={!nameIsAvailable}
-      className=Classes.textField
+    <Text gutter=`xxl>
+      {React.string(
+         "Use this random name generator to find a good name!
+         Alternatively, edit the field and set the name you prefer.",
+       )}
+    </Text>
+    <CollectionName
+      slugs
+      name={state.name}
+      readOnly=false
+      error={state.error}
+      onChange={output => dispatch(CollectionNameChange(output))}
     />
-    <div className=Classes.block>
-      {nameIsValid && !nameIsAvailable
-         ? <Text size=`Small variant=`Secondary>
-             {React.string(
-                "Sorry, but the name you entered is occupied.
-                Make sure to include something that can uniquely identify your collection.",
-              )}
-           </Text>
-         : React.null}
-    </div>
+    <Flex align=`center justify=`center>
+      <Text
+        className=Classes.warningText
+        gutter=`xl
+        size=`Small
+        variant=`Secondary>
+        {React.string(
+           "Please keep in mind that the link is public and your collection can be accessed
+          just by its name. Don't include any personal details in the name.",
+         )}
+      </Text>
+    </Flex>
     <Hr gutter=`xl />
     <Button
+      variant=`Contained
+      color=`Primary
       className=Classes.btn
-      disabled={!nameIsValid || !nameIsAvailable || mutationResult == Loading}
-      onClick={_ => create()}
+      disabled=disableSave
+      onClick={_ => handleSubmit()}
       gutter=`xxl>
       {React.string("Create collection")}
     </Button>

@@ -51,16 +51,6 @@ module Logo = {
   };
 };
 
-type collectionHeader = {
-  slug: string,
-  canAdd: bool,
-  onAdd: unit => unit,
-};
-
-type header =
-  | Default
-  | Collection(collectionHeader);
-
 type apiStatus =
   | NotAsked
   | InProgress
@@ -92,12 +82,62 @@ let reducer = (state, action) => {
   };
 };
 
+module CollectionHeader = {
+  [@react.component]
+  let make = (~onLogout, ~onLogin, ~data: HeaderModel.collectionHeaderData) => {
+    let identity = User.useIdentityContext();
+    let user = User.make(identity);
+    <>
+      <DesktopNavMenu user onLogout headerType={Collection(data)} />
+      <MobileNavMenu user onLogin onLogout headerType={Collection(data)} />
+      {!User.isLoggedIn(user)
+         ? <Button
+             className={Css.merge([
+               Utils.Display.hideMobile,
+               Classes.loginButton,
+             ])}
+             variant=`Outlined
+             color=`Primary
+             onClick={_ => onLogin()}>
+             {React.string("Log in")}
+           </Button>
+         : React.null}
+      <Button
+        className=Classes.addButton
+        disabled={!data.canAdd}
+        variant=`Contained
+        color=`Primary
+        onClick={_ => data.onAdd()}>
+        {React.string("Add")}
+      </Button>
+    </>;
+  };
+};
+
+module DefaultHeader = {
+  [@react.component]
+  let make = (~onLogout: unit => unit, ~onLogin: unit => unit) => {
+    let identity = User.useIdentityContext();
+    let user = User.make(identity);
+    <>
+      <DesktopNavMenu user onLogout headerType=Default />
+      {!User.isLoggedIn(user)
+         ? <Button variant=`Outlined color=`Primary onClick={_ => onLogin()}>
+             {React.string("Log in")}
+           </Button>
+         : <MobileNavMenu user onLogin onLogout headerType=Default />}
+    </>;
+  };
+};
+
+type renderMenu =
+  (~onLogin: unit => unit, ~onLogout: unit => unit) => React.element;
+
 [@react.component]
-let make = (~header) => {
+let make = (~type_: HeaderModel.t) => {
   let (state, dispatch) = React.useReducer(reducer, initState);
 
   let identity = User.useIdentityContext();
-  let user = User.make(identity);
 
   let handleLogout = _ => {
     dispatch(RequestLogout);
@@ -114,7 +154,7 @@ let make = (~header) => {
     |> ignore;
   };
 
-  let toggleLoginSidebar = _ => dispatch(ToggleLoginSidebarVisibility);
+  let toggleLoginSidebar = () => dispatch(ToggleLoginSidebarVisibility);
 
   <header className={Classes.root()}>
     <Sidebar show={state.shouldShowLoginSidebar} onClose=toggleLoginSidebar>
@@ -123,51 +163,15 @@ let make = (~header) => {
     <Container className=Classes.container>
       <Logo />
       <ThemeSwitch className=Classes.themeSwitch />
-      {switch (header) {
+      {switch (type_) {
+       | Collection(data) =>
+         <CollectionHeader
+           data
+           onLogin=toggleLoginSidebar
+           onLogout=handleLogout
+         />
        | Default =>
-         <>
-           <DesktopNavMenu user onLogout=handleLogout />
-           {!User.isLoggedIn(user)
-              ? <Button
-                  variant=`Outlined color=`Primary onClick=toggleLoginSidebar>
-                  {React.string("Log in")}
-                </Button>
-              : <MobileNavMenu
-                  user
-                  onLogin=toggleLoginSidebar
-                  onLogout=handleLogout
-                />}
-         </>
-       | Collection({onAdd, canAdd, slug}) =>
-         <>
-           <DesktopNavMenu slug user onLogout=handleLogout />
-           <MobileNavMenu
-             slug
-             user
-             onLogin=toggleLoginSidebar
-             onLogout=handleLogout
-           />
-           {!User.isLoggedIn(user)
-              ? <Button
-                  className={Css.merge([
-                    Utils.Display.hideMobile,
-                    Classes.loginButton,
-                  ])}
-                  variant=`Outlined
-                  color=`Primary
-                  onClick={_ => toggleLoginSidebar()}>
-                  {React.string("Log in")}
-                </Button>
-              : React.null}
-           <Button
-             className=Classes.addButton
-             disabled={!canAdd}
-             variant=`Contained
-             color=`Primary
-             onClick={_ => onAdd()}>
-             {React.string("Add")}
-           </Button>
-         </>
+         <DefaultHeader onLogin=toggleLoginSidebar onLogout=handleLogout />
        }}
     </Container>
   </header>;

@@ -12,7 +12,8 @@
     "add_redirects": "echo '/* /index.html 200' >./build/_redirects",
     "deploy:netlify": "npm run clean && npm run build && npm run webpack:production && npm run add_redirects",
     "server": "webpack-dev-server --host 0.0.0.0 --port 8087",
-    "introspection": "get-graphql-schema https://recite-api.margareta.dev/v1/graphql -j > graphql_schema.json"
+    "introspection": "get-graphql-schema https://recite-api.margareta.dev/v1/graphql -j > graphql_schema.json",
+    "introspection:gql": "get-graphql-schema https://recite-api.margareta.dev/v1/graphql > schema.graphql"
   },
   "keywords": [
     "BuckleScript"
@@ -24,6 +25,7 @@
     "bs-css": "^10.0.1",
     "bs-react-netlify-identity": "^2.0.3",
     "bs-webapi": "^0.15.5",
+    "haikunator": "^2.1.2",
     "react": "^16.8.1",
     "react-copy-to-clipboard": "^5.0.2",
     "react-dom": "^16.8.1",

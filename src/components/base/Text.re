@@ -1,6 +1,6 @@
 open DesignSystem;
 
-type variant = [ | `Primary | `Secondary];
+type variant = [ | `Primary | `Secondary | `Error];
 
 type size = [ | `Medium | `Small];
 
@@ -12,7 +12,8 @@ let toFontSize =
 let toTextColor =
   fun
   | `Primary => `BodyText
-  | `Secondary => `SecondaryText;
+  | `Secondary => `SecondaryText
+  | `Error => `Error;
 
 [@react.component]
 let make =

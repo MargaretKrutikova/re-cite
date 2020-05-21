@@ -252,3 +252,33 @@ module UpvoteIcon = {
     React.element =
     "default";
 };
+
+module SettingsIcon = {
+  [@bs.module "react-feather/dist/icons/settings.js"] [@react.component]
+  external make:
+    (
+      ~color: string=?,
+      ~disabled: bool=?,
+      ~onClick: 'c=?,
+      ~size: string=?,
+      ~className: string=?,
+      unit
+    ) =>
+    React.element =
+    "default";
+};
+
+module AlertIcon = {
+  [@bs.module "react-feather/dist/icons/alert-circle.js"] [@react.component]
+  external make:
+    (
+      ~color: string=?,
+      ~disabled: bool=?,
+      ~onClick: 'c=?,
+      ~size: string=?,
+      ~className: string=?,
+      unit
+    ) =>
+    React.element =
+    "default";
+};
