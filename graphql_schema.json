@@ -19,11 +19,7 @@
           }
         ],
         "name": "include",
-        "locations": [
-          "FIELD",
-          "FRAGMENT_SPREAD",
-          "INLINE_FRAGMENT"
-        ],
+        "locations": ["FIELD", "FRAGMENT_SPREAD", "INLINE_FRAGMENT"],
         "description": null
       },
       {
@@ -44,11 +40,7 @@
           }
         ],
         "name": "skip",
-        "locations": [
-          "FIELD",
-          "FRAGMENT_SPREAD",
-          "INLINE_FRAGMENT"
-        ],
+        "locations": ["FIELD", "FRAGMENT_SPREAD", "INLINE_FRAGMENT"],
         "description": null
       }
     ],
@@ -4478,7 +4470,7 @@
               "name": null,
               "ofType": {
                 "kind": "SCALAR",
-                "name": "date",
+                "name": "timestamptz",
                 "ofType": null
               }
             },
@@ -5389,7 +5381,7 @@
             "defaultValue": null,
             "type": {
               "kind": "SCALAR",
-              "name": "date",
+              "name": "timestamptz",
               "ofType": null
             },
             "description": null
@@ -5489,7 +5481,7 @@
             "name": "added",
             "type": {
               "kind": "SCALAR",
-              "name": "date",
+              "name": "timestamptz",
               "ofType": null
             },
             "description": null
@@ -5599,7 +5591,7 @@
             "name": "added",
             "type": {
               "kind": "SCALAR",
-              "name": "date",
+              "name": "timestamptz",
               "ofType": null
             },
             "description": null
@@ -5975,7 +5967,7 @@
             "defaultValue": null,
             "type": {
               "kind": "SCALAR",
-              "name": "date",
+              "name": "timestamptz",
               "ofType": null
             },
             "description": null
@@ -7775,7 +7767,7 @@
         "kind": "SCALAR",
         "possibleTypes": null,
         "interfaces": null,
-        "name": "date",
+        "name": "timestamptz",
         "enumValues": null,
         "description": null,
         "fields": null
@@ -7787,7 +7779,7 @@
             "defaultValue": null,
             "type": {
               "kind": "SCALAR",
-              "name": "date",
+              "name": "timestamptz",
               "ofType": null
             },
             "description": null
@@ -7797,7 +7789,7 @@
             "defaultValue": null,
             "type": {
               "kind": "SCALAR",
-              "name": "date",
+              "name": "timestamptz",
               "ofType": null
             },
             "description": null
@@ -7807,7 +7799,7 @@
             "defaultValue": null,
             "type": {
               "kind": "SCALAR",
-              "name": "date",
+              "name": "timestamptz",
               "ofType": null
             },
             "description": null
@@ -7823,7 +7815,7 @@
                 "name": null,
                 "ofType": {
                   "kind": "SCALAR",
-                  "name": "date",
+                  "name": "timestamptz",
                   "ofType": null
                 }
               }
@@ -7845,7 +7837,7 @@
             "defaultValue": null,
             "type": {
               "kind": "SCALAR",
-              "name": "date",
+              "name": "timestamptz",
               "ofType": null
             },
             "description": null
@@ -7855,7 +7847,7 @@
             "defaultValue": null,
             "type": {
               "kind": "SCALAR",
-              "name": "date",
+              "name": "timestamptz",
               "ofType": null
             },
             "description": null
@@ -7865,7 +7857,7 @@
             "defaultValue": null,
             "type": {
               "kind": "SCALAR",
-              "name": "date",
+              "name": "timestamptz",
               "ofType": null
             },
             "description": null
@@ -7881,7 +7873,7 @@
                 "name": null,
                 "ofType": {
                   "kind": "SCALAR",
-                  "name": "date",
+                  "name": "timestamptz",
                   "ofType": null
                 }
               }
