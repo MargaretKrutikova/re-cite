@@ -29,7 +29,9 @@ let make = (~citation: Types.citation, ~collection, ~onSaved) => {
     |> Js.Promise.(
          then_(result => {
            switch (result) {
-           | ReasonApolloHooks.Mutation.Data(_) => onSaved()
+           | ReasonApolloHooks.Mutation.Data(_) =>
+             ReactToastify.toast("Citation updated!");
+             onSaved();
            | _ => ignore()
            };
            resolve();

@@ -24,7 +24,9 @@ let make = (~collection, ~onSaved, ~refetchQueries) => {
     |> Js.Promise.(
          then_(result => {
            switch (result) {
-           | ReasonApolloHooks.Mutation.Data(_) => onSaved()
+           | ReasonApolloHooks.Mutation.Data(_) =>
+             ReactToastify.toast("Citation added!");
+             onSaved();
            | _ => ignore()
            };
            resolve();
