@@ -17,7 +17,7 @@ module Classes = {
 type state = {
   text: string,
   authorName: string,
-  date: string,
+  date: Js.Date.t,
 };
 
 type action =
@@ -29,16 +29,22 @@ let reducer = (state, action) => {
   switch (action) {
   | UpdateText(text) => {...state, text}
   | UpdateAuthor(authorName) => {...state, authorName}
-  | UpdateDate(date) => {...state, date}
+  | UpdateDate(dateStr) =>
+    if (dateStr |> Utils.isDateStringValid) {
+      {...state, date: Js.Date.fromString(dateStr)};
+    } else {
+      state;
+    }
   };
 };
 
-let isValid = state =>
-  state.text != "" && state.authorName != "" && state.date != "";
+let isValid = state => state.text != "" && state.authorName != "";
 
 [@react.component]
 let make = (~citation, ~authors, ~onSave, ~isSaving) => {
   let (state, dispatch) = React.useReducer(reducer, citation);
+
+  let displayDate = state.date |> Utils.toInputDateTimeFormat;
 
   <form
     className=Classes.root onSubmit={e => ReactEvent.Form.preventDefault(e)}>
@@ -58,10 +64,10 @@ let make = (~citation, ~authors, ~onSave, ~isSaving) => {
       onChange={e => dispatch(UpdateAuthor(getInputValue(e)))}
     />
     <TextField
-      value={state.date}
+      value=displayDate
       onChange={e => dispatch(UpdateDate(getInputValue(e)))}
       label="Date"
-      type_="date"
+      type_="datetime-local"
       placeholder="When was it?"
       className=Classes.gutter
     />
