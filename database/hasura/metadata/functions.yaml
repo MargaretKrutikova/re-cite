@@ -1,0 +1,12 @@
+- function:
+    schema: public
+    name: get_citations_after_id
+- function:
+    schema: public
+    name: get_latest_citation
+- function:
+    schema: public
+    name: get_random_citation
+- function:
+    schema: public
+    name: get_random_citation_by_slug

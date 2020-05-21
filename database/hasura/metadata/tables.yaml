@@ -1,0 +1,64 @@
+- table:
+    schema: public
+    name: authors
+  object_relationships:
+  - name: collection
+    using:
+      foreign_key_constraint_on: collectionId
+  array_relationships:
+  - name: citations
+    using:
+      foreign_key_constraint_on:
+        column: authorId
+        table:
+          schema: public
+          name: citations
+- table:
+    schema: public
+    name: citation_upvotes
+  object_relationships:
+  - name: citation
+    using:
+      foreign_key_constraint_on: citationId
+- table:
+    schema: public
+    name: citations
+  object_relationships:
+  - name: author
+    using:
+      foreign_key_constraint_on: authorId
+  - name: collection
+    using:
+      foreign_key_constraint_on: collectionId
+  array_relationships:
+  - name: upvotes
+    using:
+      foreign_key_constraint_on:
+        column: citationId
+        table:
+          schema: public
+          name: citation_upvotes
+- table:
+    schema: public
+    name: collections
+  array_relationships:
+  - name: authors
+    using:
+      foreign_key_constraint_on:
+        column: collectionId
+        table:
+          schema: public
+          name: authors
+  - name: citations
+    using:
+      foreign_key_constraint_on:
+        column: collectionId
+        table:
+          schema: public
+          name: citations
+- table:
+    schema: public
+    name: test
+- table:
+    schema: public
+    name: users

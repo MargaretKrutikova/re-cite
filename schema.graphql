@@ -1,0 +1,1826 @@
+schema {
+  query: query_root
+  mutation: mutation_root
+  subscription: subscription_root
+}
+
+"""
+columns and relationships of "authors"
+"""
+type authors {
+  """An array relationship"""
+  citations(
+    """distinct select on columns"""
+    distinct_on: [citations_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [citations_order_by!]
+
+    """filter the rows returned"""
+    where: citations_bool_exp
+  ): [citations!]!
+
+  """An aggregated array relationship"""
+  citations_aggregate(
+    """distinct select on columns"""
+    distinct_on: [citations_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [citations_order_by!]
+
+    """filter the rows returned"""
+    where: citations_bool_exp
+  ): citations_aggregate!
+
+  """An object relationship"""
+  collection: collections!
+  collectionId: uuid!
+  id: Int!
+  name: String!
+}
+
+"""
+aggregated selection of "authors"
+"""
+type authors_aggregate {
+  aggregate: authors_aggregate_fields
+  nodes: [authors!]!
+}
+
+"""
+aggregate fields of "authors"
+"""
+type authors_aggregate_fields {
+  avg: authors_avg_fields
+  count(columns: [authors_select_column!], distinct: Boolean): Int
+  max: authors_max_fields
+  min: authors_min_fields
+  stddev: authors_stddev_fields
+  stddev_pop: authors_stddev_pop_fields
+  stddev_samp: authors_stddev_samp_fields
+  sum: authors_sum_fields
+  var_pop: authors_var_pop_fields
+  var_samp: authors_var_samp_fields
+  variance: authors_variance_fields
+}
+
+"""
+order by aggregate values of table "authors"
+"""
+input authors_aggregate_order_by {
+  avg: authors_avg_order_by
+  count: order_by
+  max: authors_max_order_by
+  min: authors_min_order_by
+  stddev: authors_stddev_order_by
+  stddev_pop: authors_stddev_pop_order_by
+  stddev_samp: authors_stddev_samp_order_by
+  sum: authors_sum_order_by
+  var_pop: authors_var_pop_order_by
+  var_samp: authors_var_samp_order_by
+  variance: authors_variance_order_by
+}
+
+"""
+input type for inserting array relation for remote table "authors"
+"""
+input authors_arr_rel_insert_input {
+  data: [authors_insert_input!]!
+  on_conflict: authors_on_conflict
+}
+
+"""aggregate avg on columns"""
+type authors_avg_fields {
+  id: Float
+}
+
+"""
+order by avg() on columns of table "authors"
+"""
+input authors_avg_order_by {
+  id: order_by
+}
+
+"""
+Boolean expression to filter rows from the table "authors". All fields are combined with a logical 'AND'.
+"""
+input authors_bool_exp {
+  _and: [authors_bool_exp]
+  _not: authors_bool_exp
+  _or: [authors_bool_exp]
+  citations: citations_bool_exp
+  collection: collections_bool_exp
+  collectionId: uuid_comparison_exp
+  id: Int_comparison_exp
+  name: String_comparison_exp
+}
+
+"""
+unique or primary key constraints on table "authors"
+"""
+enum authors_constraint {
+  """unique or primary key constraint"""
+  authors_name_collectionId_key
+
+  """unique or primary key constraint"""
+  authors_pkey
+}
+
+"""
+input type for incrementing integer columne in table "authors"
+"""
+input authors_inc_input {
+  id: Int
+}
+
+"""
+input type for inserting data into table "authors"
+"""
+input authors_insert_input {
+  citations: citations_arr_rel_insert_input
+  collection: collections_obj_rel_insert_input
+  collectionId: uuid
+  id: Int
+  name: String
+}
+
+"""aggregate max on columns"""
+type authors_max_fields {
+  id: Int
+  name: String
+}
+
+"""
+order by max() on columns of table "authors"
+"""
+input authors_max_order_by {
+  id: order_by
+  name: order_by
+}
+
+"""aggregate min on columns"""
+type authors_min_fields {
+  id: Int
+  name: String
+}
+
+"""
+order by min() on columns of table "authors"
+"""
+input authors_min_order_by {
+  id: order_by
+  name: order_by
+}
+
+"""
+response of any mutation on the table "authors"
+"""
+type authors_mutation_response {
+  """number of affected rows by the mutation"""
+  affected_rows: Int!
+
+  """data of the affected rows by the mutation"""
+  returning: [authors!]!
+}
+
+"""
+input type for inserting object relation for remote table "authors"
+"""
+input authors_obj_rel_insert_input {
+  data: authors_insert_input!
+  on_conflict: authors_on_conflict
+}
+
+"""
+on conflict condition type for table "authors"
+"""
+input authors_on_conflict {
+  constraint: authors_constraint!
+  update_columns: [authors_update_column!]!
+  where: authors_bool_exp
+}
+
+"""
+ordering options when selecting data from "authors"
+"""
+input authors_order_by {
+  citations_aggregate: citations_aggregate_order_by
+  collection: collections_order_by
+  collectionId: order_by
+  id: order_by
+  name: order_by
+}
+
+"""
+select columns of table "authors"
+"""
+enum authors_select_column {
+  """column name"""
+  collectionId
+
+  """column name"""
+  id
+
+  """column name"""
+  name
+}
+
+"""
+input type for updating data in table "authors"
+"""
+input authors_set_input {
+  collectionId: uuid
+  id: Int
+  name: String
+}
+
+"""aggregate stddev on columns"""
+type authors_stddev_fields {
+  id: Float
+}
+
+"""
+order by stddev() on columns of table "authors"
+"""
+input authors_stddev_order_by {
+  id: order_by
+}
+
+"""aggregate stddev_pop on columns"""
+type authors_stddev_pop_fields {
+  id: Float
+}
+
+"""
+order by stddev_pop() on columns of table "authors"
+"""
+input authors_stddev_pop_order_by {
+  id: order_by
+}
+
+"""aggregate stddev_samp on columns"""
+type authors_stddev_samp_fields {
+  id: Float
+}
+
+"""
+order by stddev_samp() on columns of table "authors"
+"""
+input authors_stddev_samp_order_by {
+  id: order_by
+}
+
+"""aggregate sum on columns"""
+type authors_sum_fields {
+  id: Int
+}
+
+"""
+order by sum() on columns of table "authors"
+"""
+input authors_sum_order_by {
+  id: order_by
+}
+
+"""
+update columns of table "authors"
+"""
+enum authors_update_column {
+  """column name"""
+  collectionId
+
+  """column name"""
+  id
+
+  """column name"""
+  name
+}
+
+"""aggregate var_pop on columns"""
+type authors_var_pop_fields {
+  id: Float
+}
+
+"""
+order by var_pop() on columns of table "authors"
+"""
+input authors_var_pop_order_by {
+  id: order_by
+}
+
+"""aggregate var_samp on columns"""
+type authors_var_samp_fields {
+  id: Float
+}
+
+"""
+order by var_samp() on columns of table "authors"
+"""
+input authors_var_samp_order_by {
+  id: order_by
+}
+
+"""aggregate variance on columns"""
+type authors_variance_fields {
+  id: Float
+}
+
+"""
+order by variance() on columns of table "authors"
+"""
+input authors_variance_order_by {
+  id: order_by
+}
+
+"""
+columns and relationships of "citations"
+"""
+type citations {
+  added: date!
+
+  """An object relationship"""
+  author: authors!
+  authorId: Int!
+
+  """An object relationship"""
+  collection: collections!
+  collectionId: uuid!
+  id: Int!
+  text: String!
+}
+
+"""
+aggregated selection of "citations"
+"""
+type citations_aggregate {
+  aggregate: citations_aggregate_fields
+  nodes: [citations!]!
+}
+
+"""
+aggregate fields of "citations"
+"""
+type citations_aggregate_fields {
+  avg: citations_avg_fields
+  count(columns: [citations_select_column!], distinct: Boolean): Int
+  max: citations_max_fields
+  min: citations_min_fields
+  stddev: citations_stddev_fields
+  stddev_pop: citations_stddev_pop_fields
+  stddev_samp: citations_stddev_samp_fields
+  sum: citations_sum_fields
+  var_pop: citations_var_pop_fields
+  var_samp: citations_var_samp_fields
+  variance: citations_variance_fields
+}
+
+"""
+order by aggregate values of table "citations"
+"""
+input citations_aggregate_order_by {
+  avg: citations_avg_order_by
+  count: order_by
+  max: citations_max_order_by
+  min: citations_min_order_by
+  stddev: citations_stddev_order_by
+  stddev_pop: citations_stddev_pop_order_by
+  stddev_samp: citations_stddev_samp_order_by
+  sum: citations_sum_order_by
+  var_pop: citations_var_pop_order_by
+  var_samp: citations_var_samp_order_by
+  variance: citations_variance_order_by
+}
+
+"""
+input type for inserting array relation for remote table "citations"
+"""
+input citations_arr_rel_insert_input {
+  data: [citations_insert_input!]!
+  on_conflict: citations_on_conflict
+}
+
+"""aggregate avg on columns"""
+type citations_avg_fields {
+  authorId: Float
+  id: Float
+}
+
+"""
+order by avg() on columns of table "citations"
+"""
+input citations_avg_order_by {
+  authorId: order_by
+  id: order_by
+}
+
+"""
+Boolean expression to filter rows from the table "citations". All fields are combined with a logical 'AND'.
+"""
+input citations_bool_exp {
+  _and: [citations_bool_exp]
+  _not: citations_bool_exp
+  _or: [citations_bool_exp]
+  added: date_comparison_exp
+  author: authors_bool_exp
+  authorId: Int_comparison_exp
+  collection: collections_bool_exp
+  collectionId: uuid_comparison_exp
+  id: Int_comparison_exp
+  text: String_comparison_exp
+}
+
+"""
+unique or primary key constraints on table "citations"
+"""
+enum citations_constraint {
+  """unique or primary key constraint"""
+  citations_pkey
+}
+
+"""
+input type for incrementing integer columne in table "citations"
+"""
+input citations_inc_input {
+  authorId: Int
+  id: Int
+}
+
+"""
+input type for inserting data into table "citations"
+"""
+input citations_insert_input {
+  added: date
+  author: authors_obj_rel_insert_input
+  authorId: Int
+  collection: collections_obj_rel_insert_input
+  collectionId: uuid
+  id: Int
+  text: String
+}
+
+"""aggregate max on columns"""
+type citations_max_fields {
+  added: date
+  authorId: Int
+  id: Int
+  text: String
+}
+
+"""
+order by max() on columns of table "citations"
+"""
+input citations_max_order_by {
+  added: order_by
+  authorId: order_by
+  id: order_by
+  text: order_by
+}
+
+"""aggregate min on columns"""
+type citations_min_fields {
+  added: date
+  authorId: Int
+  id: Int
+  text: String
+}
+
+"""
+order by min() on columns of table "citations"
+"""
+input citations_min_order_by {
+  added: order_by
+  authorId: order_by
+  id: order_by
+  text: order_by
+}
+
+"""
+response of any mutation on the table "citations"
+"""
+type citations_mutation_response {
+  """number of affected rows by the mutation"""
+  affected_rows: Int!
+
+  """data of the affected rows by the mutation"""
+  returning: [citations!]!
+}
+
+"""
+input type for inserting object relation for remote table "citations"
+"""
+input citations_obj_rel_insert_input {
+  data: citations_insert_input!
+  on_conflict: citations_on_conflict
+}
+
+"""
+on conflict condition type for table "citations"
+"""
+input citations_on_conflict {
+  constraint: citations_constraint!
+  update_columns: [citations_update_column!]!
+  where: citations_bool_exp
+}
+
+"""
+ordering options when selecting data from "citations"
+"""
+input citations_order_by {
+  added: order_by
+  author: authors_order_by
+  authorId: order_by
+  collection: collections_order_by
+  collectionId: order_by
+  id: order_by
+  text: order_by
+}
+
+"""
+select columns of table "citations"
+"""
+enum citations_select_column {
+  """column name"""
+  added
+
+  """column name"""
+  authorId
+
+  """column name"""
+  collectionId
+
+  """column name"""
+  id
+
+  """column name"""
+  text
+}
+
+"""
+input type for updating data in table "citations"
+"""
+input citations_set_input {
+  added: date
+  authorId: Int
+  collectionId: uuid
+  id: Int
+  text: String
+}
+
+"""aggregate stddev on columns"""
+type citations_stddev_fields {
+  authorId: Float
+  id: Float
+}
+
+"""
+order by stddev() on columns of table "citations"
+"""
+input citations_stddev_order_by {
+  authorId: order_by
+  id: order_by
+}
+
+"""aggregate stddev_pop on columns"""
+type citations_stddev_pop_fields {
+  authorId: Float
+  id: Float
+}
+
+"""
+order by stddev_pop() on columns of table "citations"
+"""
+input citations_stddev_pop_order_by {
+  authorId: order_by
+  id: order_by
+}
+
+"""aggregate stddev_samp on columns"""
+type citations_stddev_samp_fields {
+  authorId: Float
+  id: Float
+}
+
+"""
+order by stddev_samp() on columns of table "citations"
+"""
+input citations_stddev_samp_order_by {
+  authorId: order_by
+  id: order_by
+}
+
+"""aggregate sum on columns"""
+type citations_sum_fields {
+  authorId: Int
+  id: Int
+}
+
+"""
+order by sum() on columns of table "citations"
+"""
+input citations_sum_order_by {
+  authorId: order_by
+  id: order_by
+}
+
+"""
+update columns of table "citations"
+"""
+enum citations_update_column {
+  """column name"""
+  added
+
+  """column name"""
+  authorId
+
+  """column name"""
+  collectionId
+
+  """column name"""
+  id
+
+  """column name"""
+  text
+}
+
+"""aggregate var_pop on columns"""
+type citations_var_pop_fields {
+  authorId: Float
+  id: Float
+}
+
+"""
+order by var_pop() on columns of table "citations"
+"""
+input citations_var_pop_order_by {
+  authorId: order_by
+  id: order_by
+}
+
+"""aggregate var_samp on columns"""
+type citations_var_samp_fields {
+  authorId: Float
+  id: Float
+}
+
+"""
+order by var_samp() on columns of table "citations"
+"""
+input citations_var_samp_order_by {
+  authorId: order_by
+  id: order_by
+}
+
+"""aggregate variance on columns"""
+type citations_variance_fields {
+  authorId: Float
+  id: Float
+}
+
+"""
+order by variance() on columns of table "citations"
+"""
+input citations_variance_order_by {
+  authorId: order_by
+  id: order_by
+}
+
+"""
+columns and relationships of "collections"
+"""
+type collections {
+  """An array relationship"""
+  authors(
+    """distinct select on columns"""
+    distinct_on: [authors_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [authors_order_by!]
+
+    """filter the rows returned"""
+    where: authors_bool_exp
+  ): [authors!]!
+
+  """An aggregated array relationship"""
+  authors_aggregate(
+    """distinct select on columns"""
+    distinct_on: [authors_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [authors_order_by!]
+
+    """filter the rows returned"""
+    where: authors_bool_exp
+  ): authors_aggregate!
+
+  """An array relationship"""
+  citations(
+    """distinct select on columns"""
+    distinct_on: [citations_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [citations_order_by!]
+
+    """filter the rows returned"""
+    where: citations_bool_exp
+  ): [citations!]!
+
+  """An aggregated array relationship"""
+  citations_aggregate(
+    """distinct select on columns"""
+    distinct_on: [citations_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [citations_order_by!]
+
+    """filter the rows returned"""
+    where: citations_bool_exp
+  ): citations_aggregate!
+  id: uuid!
+  name: String!
+  slug: String!
+}
+
+"""
+aggregated selection of "collections"
+"""
+type collections_aggregate {
+  aggregate: collections_aggregate_fields
+  nodes: [collections!]!
+}
+
+"""
+aggregate fields of "collections"
+"""
+type collections_aggregate_fields {
+  count(columns: [collections_select_column!], distinct: Boolean): Int
+  max: collections_max_fields
+  min: collections_min_fields
+}
+
+"""
+order by aggregate values of table "collections"
+"""
+input collections_aggregate_order_by {
+  count: order_by
+  max: collections_max_order_by
+  min: collections_min_order_by
+}
+
+"""
+input type for inserting array relation for remote table "collections"
+"""
+input collections_arr_rel_insert_input {
+  data: [collections_insert_input!]!
+  on_conflict: collections_on_conflict
+}
+
+"""
+Boolean expression to filter rows from the table "collections". All fields are combined with a logical 'AND'.
+"""
+input collections_bool_exp {
+  _and: [collections_bool_exp]
+  _not: collections_bool_exp
+  _or: [collections_bool_exp]
+  authors: authors_bool_exp
+  citations: citations_bool_exp
+  id: uuid_comparison_exp
+  name: String_comparison_exp
+  slug: String_comparison_exp
+}
+
+"""
+unique or primary key constraints on table "collections"
+"""
+enum collections_constraint {
+  """unique or primary key constraint"""
+  collections_name_key
+
+  """unique or primary key constraint"""
+  collections_pkey
+
+  """unique or primary key constraint"""
+  collections_slug_key
+}
+
+"""
+input type for inserting data into table "collections"
+"""
+input collections_insert_input {
+  authors: authors_arr_rel_insert_input
+  citations: citations_arr_rel_insert_input
+  id: uuid
+  name: String
+  slug: String
+}
+
+"""aggregate max on columns"""
+type collections_max_fields {
+  name: String
+  slug: String
+}
+
+"""
+order by max() on columns of table "collections"
+"""
+input collections_max_order_by {
+  name: order_by
+  slug: order_by
+}
+
+"""aggregate min on columns"""
+type collections_min_fields {
+  name: String
+  slug: String
+}
+
+"""
+order by min() on columns of table "collections"
+"""
+input collections_min_order_by {
+  name: order_by
+  slug: order_by
+}
+
+"""
+response of any mutation on the table "collections"
+"""
+type collections_mutation_response {
+  """number of affected rows by the mutation"""
+  affected_rows: Int!
+
+  """data of the affected rows by the mutation"""
+  returning: [collections!]!
+}
+
+"""
+input type for inserting object relation for remote table "collections"
+"""
+input collections_obj_rel_insert_input {
+  data: collections_insert_input!
+  on_conflict: collections_on_conflict
+}
+
+"""
+on conflict condition type for table "collections"
+"""
+input collections_on_conflict {
+  constraint: collections_constraint!
+  update_columns: [collections_update_column!]!
+  where: collections_bool_exp
+}
+
+"""
+ordering options when selecting data from "collections"
+"""
+input collections_order_by {
+  authors_aggregate: authors_aggregate_order_by
+  citations_aggregate: citations_aggregate_order_by
+  id: order_by
+  name: order_by
+  slug: order_by
+}
+
+"""
+select columns of table "collections"
+"""
+enum collections_select_column {
+  """column name"""
+  id
+
+  """column name"""
+  name
+
+  """column name"""
+  slug
+}
+
+"""
+input type for updating data in table "collections"
+"""
+input collections_set_input {
+  id: uuid
+  name: String
+  slug: String
+}
+
+"""
+update columns of table "collections"
+"""
+enum collections_update_column {
+  """column name"""
+  id
+
+  """column name"""
+  name
+
+  """column name"""
+  slug
+}
+
+scalar date
+
+"""
+expression to compare columns of type date. All fields are combined with logical 'AND'.
+"""
+input date_comparison_exp {
+  _eq: date
+  _gt: date
+  _gte: date
+  _in: [date!]
+  _is_null: Boolean
+  _lt: date
+  _lte: date
+  _neq: date
+  _nin: [date!]
+}
+
+input get_citations_after_id_args {
+  collectionid: uuid
+  lastcitationid: Int
+}
+
+input get_latest_citation_args {
+  collectionid: uuid
+}
+
+input get_random_citation_args {
+  collectionid: uuid
+}
+
+input get_random_citation_by_slug_args {
+  collectionslug: String
+}
+
+"""
+expression to compare columns of type Int. All fields are combined with logical 'AND'.
+"""
+input Int_comparison_exp {
+  _eq: Int
+  _gt: Int
+  _gte: Int
+  _in: [Int!]
+  _is_null: Boolean
+  _lt: Int
+  _lte: Int
+  _neq: Int
+  _nin: [Int!]
+}
+
+"""mutation root"""
+type mutation_root {
+  """
+  delete data from the table: "authors"
+  """
+  delete_authors(
+    """filter the rows which have to be deleted"""
+    where: authors_bool_exp!
+  ): authors_mutation_response
+
+  """
+  delete data from the table: "citations"
+  """
+  delete_citations(
+    """filter the rows which have to be deleted"""
+    where: citations_bool_exp!
+  ): citations_mutation_response
+
+  """
+  delete data from the table: "collections"
+  """
+  delete_collections(
+    """filter the rows which have to be deleted"""
+    where: collections_bool_exp!
+  ): collections_mutation_response
+
+  """
+  insert data into the table: "authors"
+  """
+  insert_authors(
+    """the rows to be inserted"""
+    objects: [authors_insert_input!]!
+
+    """on conflict condition"""
+    on_conflict: authors_on_conflict
+  ): authors_mutation_response
+
+  """
+  insert data into the table: "citations"
+  """
+  insert_citations(
+    """the rows to be inserted"""
+    objects: [citations_insert_input!]!
+
+    """on conflict condition"""
+    on_conflict: citations_on_conflict
+  ): citations_mutation_response
+
+  """
+  insert data into the table: "collections"
+  """
+  insert_collections(
+    """the rows to be inserted"""
+    objects: [collections_insert_input!]!
+
+    """on conflict condition"""
+    on_conflict: collections_on_conflict
+  ): collections_mutation_response
+
+  """
+  update data of the table: "authors"
+  """
+  update_authors(
+    """increments the integer columns with given value of the filtered values"""
+    _inc: authors_inc_input
+
+    """sets the columns of the filtered rows to the given values"""
+    _set: authors_set_input
+
+    """filter the rows which have to be updated"""
+    where: authors_bool_exp!
+  ): authors_mutation_response
+
+  """
+  update data of the table: "citations"
+  """
+  update_citations(
+    """increments the integer columns with given value of the filtered values"""
+    _inc: citations_inc_input
+
+    """sets the columns of the filtered rows to the given values"""
+    _set: citations_set_input
+
+    """filter the rows which have to be updated"""
+    where: citations_bool_exp!
+  ): citations_mutation_response
+
+  """
+  update data of the table: "collections"
+  """
+  update_collections(
+    """sets the columns of the filtered rows to the given values"""
+    _set: collections_set_input
+
+    """filter the rows which have to be updated"""
+    where: collections_bool_exp!
+  ): collections_mutation_response
+}
+
+"""column ordering options"""
+enum order_by {
+  """in the ascending order, nulls last"""
+  asc
+
+  """in the ascending order, nulls first"""
+  asc_nulls_first
+
+  """in the ascending order, nulls last"""
+  asc_nulls_last
+
+  """in the descending order, nulls first"""
+  desc
+
+  """in the descending order, nulls first"""
+  desc_nulls_first
+
+  """in the descending order, nulls last"""
+  desc_nulls_last
+}
+
+"""query root"""
+type query_root {
+  """
+  fetch data from the table: "authors"
+  """
+  authors(
+    """distinct select on columns"""
+    distinct_on: [authors_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [authors_order_by!]
+
+    """filter the rows returned"""
+    where: authors_bool_exp
+  ): [authors!]!
+
+  """
+  fetch aggregated fields from the table: "authors"
+  """
+  authors_aggregate(
+    """distinct select on columns"""
+    distinct_on: [authors_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [authors_order_by!]
+
+    """filter the rows returned"""
+    where: authors_bool_exp
+  ): authors_aggregate!
+
+  """fetch data from the table: "authors" using primary key columns"""
+  authors_by_pk(id: Int!): authors
+
+  """
+  fetch data from the table: "citations"
+  """
+  citations(
+    """distinct select on columns"""
+    distinct_on: [citations_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [citations_order_by!]
+
+    """filter the rows returned"""
+    where: citations_bool_exp
+  ): [citations!]!
+
+  """
+  fetch aggregated fields from the table: "citations"
+  """
+  citations_aggregate(
+    """distinct select on columns"""
+    distinct_on: [citations_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [citations_order_by!]
+
+    """filter the rows returned"""
+    where: citations_bool_exp
+  ): citations_aggregate!
+
+  """fetch data from the table: "citations" using primary key columns"""
+  citations_by_pk(id: Int!): citations
+
+  """
+  fetch data from the table: "collections"
+  """
+  collections(
+    """distinct select on columns"""
+    distinct_on: [collections_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [collections_order_by!]
+
+    """filter the rows returned"""
+    where: collections_bool_exp
+  ): [collections!]!
+
+  """
+  fetch aggregated fields from the table: "collections"
+  """
+  collections_aggregate(
+    """distinct select on columns"""
+    distinct_on: [collections_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [collections_order_by!]
+
+    """filter the rows returned"""
+    where: collections_bool_exp
+  ): collections_aggregate!
+
+  """fetch data from the table: "collections" using primary key columns"""
+  collections_by_pk(id: uuid!): collections
+
+  """
+  execute function "get_citations_after_id" which returns "citations"
+  """
+  get_citations_after_id(
+    """
+    input parameters for function "get_citations_after_id"
+    """
+    args: get_citations_after_id_args!
+
+    """distinct select on columns"""
+    distinct_on: [citations_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [citations_order_by!]
+
+    """filter the rows returned"""
+    where: citations_bool_exp
+  ): [citations!]!
+
+  """
+  execute function "get_citations_after_id" and query aggregates on result of table type "citations"
+  """
+  get_citations_after_id_aggregate(
+    """
+    input parameters for function "get_citations_after_id"
+    """
+    args: get_citations_after_id_args!
+
+    """distinct select on columns"""
+    distinct_on: [citations_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [citations_order_by!]
+
+    """filter the rows returned"""
+    where: citations_bool_exp
+  ): citations_aggregate!
+
+  """
+  execute function "get_latest_citation" which returns "citations"
+  """
+  get_latest_citation(
+    """
+    input parameters for function "get_latest_citation"
+    """
+    args: get_latest_citation_args!
+
+    """distinct select on columns"""
+    distinct_on: [citations_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [citations_order_by!]
+
+    """filter the rows returned"""
+    where: citations_bool_exp
+  ): [citations!]!
+
+  """
+  execute function "get_latest_citation" and query aggregates on result of table type "citations"
+  """
+  get_latest_citation_aggregate(
+    """
+    input parameters for function "get_latest_citation"
+    """
+    args: get_latest_citation_args!
+
+    """distinct select on columns"""
+    distinct_on: [citations_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [citations_order_by!]
+
+    """filter the rows returned"""
+    where: citations_bool_exp
+  ): citations_aggregate!
+
+  """
+  execute function "get_random_citation" which returns "citations"
+  """
+  get_random_citation(
+    """
+    input parameters for function "get_random_citation"
+    """
+    args: get_random_citation_args!
+
+    """distinct select on columns"""
+    distinct_on: [citations_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [citations_order_by!]
+
+    """filter the rows returned"""
+    where: citations_bool_exp
+  ): [citations!]!
+
+  """
+  execute function "get_random_citation" and query aggregates on result of table type "citations"
+  """
+  get_random_citation_aggregate(
+    """
+    input parameters for function "get_random_citation"
+    """
+    args: get_random_citation_args!
+
+    """distinct select on columns"""
+    distinct_on: [citations_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [citations_order_by!]
+
+    """filter the rows returned"""
+    where: citations_bool_exp
+  ): citations_aggregate!
+
+  """
+  execute function "get_random_citation_by_slug" which returns "citations"
+  """
+  get_random_citation_by_slug(
+    """
+    input parameters for function "get_random_citation_by_slug"
+    """
+    args: get_random_citation_by_slug_args!
+
+    """distinct select on columns"""
+    distinct_on: [citations_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [citations_order_by!]
+
+    """filter the rows returned"""
+    where: citations_bool_exp
+  ): [citations!]!
+
+  """
+  execute function "get_random_citation_by_slug" and query aggregates on result of table type "citations"
+  """
+  get_random_citation_by_slug_aggregate(
+    """
+    input parameters for function "get_random_citation_by_slug"
+    """
+    args: get_random_citation_by_slug_args!
+
+    """distinct select on columns"""
+    distinct_on: [citations_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [citations_order_by!]
+
+    """filter the rows returned"""
+    where: citations_bool_exp
+  ): citations_aggregate!
+}
+
+"""
+expression to compare columns of type String. All fields are combined with logical 'AND'.
+"""
+input String_comparison_exp {
+  _eq: String
+  _gt: String
+  _gte: String
+  _ilike: String
+  _in: [String!]
+  _is_null: Boolean
+  _like: String
+  _lt: String
+  _lte: String
+  _neq: String
+  _nilike: String
+  _nin: [String!]
+  _nlike: String
+  _nsimilar: String
+  _similar: String
+}
+
+"""subscription root"""
+type subscription_root {
+  """
+  fetch data from the table: "authors"
+  """
+  authors(
+    """distinct select on columns"""
+    distinct_on: [authors_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [authors_order_by!]
+
+    """filter the rows returned"""
+    where: authors_bool_exp
+  ): [authors!]!
+
+  """
+  fetch aggregated fields from the table: "authors"
+  """
+  authors_aggregate(
+    """distinct select on columns"""
+    distinct_on: [authors_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [authors_order_by!]
+
+    """filter the rows returned"""
+    where: authors_bool_exp
+  ): authors_aggregate!
+
+  """fetch data from the table: "authors" using primary key columns"""
+  authors_by_pk(id: Int!): authors
+
+  """
+  fetch data from the table: "citations"
+  """
+  citations(
+    """distinct select on columns"""
+    distinct_on: [citations_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [citations_order_by!]
+
+    """filter the rows returned"""
+    where: citations_bool_exp
+  ): [citations!]!
+
+  """
+  fetch aggregated fields from the table: "citations"
+  """
+  citations_aggregate(
+    """distinct select on columns"""
+    distinct_on: [citations_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [citations_order_by!]
+
+    """filter the rows returned"""
+    where: citations_bool_exp
+  ): citations_aggregate!
+
+  """fetch data from the table: "citations" using primary key columns"""
+  citations_by_pk(id: Int!): citations
+
+  """
+  fetch data from the table: "collections"
+  """
+  collections(
+    """distinct select on columns"""
+    distinct_on: [collections_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [collections_order_by!]
+
+    """filter the rows returned"""
+    where: collections_bool_exp
+  ): [collections!]!
+
+  """
+  fetch aggregated fields from the table: "collections"
+  """
+  collections_aggregate(
+    """distinct select on columns"""
+    distinct_on: [collections_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [collections_order_by!]
+
+    """filter the rows returned"""
+    where: collections_bool_exp
+  ): collections_aggregate!
+
+  """fetch data from the table: "collections" using primary key columns"""
+  collections_by_pk(id: uuid!): collections
+
+  """
+  execute function "get_citations_after_id" which returns "citations"
+  """
+  get_citations_after_id(
+    """
+    input parameters for function "get_citations_after_id"
+    """
+    args: get_citations_after_id_args!
+
+    """distinct select on columns"""
+    distinct_on: [citations_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [citations_order_by!]
+
+    """filter the rows returned"""
+    where: citations_bool_exp
+  ): [citations!]!
+
+  """
+  execute function "get_citations_after_id" and query aggregates on result of table type "citations"
+  """
+  get_citations_after_id_aggregate(
+    """
+    input parameters for function "get_citations_after_id"
+    """
+    args: get_citations_after_id_args!
+
+    """distinct select on columns"""
+    distinct_on: [citations_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [citations_order_by!]
+
+    """filter the rows returned"""
+    where: citations_bool_exp
+  ): citations_aggregate!
+
+  """
+  execute function "get_latest_citation" which returns "citations"
+  """
+  get_latest_citation(
+    """
+    input parameters for function "get_latest_citation"
+    """
+    args: get_latest_citation_args!
+
+    """distinct select on columns"""
+    distinct_on: [citations_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [citations_order_by!]
+
+    """filter the rows returned"""
+    where: citations_bool_exp
+  ): [citations!]!
+
+  """
+  execute function "get_latest_citation" and query aggregates on result of table type "citations"
+  """
+  get_latest_citation_aggregate(
+    """
+    input parameters for function "get_latest_citation"
+    """
+    args: get_latest_citation_args!
+
+    """distinct select on columns"""
+    distinct_on: [citations_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [citations_order_by!]
+
+    """filter the rows returned"""
+    where: citations_bool_exp
+  ): citations_aggregate!
+
+  """
+  execute function "get_random_citation" which returns "citations"
+  """
+  get_random_citation(
+    """
+    input parameters for function "get_random_citation"
+    """
+    args: get_random_citation_args!
+
+    """distinct select on columns"""
+    distinct_on: [citations_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [citations_order_by!]
+
+    """filter the rows returned"""
+    where: citations_bool_exp
+  ): [citations!]!
+
+  """
+  execute function "get_random_citation" and query aggregates on result of table type "citations"
+  """
+  get_random_citation_aggregate(
+    """
+    input parameters for function "get_random_citation"
+    """
+    args: get_random_citation_args!
+
+    """distinct select on columns"""
+    distinct_on: [citations_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [citations_order_by!]
+
+    """filter the rows returned"""
+    where: citations_bool_exp
+  ): citations_aggregate!
+
+  """
+  execute function "get_random_citation_by_slug" which returns "citations"
+  """
+  get_random_citation_by_slug(
+    """
+    input parameters for function "get_random_citation_by_slug"
+    """
+    args: get_random_citation_by_slug_args!
+
+    """distinct select on columns"""
+    distinct_on: [citations_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [citations_order_by!]
+
+    """filter the rows returned"""
+    where: citations_bool_exp
+  ): [citations!]!
+
+  """
+  execute function "get_random_citation_by_slug" and query aggregates on result of table type "citations"
+  """
+  get_random_citation_by_slug_aggregate(
+    """
+    input parameters for function "get_random_citation_by_slug"
+    """
+    args: get_random_citation_by_slug_args!
+
+    """distinct select on columns"""
+    distinct_on: [citations_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [citations_order_by!]
+
+    """filter the rows returned"""
+    where: citations_bool_exp
+  ): citations_aggregate!
+}
+
+scalar uuid
+
+"""
+expression to compare columns of type uuid. All fields are combined with logical 'AND'.
+"""
+input uuid_comparison_exp {
+  _eq: uuid
+  _gt: uuid
+  _gte: uuid
+  _in: [uuid!]
+  _is_null: Boolean
+  _lt: uuid
+  _lte: uuid
+  _neq: uuid
+  _nin: [uuid!]
+}
+
