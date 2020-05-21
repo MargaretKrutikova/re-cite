@@ -85,8 +85,8 @@ module CreateCollection = [%graphql
 
 module UpdateCollection = [%graphql
   {|
-  mutation ($id: String!, $name: String!, $slug: String!) {
-    update_collections(where: {id: {_eq: $id}}, _set: {name: $name, slug: $slug}) {
+  mutation ($collectionId: uuid!, $name: String!, $slug: String!) {
+    update_collections(where: {id: {_eq: $collectionId}}, _set: {name: $name, slug: $slug}) {
       returning {
         id
         name

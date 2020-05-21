@@ -64,6 +64,7 @@ let make = (~route, ~slug) => {
   let canAdd = full.data->Belt.Option.isSome;
   let onAdd = _ => dispatch(RequestAddCitation);
   let onEditSettings = _ => dispatch(RequestEditSettings);
+  let onSidebarClosed = () => dispatch(SidebarClosed);
 
   let refetchCitationsQuery =
     ReasonApolloHooks.Utils.toQueryObj(GetCitations.make(~slug, ()));
@@ -99,22 +100,15 @@ let make = (~route, ~slug) => {
               | AddingCitation =>
                 <AddCitation
                   collection
-                  onSaved={() => dispatch(SidebarClosed)}
+                  onSaved=onSidebarClosed
                   refetchQueries={_ => [|refetchCitationsQuery|]}
                 />
               | UpdatingCitation(citation) =>
-                <UpdateCitation
-                  citation
-                  collection
-                  onSaved={() => dispatch(SidebarClosed)}
-                />
+                <UpdateCitation citation collection onSaved=onSidebarClosed />
               | EditingSettings =>
                 <SettingsForm
-                  collectionId={
-                    collection##id
-                    ->Js.Json.decodeString
-                    ->Belt.Option.getWithDefault("")
-                  }
+                  collectionId={collection##id}
+                  onClose=onSidebarClosed
                 />
               }}
            </Sidebar>

@@ -43,10 +43,15 @@ module UpdateCollectionMutation =
   ReasonApolloHooks.Mutation.Make(Mutations.UpdateCollection);
 
 let updateCollectionName =
-    (~updateMutation: UpdateCollectionMutation.mutation, ~name, ~collectionId) => {
+    (
+      ~updateMutation: UpdateCollectionMutation.mutation,
+      ~name,
+      ~collectionId: Js.Json.t,
+      ~onClose,
+    ) => {
   let slug = name |> Slug.make;
   let variables =
-    Mutations.UpdateCollection.make(~name, ~slug, ~id=collectionId, ())##variables;
+    Mutations.UpdateCollection.make(~name, ~slug, ~collectionId, ())##variables;
 
   updateMutation(~variables, ())
   |> Js.Promise.(
@@ -56,6 +61,7 @@ let updateCollectionName =
            Route.push(Collection(slug, Citations))
          | _ => ignore()
          };
+         onClose();
          resolve();
        })
      )
@@ -63,7 +69,7 @@ let updateCollectionName =
 };
 
 [@react.component]
-let make = (~collectionId) => {
+let make = (~collectionId, ~onClose) => {
   let (state, dispatch) = React.useReducer(reducer, initState());
 
   let (collectionsResult, _) = GetAllSlugsQuery.use();
@@ -78,7 +84,12 @@ let make = (~collectionId) => {
       switch (error) {
       | Some(_) => dispatch(CollectionNameChange({name: state.name, error}))
       | None =>
-        updateCollectionName(~updateMutation, ~name=state.name, ~collectionId)
+        updateCollectionName(
+          ~updateMutation,
+          ~name=state.name,
+          ~collectionId,
+          ~onClose,
+        )
       };
     | _ => ignore()
     };

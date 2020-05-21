@@ -16,7 +16,6 @@ let toInputDateFormat = date => {
 let getInputValue = (e): string => ReactEvent.Form.target(e)##value;
 
 let generateRandomCollectionName = () => {
-  Js.log(Haikunator.createHaikunator);
   let haikunator = Haikunator.createHaikunator();
   haikunator##haikunate({
     tokenHex: true,

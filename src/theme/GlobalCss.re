@@ -28,12 +28,7 @@ let injectGlobal = () => {
   Css.(
     global(
       ".block-scroll",
-      [
-        width(pct(100.0)),
-        height(pct(100.0)),
-        overflow(hidden),
-        media(Breakpoint.up(`md), [paddingRight(px(15))]),
-      ],
+      [width(pct(100.0)), height(pct(100.0)), overflow(hidden)],
     )
   );
 
