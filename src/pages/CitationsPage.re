@@ -7,7 +7,12 @@ let perPage = 20;
 let make = (~slug, ~onEdit) => {
   let variables =
     GetCitations.make(~slug, ~offset=0, ~limit=perPage, ())##variables;
-  let (_, full) = useQuery(GetCitations.definition, ~variables);
+  let (_, full) =
+    useQuery(
+      GetCitations.definition,
+      ~variables,
+      ~notifyOnNetworkStatusChange=true,
+    );
 
   let fetchMore = offset => {
     let variables =
