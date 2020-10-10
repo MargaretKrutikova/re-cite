@@ -24,12 +24,12 @@
     "@apollo/react-hooks": "^4.0.0",
     "bs-css": "^10.0.1",
     "bs-react-netlify-identity": "^2.0.3",
-    "bs-webapi": "^0.15.5",
+    "bs-webapi": "^0.19.1",
     "haikunator": "^2.1.2",
     "react": "^16.8.1",
     "react-copy-to-clipboard": "^5.0.2",
     "react-dom": "^16.8.1",
-    "react-feather": "^2.0.3",
+    "react-feather": "^2.0.8",
     "react-toastify": "^5.4.1",
     "reason-apollo": "^0.20.0",
     "reason-apollo-hooks": "^6.0.1",
@@ -41,11 +41,11 @@
     "bs-platform": "8.2.0",
     "css-loader": "^3.2.0",
     "favicons-webpack-plugin": "^3.0.1",
-    "html-webpack-plugin": "^4.0.0-beta.11",
     "get-graphql-schema": "^2.1.2",
+    "html-webpack-plugin": "^4.0.0-beta.11",
     "style-loader": "^1.0.0",
     "webpack": "^4.42.0",
     "webpack-cli": "^3.1.1",
-    "webpack-dev-server": "^3.1.8"
+    "webpack-dev-server": "^3.11.0"
   }
 }
