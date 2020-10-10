@@ -7,12 +7,12 @@ let client = GraphqlClient.makeApolloClient();
 
 ReactDOMRe.renderToElementWithId(
   <ReasonApollo.Provider client>
-    <ReasonApolloHooks.ApolloProvider client>
+    <ApolloHooks.Provider client>
       <ReactNetlifyIdentity.IdentityContextProvider
         url="https://recite.netlify.app/">
         <Root />
       </ReactNetlifyIdentity.IdentityContextProvider>
-    </ReasonApolloHooks.ApolloProvider>
+    </ApolloHooks.Provider>
   </ReasonApollo.Provider>,
   "root",
 );

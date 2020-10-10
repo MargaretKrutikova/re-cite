@@ -1,6 +1,7 @@
 open Queries;
 open DesignSystem;
 open Types;
+open ApolloHooks;
 
 module Classes = {
   let main =
@@ -51,13 +52,11 @@ let reducer = (_, action) => {
 
 let initialState = {status: Idle};
 
-module PageQuery = ReasonApolloHooks.Query.Make(GetCollectionBySlug);
-
 [@react.component]
 let make = (~route, ~slug) => {
   let variables = GetCollectionBySlug.make(~slug, ())##variables;
 
-  let (simple, full) = PageQuery.use(~variables, ());
+  let (simple, full) = useQuery(GetCollectionBySlug.definition, ~variables);
 
   let (state, dispatch) = React.useReducer(reducer, initialState);
 
@@ -68,8 +67,7 @@ let make = (~route, ~slug) => {
   let onSidebarClosed = () => dispatch(SidebarClosed);
   let onEdit = citation => dispatch(RequestEditCitation(citation));
 
-  let refetchCitationsQuery =
-    ReasonApolloHooks.Utils.toQueryObj(GetCitations.make(~slug, ()));
+  let refetchCitationsQuery = toQueryObj(GetCitations.make(~slug, ()));
 
   <div className={Classes.root()}>
     <Header

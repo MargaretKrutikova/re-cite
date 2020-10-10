@@ -1,5 +1,6 @@
 open DesignSystem;
 open Mutations;
+open ApolloHooks;
 
 type size = [ | `Medium | `Large];
 
@@ -37,11 +38,6 @@ module Classes = {
     style([unsafe("fill", Styles.useColor(`Primary) |> Colors.toString)]);
 };
 
-module UpvoteMutation = ReasonApolloHooks.Mutation.Make(UpvoteCitation);
-
-module RemoveUpvoteMutation =
-  ReasonApolloHooks.Mutation.Make(RemoveUpvoteCitation);
-
 let isUpvotedByLoggedInUser = (user, upvoteUserIds) => {
   switch (user) {
   | User.LoggedInUser({id: userId}) =>
@@ -64,8 +60,9 @@ let make =
   let identity = User.useIdentityContext();
   let user = User.make(identity);
 
-  let (upvote, upvoteStatus, _) = UpvoteMutation.use();
-  let (removeUpvote, removeUpvoteStatus, _) = RemoveUpvoteMutation.use();
+  let (upvote, upvoteStatus, _) = useMutation(UpvoteCitation.definition);
+  let (removeUpvote, removeUpvoteStatus, _) =
+    useMutation(RemoveUpvoteCitation.definition);
 
   let isActive = isUpvotedByLoggedInUser(user, upvoteUserIds);
 

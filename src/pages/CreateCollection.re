@@ -1,4 +1,5 @@
 open Queries;
+open ApolloHooks;
 
 module Classes = {
   open Css;
@@ -32,40 +33,17 @@ let initState = () => {
   canEdit: true,
 };
 
-module GetAllSlugsQuery = ReasonApolloHooks.Query.Make(GetAllCollectionSlugs);
-
-module CreateCollectionMutation =
-  ReasonApolloHooks.Mutation.Make(Mutations.CreateCollection);
-
-let refetchSlugs =
-  GetAllCollectionSlugs.make() |> ReasonApolloHooks.Utils.toQueryObj;
-
-let createCollection = (save: CreateCollectionMutation.mutation, name) => {
-  let slug = name |> Slug.make;
-  let variables =
-    Mutations.CreateCollection.make(~name, ~slug, ())##variables;
-
-  save(~variables, ())
-  |> Js.Promise.(
-       then_(result => {
-         switch (result) {
-         | ReasonApolloHooks.Mutation.Data(_) =>
-           Route.push(Collection(slug, Citations))
-         | _ => ignore()
-         };
-         resolve();
-       })
-     )
-  |> ignore;
-};
+let refetchSlugs = GetAllCollectionSlugs.make() |> toQueryObj;
 
 [@react.component]
 let make = () => {
   let (state, dispatch) = React.useReducer(reducer, initState());
 
-  let (collectionsResult, _) = GetAllSlugsQuery.use();
+  let (collectionsResult, _) = useQuery(GetAllCollectionSlugs.definition);
   let (mutation, mutationResult, _) =
-    CreateCollectionMutation.use(~refetchQueries=_ => [|refetchSlugs|], ());
+    useMutation(Mutations.CreateCollection.definition, ~refetchQueries=_ =>
+      [|refetchSlugs|]
+    );
 
   let slugs =
     switch (collectionsResult) {
@@ -75,13 +53,29 @@ let make = () => {
 
   let handleSubmit = () => {
     switch (collectionsResult, mutationResult) {
-    | (_, ReasonApolloHooks.Mutation.Loading) => ignore()
-    | (ReasonApolloHooks.Query.Data(data), _) =>
+    | (_, ApolloHooks.Mutation.Loading) => ignore()
+    | (ApolloHooks.Query.Data(data), _) =>
       let error =
         CollectionName.toValidationError(data##collections, state.name);
       switch (error) {
       | Some(_) => dispatch(CollectionNameChange({name: state.name, error}))
-      | None => createCollection(mutation, state.name)
+      | None =>
+        let slug = state.name |> Slug.make;
+        let variables =
+          Mutations.CreateCollection.make(~name=state.name, ~slug, ())##variables;
+
+        mutation(~variables, ())
+        |> Js.Promise.(
+             then_(((simple, _full)) => {
+               switch (simple) {
+               | ApolloHooks.Mutation.Errors(_) => Js.log("error occured")
+               | Data(_) => Route.push(Collection(slug, Citations))
+               | _ => ignore()
+               };
+               resolve();
+             })
+           )
+        |> ignore;
       };
     | _ => ignore()
     };
