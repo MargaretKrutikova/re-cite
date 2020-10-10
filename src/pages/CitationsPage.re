@@ -1,19 +1,45 @@
-open Types;
 open Queries;
 open ApolloHooks;
 
+let perPage = 20;
+
 [@react.component]
 let make = (~slug, ~onEdit) => {
-  let variables = GetCitations.make(~slug, ())##variables;
-  let (simple, _) = useQuery(GetCitations.definition, ~variables);
+  let variables =
+    GetCitations.make(~slug, ~offset=0, ~limit=perPage, ())##variables;
+  let (_, full) = useQuery(GetCitations.definition, ~variables);
 
-  switch (simple) {
-  | NoData => React.null
-  | Error(e) =>
-    Js.log(e);
-    <p> {React.string("Error")} </p>;
-  | Loading => <p> {React.string("Loading...")} </p>
-  | Data(data) =>
+  let fetchMore = offset => {
+    let variables =
+      GetCitations.make(~slug, ~offset, ~limit=perPage, ())##variables;
+
+    full.fetchMore(
+      ~variables,
+      ~updateQuery=[%bs.raw
+        {|
+          function(prevResult, { fetchMoreResult, ...rest }) {
+            if (!fetchMoreResult || !prevResult) return prevResult;
+
+            const prevCollection = prevResult.collections[0];
+
+            const newCitations = fetchMoreResult.collections[0].citations;
+            const combinedCitations = [...prevCollection.citations, ...newCitations];
+
+            const newCollection = { ...prevCollection, citations: combinedCitations };
+            const collections = [...fetchMoreResult.collections];
+            collections[0] = newCollection;
+
+            return { ...fetchMoreResult, collections };
+          }
+        |}
+      ],
+      (),
+    );
+  };
+
+  switch (full) {
+  | {loading: true, data: None} => <p> {React.string("Loading...")} </p>
+  | {data: Some(data)} =>
     switch (data##collections) {
     | [||] =>
       Route.push(NotFound);
@@ -24,25 +50,26 @@ let make = (~slug, ~onEdit) => {
         <Text>
           {React.string("There are no citations in your collection.")}
         </Text>
-      | array =>
-        array
-        ->Belt.Array.map(citationObj => Queries.toCitation(citationObj))
-        ->Belt.Array.map(citation =>
-            <CitationListItem
-              slug
-              key={citation.id |> string_of_int}
-              text={citation.text}
-              author={citation.author.name}
-              date={citation.added |> ApiDate.toDisplayString}
-              id={citation.id}
-              upvoteUserIds={citation.upvoteUserIds}
-              upvoteCount={citation.numberOfUpvotes}
-              onEdit={() => onEdit(citation)}
-            />
-          )
-        |> React.array
+      | citations =>
+        <CitationsList
+          citations
+          slug
+          onEdit
+          fetchMore={() => {
+            let isFetchingMore =
+              full.networkStatus == ApolloHooksTypes.FetchMore;
+            if (!isFetchingMore) {
+              fetchMore(citations |> Belt.Array.length) |> ignore;
+            };
+          }}
+        />
       }
     | _ => React.string("Multiple collections exist under the same name")
     }
+  | {error: Some(e)} =>
+    Js.log(e);
+    <p> {React.string("Error")} </p>;
+  | {error: None, data: None, loading: false} =>
+    <p> {React.string("Not asked")} </p>
   };
 };
