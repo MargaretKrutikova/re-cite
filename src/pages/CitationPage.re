@@ -1,11 +1,11 @@
-let str = React.string;
+open ApolloHooks;
 
-module PageQuery = ReasonApolloHooks.Query.Make(Queries.GetCitationById);
+let str = React.string;
 
 [@react.component]
 let make = (~slug, ~id, ~onEdit) => {
   let variables = Queries.GetCitationById.make(~slug, ~id, ())##variables;
-  let (simple, _) = PageQuery.use(~variables, ());
+  let (simple, _) = useQuery(Queries.GetCitationById.definition, ~variables);
 
   switch (simple) {
   | NoData => React.null

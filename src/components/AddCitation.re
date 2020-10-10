@@ -1,4 +1,4 @@
-module Mutation = ReasonApolloHooks.Mutation.Make(Mutations.AddCitation);
+open ApolloHooks;
 
 let getNewCitation = (): CitationForm.state => {
   text: "",
@@ -8,7 +8,8 @@ let getNewCitation = (): CitationForm.state => {
 
 [@react.component]
 let make = (~collection, ~onSaved, ~refetchQueries) => {
-  let (mutation, _simple, full) = Mutation.use(~refetchQueries, ());
+  let (mutation, _simple, full) =
+    useMutation(Mutations.AddCitation.definition, ~refetchQueries);
 
   let save = (formState: CitationForm.state) => {
     let variables =
@@ -22,9 +23,10 @@ let make = (~collection, ~onSaved, ~refetchQueries) => {
 
     mutation(~variables, ())
     |> Js.Promise.(
-         then_(result => {
-           switch (result) {
-           | ReasonApolloHooks.Mutation.Data(_) =>
+         then_(((simple, _full)) => {
+           switch (simple) {
+           | ApolloHooks.Mutation.Errors(_) => Js.log("error occured")
+           | Data(_) =>
              ReactToastify.toast("Citation added!");
              onSaved();
            | _ => ignore()

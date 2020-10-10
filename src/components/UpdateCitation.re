@@ -1,7 +1,5 @@
 open Types;
-
-module CitationMutation =
-  ReasonApolloHooks.Mutation.Make(Mutations.UpdateCitation);
+open ApolloHooks;
 
 let getCitationToUpdate =
     ({text, added, author}: Types.citation): CitationForm.state => {
@@ -12,7 +10,8 @@ let getCitationToUpdate =
 
 [@react.component]
 let make = (~citation: Types.citation, ~collection, ~onSaved) => {
-  let (mutation, _simple, full) = CitationMutation.use();
+  let (mutation, _simple, full) =
+    useMutation(Mutations.UpdateCitation.definition);
 
   let save = (formState: CitationForm.state) => {
     let variables =
@@ -27,9 +26,10 @@ let make = (~citation: Types.citation, ~collection, ~onSaved) => {
 
     mutation(~variables, ())
     |> Js.Promise.(
-         then_(result => {
-           switch (result) {
-           | ReasonApolloHooks.Mutation.Data(_) =>
+         then_(((simple, _full)) => {
+           switch (simple) {
+           | ApolloHooks.Mutation.Errors(_) => Js.log("error occurred")
+           | Data(_) =>
              ReactToastify.toast("Citation updated!");
              onSaved();
            | _ => ignore()

@@ -1,15 +1,16 @@
+open ApolloHooks;
+
 let str = React.string;
 
 module Classes = {
   let refreshButton = Css.(style([marginLeft(`auto)]));
 };
 
-module PageQuery = ReasonApolloHooks.Query.Make(Queries.GetRandomCitation);
-
 [@react.component]
 let make = (~slug, ~onEdit) => {
   let variables = Queries.GetRandomCitation.make(~slug, ())##variables;
-  let (simple, full) = PageQuery.use(~variables, ());
+  let (simple, full) =
+    useQuery(Queries.GetRandomCitation.definition, ~variables);
 
   switch (simple) {
   | NoData => React.null
