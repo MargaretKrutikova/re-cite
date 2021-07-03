@@ -67,7 +67,8 @@ let make = (~route, ~slug) => {
   let onSidebarClosed = () => dispatch(SidebarClosed);
   let onEdit = citation => dispatch(RequestEditCitation(citation));
 
-  let refetchCitationsQuery = toQueryObj(GetCitations.make(~slug, ()));
+  let refetchCitationsQuery =
+    toQueryObj(GetCitations.make(~slug, ~limit=20, ~offset=0, ()));
 
   <div className={Classes.root()}>
     <Header

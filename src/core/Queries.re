@@ -13,9 +13,9 @@ module GetCitationById = [%graphql
 
 module GetCitations = [%graphql
   {|
-  query($slug: String!) {
+  query($slug: String!, $limit: Int!, $offset: Int!) {
     collections(where: {slug: {_eq: $slug}}) {
-      citations(order_by: {added: desc, id: desc}) {
+      citations(order_by: {added: desc, id: desc}, limit: $limit, offset: $offset) {
          ...CitationFragment.Citation
       }
     }
