@@ -4,14 +4,6 @@ module Document = {
   type element;
   let window: element = [%bs.raw "window"];
   let innerHeight: int = [%bs.raw "window.innerHeight"];
-
-  [@bs.send.pipe: element]
-  external addEventListener: (string, unit => unit) => unit =
-    "addEventListener";
-
-  [@bs.send.pipe: element]
-  external removeEventListener: (string, unit => unit) => unit =
-    "removeEventListener";
 };
 
 let getDocumentElement = () =>
@@ -43,18 +35,25 @@ let isNearBottom = () => {
 let make = (~citations, ~slug, ~onEdit, ~fetchMore) => {
   React.useEffect1(
     () => {
-      let handleScroll = () =>
+      let handleScroll = _ =>
         if (isNearBottom()) {
           fetchMore();
         };
-      Document.window |> Document.addEventListener("scroll", handleScroll);
+      Webapi.Dom.Window.addEventListener(
+        "scroll",
+        handleScroll,
+        Webapi.Dom.window,
+      );
       Some(
         () =>
-          Document.window
-          |> Document.removeEventListener("scroll", handleScroll),
+          Webapi.Dom.Window.removeEventListener(
+            "scroll",
+            handleScroll,
+            Webapi.Dom.window,
+          ),
       );
     },
-    [|fetchMore|]
+    [|fetchMore|],
   );
 
   citations
