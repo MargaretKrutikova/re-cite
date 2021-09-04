@@ -1,4 +1,5 @@
-let graphqlUrl = "https://recite-api.margareta.dev/v1/graphql";
+// let graphqlUrl = "https://re-cite-stage.herokuapp.com/v1/graphql";
+let graphqlUrl = "https://recite-api.herokuapp.com/v1/graphql";
 
 let makeApolloClient = _ => {
   // Create an InMemoryCache
