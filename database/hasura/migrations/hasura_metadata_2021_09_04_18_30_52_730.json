@@ -1,0 +1,182 @@
+{
+  "resource_version": 10,
+  "metadata": {
+    "version": 3,
+    "sources": [
+      {
+        "name": "default",
+        "kind": "postgres",
+        "tables": [
+          {
+            "table": {
+              "schema": "public",
+              "name": "authors"
+            },
+            "object_relationships": [
+              {
+                "name": "collection",
+                "using": {
+                  "foreign_key_constraint_on": "collectionId"
+                }
+              }
+            ],
+            "array_relationships": [
+              {
+                "name": "citations",
+                "using": {
+                  "foreign_key_constraint_on": {
+                    "column": "authorId",
+                    "table": {
+                      "schema": "public",
+                      "name": "citations"
+                    }
+                  }
+                }
+              }
+            ]
+          },
+          {
+            "table": {
+              "schema": "public",
+              "name": "citation_upvotes"
+            },
+            "object_relationships": [
+              {
+                "name": "citation",
+                "using": {
+                  "foreign_key_constraint_on": "citationId"
+                }
+              }
+            ]
+          },
+          {
+            "table": {
+              "schema": "public",
+              "name": "citations"
+            },
+            "object_relationships": [
+              {
+                "name": "author",
+                "using": {
+                  "foreign_key_constraint_on": "authorId"
+                }
+              },
+              {
+                "name": "collection",
+                "using": {
+                  "foreign_key_constraint_on": "collectionId"
+                }
+              }
+            ],
+            "array_relationships": [
+              {
+                "name": "upvotes",
+                "using": {
+                  "foreign_key_constraint_on": {
+                    "column": "citationId",
+                    "table": {
+                      "schema": "public",
+                      "name": "citation_upvotes"
+                    }
+                  }
+                }
+              }
+            ]
+          },
+          {
+            "table": {
+              "schema": "public",
+              "name": "collections"
+            },
+            "array_relationships": [
+              {
+                "name": "authors",
+                "using": {
+                  "foreign_key_constraint_on": {
+                    "column": "collectionId",
+                    "table": {
+                      "schema": "public",
+                      "name": "authors"
+                    }
+                  }
+                }
+              },
+              {
+                "name": "citations",
+                "using": {
+                  "foreign_key_constraint_on": {
+                    "column": "collectionId",
+                    "table": {
+                      "schema": "public",
+                      "name": "citations"
+                    }
+                  }
+                }
+              }
+            ]
+          },
+          {
+            "table": {
+              "schema": "public",
+              "name": "test"
+            }
+          },
+          {
+            "table": {
+              "schema": "public",
+              "name": "users"
+            }
+          }
+        ],
+        "functions": [
+          {
+            "function": {
+              "schema": "public",
+              "name": "get_citations_after_id"
+            }
+          },
+          {
+            "function": {
+              "schema": "public",
+              "name": "get_latest_citation"
+            }
+          },
+          {
+            "function": {
+              "schema": "public",
+              "name": "get_random_citation"
+            }
+          },
+          {
+            "function": {
+              "schema": "public",
+              "name": "get_random_citation_by_slug"
+            }
+          },
+          {
+            "function": {
+              "schema": "public",
+              "name": "test3"
+            },
+            "configuration": {
+              "exposed_as": "mutation"
+            }
+          }
+        ],
+        "configuration": {
+          "connection_info": {
+            "use_prepared_statements": true,
+            "database_url": "postgres://aofswyetmnxmxo:1a712dca4e557a4495bf439e18a10dda0f93497733fad1ad67f36c4e6d84e50d@ec2-54-76-249-45.eu-west-1.compute.amazonaws.com:5432/de7i0afadd90kh",
+            "isolation_level": "read-committed",
+            "pool_settings": {
+              "connection_lifetime": 600,
+              "retries": 1,
+              "idle_timeout": 180,
+              "max_connections": 15
+            }
+          }
+        }
+      }
+    ]
+  }
+}
