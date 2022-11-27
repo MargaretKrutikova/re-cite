@@ -13,7 +13,7 @@ CREATE TABLE public.authors (
 );
 CREATE SEQUENCE public.authors_id_seq
     AS integer
-    START WITH 1
+    START WITH 9800
     INCREMENT BY 1
     NO MINVALUE
     NO MAXVALUE
@@ -26,7 +26,7 @@ CREATE TABLE public.citation_upvotes (
 );
 CREATE SEQUENCE public.citation_upvotes_id_seq
     AS integer
-    START WITH 1
+    START WITH 100
     INCREMENT BY 1
     NO MINVALUE
     NO MAXVALUE
@@ -42,7 +42,7 @@ CREATE SEQUENCE public."citations_authorId_seq"
 ALTER SEQUENCE public."citations_authorId_seq" OWNED BY public.citations."authorId";
 CREATE SEQUENCE public.citations_id_seq
     AS integer
-    START WITH 1
+    START WITH 9700
     INCREMENT BY 1
     NO MINVALUE
     NO MAXVALUE
@@ -53,19 +53,7 @@ CREATE TABLE public.collections (
     id uuid DEFAULT public.gen_random_uuid() NOT NULL,
     slug text NOT NULL
 );
-CREATE TABLE public.test (
-    id integer NOT NULL,
-    date time with time zone DEFAULT now() NOT NULL,
-    date2 timestamp without time zone DEFAULT now() NOT NULL
-);
-CREATE SEQUENCE public.test_id_seq
-    AS integer
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-ALTER SEQUENCE public.test_id_seq OWNED BY public.test.id;
+
 CREATE TABLE public.users (
     id uuid NOT NULL,
     "externalUserId" text NOT NULL
@@ -73,7 +61,6 @@ CREATE TABLE public.users (
 ALTER TABLE ONLY public.authors ALTER COLUMN id SET DEFAULT nextval('public.authors_id_seq'::regclass);
 ALTER TABLE ONLY public.citation_upvotes ALTER COLUMN id SET DEFAULT nextval('public.citation_upvotes_id_seq'::regclass);
 ALTER TABLE ONLY public.citations ALTER COLUMN id SET DEFAULT nextval('public.citations_id_seq'::regclass);
-ALTER TABLE ONLY public.test ALTER COLUMN id SET DEFAULT nextval('public.test_id_seq'::regclass);
 ALTER TABLE ONLY public.authors
     ADD CONSTRAINT "authors_name_collectionId_key" UNIQUE (name, "collectionId");
 ALTER TABLE ONLY public.authors
@@ -90,8 +77,6 @@ ALTER TABLE ONLY public.collections
     ADD CONSTRAINT collections_pkey PRIMARY KEY (id);
 ALTER TABLE ONLY public.collections
     ADD CONSTRAINT collections_slug_key UNIQUE (slug);
-ALTER TABLE ONLY public.test
-    ADD CONSTRAINT test_pkey PRIMARY KEY (id);
 ALTER TABLE ONLY public.users
     ADD CONSTRAINT "users_externalUserId_key" UNIQUE ("externalUserId");
 ALTER TABLE ONLY public.users
@@ -164,36 +149,4 @@ BEGIN
    RETURN floor(random()* (high-low + 1) + low);
 END;
 $$;
-CREATE FUNCTION public.test(citationid integer, citationtext text) RETURNS boolean
-    LANGUAGE plpgsql
-    AS $$
-BEGIN
-   IF (citationID IS NULL) THEN 
-		RETURN FALSE;
-	ELSE 
-		RETURN TRUE;
-	END IF;
-END;
-$$;
-CREATE FUNCTION public.test2(citationid integer, citationtext text) RETURNS boolean
-    LANGUAGE plpgsql
-    AS $$
-BEGIN
-   IF (citationID IS NULL) THEN 
-		RETURN FALSE;
-	ELSE 
-		RETURN TRUE;
-	END IF;
-END;
-$$;
-CREATE FUNCTION public.test3(citationid integer, citationtext text) RETURNS SETOF public.citations
-    LANGUAGE plpgsql
-    AS $$
-BEGIN
-   IF (citationID IS NULL) THEN 
-		RETURN QUERY (SELECT * from citations where id = 2);
-	ELSE 
-		RETURN QUERY (SELECT * from citations where id = citationID);
-	END IF;
-END;
-$$;
+
